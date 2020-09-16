@@ -23,7 +23,7 @@ fn main() {
     let sockaddr_in = nix::sys::socket::sockaddr_in {
         sin_len: 255,
         sin_family: libc::AF_INET as u8,
-        sin_port: PORT,
+        sin_port: PORT.to_be(),
         sin_addr: in_address,
         sin_zero: [0; 8]
     };
