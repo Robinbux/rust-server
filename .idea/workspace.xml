@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CargoProjects">
+    <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="be3ba483-2e99-4138-a40b-8eba3da261f9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JupyterTrust" id="15c3493d-5c73-4b4a-9ad2-652bf3ff8399" />
+  <component name="KonanWorkspace">
+    <executables />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="2xv5hxzo" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$APPLICATION_HOME_DIR$/plugins/maven/lib/maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1haVVsgGCGzXApb31ihrWbZm9Dw" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Run rust_server" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="channel" value="DEFAULT" />
+      <option name="command" value="run --package rust_server --bin rust_server" />
+      <option name="allFeatures" value="false" />
+      <option name="emulateTerminal" value="false" />
+      <option name="backtrace" value="SHORT" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Cargo Command.Run rust_server" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="RustProjectSettings">
+    <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+    <option name="version" value="2" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="be3ba483-2e99-4138-a40b-8eba3da261f9" name="Default Changelist" comment="" />
+      <created>1600249219271</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1600249219271</updated>
+      <workItem from="1600249221705" duration="10257000" />
+      <workItem from="1600263880939" duration="393000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1098" height="358" key="GridCell.Tab.0.bottom" timestamp="1600263927535">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1098" height="358" key="GridCell.Tab.0.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1600263927535" />
+    <state width="1098" height="358" key="GridCell.Tab.0.center" timestamp="1600263927534">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1098" height="358" key="GridCell.Tab.0.center/0.23.1920.1057@0.23.1920.1057" timestamp="1600263927534" />
+    <state width="1098" height="358" key="GridCell.Tab.0.left" timestamp="1600263927534">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1098" height="358" key="GridCell.Tab.0.left/0.23.1920.1057@0.23.1920.1057" timestamp="1600263927534" />
+    <state width="1098" height="358" key="GridCell.Tab.0.right" timestamp="1600263927534">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1098" height="358" key="GridCell.Tab.0.right/0.23.1920.1057@0.23.1920.1057" timestamp="1600263927534" />
+    <state width="1098" height="358" key="GridCell.Tab.1.bottom" timestamp="1600263940445">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1098" height="358" key="GridCell.Tab.1.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1600263940445" />
+    <state width="1098" height="358" key="GridCell.Tab.1.center" timestamp="1600263940444">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1098" height="358" key="GridCell.Tab.1.center/0.23.1920.1057@0.23.1920.1057" timestamp="1600263940444" />
+    <state width="1098" height="358" key="GridCell.Tab.1.left" timestamp="1600263940444">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1098" height="358" key="GridCell.Tab.1.left/0.23.1920.1057@0.23.1920.1057" timestamp="1600263940444" />
+    <state width="1098" height="358" key="GridCell.Tab.1.right" timestamp="1600263940445">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1098" height="358" key="GridCell.Tab.1.right/0.23.1920.1057@0.23.1920.1057" timestamp="1600263940445" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/main.rs</url>
+          <line>11</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/main.rs</url>
+          <line>18</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/main.rs</url>
+          <line>22</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/main.rs</url>
+          <line>31</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/main.rs</url>
+          <line>34</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/main.rs</url>
+          <line>38</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/main.rs</url>
+          <line>40</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/main.rs</url>
+          <line>43</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

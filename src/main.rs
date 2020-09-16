@@ -1,3 +1,80 @@
+use nix::sys::socket::*;
+use nix::sys::uio::IoVec;
+use nix::unistd::close;
+use libc::in_addr;
+use libc::INADDR_ANY;
+
+const PORT:u16 = 8080;
+
 fn main() {
-    println!("Hello, world!");
+    let hello = "Hello from server";
+
+    let server_fd = socket(
+        AddressFamily::Inet,
+        SockType::Stream,
+        SockFlag::empty(),
+        None
+    ).expect("Unable to create socket.");
+
+    let in_address = in_addr {
+        s_addr: INADDR_ANY
+    };
+
+    let sockaddr_in = nix::sys::socket::sockaddr_in {
+        sin_len: 255,
+        sin_family: libc::AF_INET as u8,
+        sin_port: PORT,
+        sin_addr: in_address,
+        sin_zero: [0; 8]
+    };
+
+
+    bind(server_fd, &SockAddr::Inet(InetAddr::V4(sockaddr_in)))
+        .expect("Binding Failed");
+
+    listen(server_fd, 10)
+        .expect("Listening Failed");
+
+    loop {
+        println!("\n+++++++ Waiting for new connection ++++++++\n\n");
+
+        let new_socket = accept(server_fd)
+            .expect("Accepting Failed");
+
+        println!("1");
+
+
+        let mut buffer: [u8; 30000] = [0; 30000];
+        let vec_buffer = IoVec::from_mut_slice(&mut buffer);
+
+        println!("2");
+
+
+        recvmsg(
+            new_socket,
+            &[vec_buffer],
+            None,
+            MsgFlags::MSG_OOB
+        ).expect("Reading Failed");
+
+        println!("\n+++++++ Waiting for new connection ++++++++\n\n");
+
+
+        /*let test = val_read.bytes.
+
+        let val_read_str: String = String::from_utf8_lossy(vec_buffer.as_slice()).parse()
+            .expect("Parsing Failed");
+
+        println!("Read Result: \n\n{}", val_read_str);*/
+
+        send(
+            new_socket,
+             hello.as_ref(),
+            MsgFlags::MSG_OOB
+        ).expect("Sending Failed");
+
+        println!("------------------Hello message sent-------------------\n");
+
+        close(new_socket).expect("Closing Failed");
+    }
 }
