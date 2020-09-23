@@ -3,7 +3,8 @@ use nix::sys::uio::IoVec;
 use nix::unistd::close;
 use libc::in_addr;
 use libc::INADDR_ANY;
-use rexsgdata::SgList;
+use std::mem::ManuallyDrop;
+use std::ptr;
 
 const PORT:u16 = 8080;
 
@@ -43,24 +44,26 @@ fn main() {
             .expect("Accepting Failed");
 
         let mut buffer: [u8; 30000] = [0; 30000];
-        let vec_buffer = IoVec::from_mut_slice(&mut buffer);
+        let vec_buffer = ManuallyDrop::new(IoVec::from_mut_slice(&mut buffer));
 
-        recvmsg(
-            new_socket,
-            &[vec_buffer],
-            None,
-            MsgFlags::empty()
-        ).expect("Reading Failed");
+        unsafe {
+            recvmsg(
+                new_socket,
+                &[ptr::read(&*vec_buffer)],
+                None,
+                MsgFlags::empty()
+            ).expect("Reading Failed");
 
-        let val_read_str: String = String::from_utf8_lossy(vec_buffer.as_slice()).parse()
-            .expect("Parsing Failed");
+            let val_read_str: String = String::from_utf8_lossy(vec_buffer.as_slice()).parse()
+                .expect("Parsing Failed");
 
-        println!("Read Result: \n\n{}", val_read_str);
+            println!("Read Result: {}", val_read_str);
+        }
 
         send(
             new_socket,
              hello.as_ref(),
-            MsgFlags::MSG_OOB
+            MsgFlags::empty()
         ).expect("Sending Failed");
 
         println!("------------------Hello message sent-------------------\n");
