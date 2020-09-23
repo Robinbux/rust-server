@@ -3,6 +3,7 @@ use nix::sys::uio::IoVec;
 use nix::unistd::close;
 use libc::in_addr;
 use libc::INADDR_ANY;
+use rexsgdata::SgList;
 
 const PORT:u16 = 8080;
 
@@ -41,31 +42,20 @@ fn main() {
         let new_socket = accept(server_fd)
             .expect("Accepting Failed");
 
-        println!("1");
-
-
         let mut buffer: [u8; 30000] = [0; 30000];
         let vec_buffer = IoVec::from_mut_slice(&mut buffer);
-
-        println!("2");
-
 
         recvmsg(
             new_socket,
             &[vec_buffer],
             None,
-            MsgFlags::MSG_OOB
+            MsgFlags::empty()
         ).expect("Reading Failed");
-
-        println!("\n+++++++ Waiting for new connection ++++++++\n\n");
-
-
-        /*let test = val_read.bytes.
 
         let val_read_str: String = String::from_utf8_lossy(vec_buffer.as_slice()).parse()
             .expect("Parsing Failed");
 
-        println!("Read Result: \n\n{}", val_read_str);*/
+        println!("Read Result: \n\n{}", val_read_str);
 
         send(
             new_socket,

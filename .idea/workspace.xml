@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="be3ba483-2e99-4138-a40b-8eba3da261f9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,6 +19,9 @@
   </component>
   <component name="JupyterTrust" id="15c3493d-5c73-4b4a-9ad2-652bf3ff8399" />
   <component name="KonanWorkspace">
+    <executables />
+  </component>
+  <component name="KotlinMultiplatform">
     <executables />
   </component>
   <component name="MacroExpansionManager">
@@ -49,17 +53,16 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
+    <property name="settings.editor.selected.configurable" value="project.scopes" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -76,11 +79,6 @@
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Cargo Command.Run rust_server" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
@@ -95,7 +93,8 @@
       <option name="presentableId" value="Default" />
       <updated>1600249219271</updated>
       <workItem from="1600249221705" duration="10257000" />
-      <workItem from="1600263880939" duration="654000" />
+      <workItem from="1600263880939" duration="761000" />
+      <workItem from="1600855737357" duration="1374000" />
     </task>
     <servers />
   </component>
@@ -103,38 +102,42 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1098" height="230" key="GridCell.Tab.0.bottom" timestamp="1600264320812">
+    <state width="1098" height="230" key="GridCell.Tab.0.bottom" timestamp="1600264646848">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1098" height="230" key="GridCell.Tab.0.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1600264320812" />
-    <state width="1098" height="230" key="GridCell.Tab.0.center" timestamp="1600264320811">
+    <state width="1098" height="230" key="GridCell.Tab.0.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1600264646848" />
+    <state width="1098" height="230" key="GridCell.Tab.0.center" timestamp="1600264646846">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1098" height="230" key="GridCell.Tab.0.center/0.23.1920.1057@0.23.1920.1057" timestamp="1600264320811" />
-    <state width="1098" height="230" key="GridCell.Tab.0.left" timestamp="1600264320811">
+    <state width="1098" height="230" key="GridCell.Tab.0.center/0.23.1920.1057@0.23.1920.1057" timestamp="1600264646846" />
+    <state width="1098" height="230" key="GridCell.Tab.0.left" timestamp="1600264646846">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1098" height="230" key="GridCell.Tab.0.left/0.23.1920.1057@0.23.1920.1057" timestamp="1600264320811" />
-    <state width="1098" height="230" key="GridCell.Tab.0.right" timestamp="1600264320811">
+    <state width="1098" height="230" key="GridCell.Tab.0.left/0.23.1920.1057@0.23.1920.1057" timestamp="1600264646846" />
+    <state width="1098" height="230" key="GridCell.Tab.0.right" timestamp="1600264646847">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1098" height="230" key="GridCell.Tab.0.right/0.23.1920.1057@0.23.1920.1057" timestamp="1600264320811" />
-    <state width="1098" height="230" key="GridCell.Tab.1.bottom" timestamp="1600264320813">
+    <state width="1098" height="230" key="GridCell.Tab.0.right/0.23.1920.1057@0.23.1920.1057" timestamp="1600264646847" />
+    <state width="1098" height="230" key="GridCell.Tab.1.bottom" timestamp="1600264646852">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1098" height="230" key="GridCell.Tab.1.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1600264320813" />
-    <state width="1098" height="230" key="GridCell.Tab.1.center" timestamp="1600264320812">
+    <state width="1098" height="230" key="GridCell.Tab.1.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1600264646852" />
+    <state width="1098" height="230" key="GridCell.Tab.1.center" timestamp="1600264646850">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1098" height="230" key="GridCell.Tab.1.center/0.23.1920.1057@0.23.1920.1057" timestamp="1600264320812" />
-    <state width="1098" height="230" key="GridCell.Tab.1.left" timestamp="1600264320812">
+    <state width="1098" height="230" key="GridCell.Tab.1.center/0.23.1920.1057@0.23.1920.1057" timestamp="1600264646850" />
+    <state width="1098" height="230" key="GridCell.Tab.1.left" timestamp="1600264646849">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1098" height="230" key="GridCell.Tab.1.left/0.23.1920.1057@0.23.1920.1057" timestamp="1600264320812" />
-    <state width="1098" height="230" key="GridCell.Tab.1.right" timestamp="1600264320813">
+    <state width="1098" height="230" key="GridCell.Tab.1.left/0.23.1920.1057@0.23.1920.1057" timestamp="1600264646849" />
+    <state width="1098" height="230" key="GridCell.Tab.1.right" timestamp="1600264646850">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1098" height="230" key="GridCell.Tab.1.right/0.23.1920.1057@0.23.1920.1057" timestamp="1600264320813" />
+    <state width="1098" height="230" key="GridCell.Tab.1.right/0.23.1920.1057@0.23.1920.1057" timestamp="1600264646850" />
+    <state x="75" y="45" key="SettingsEditor" timestamp="1600856885834">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="75" y="45" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1600856885834" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -163,21 +166,6 @@
           <url>file://$PROJECT_DIR$/src/main.rs</url>
           <line>34</line>
           <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/main.rs</url>
-          <line>38</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/main.rs</url>
-          <line>40</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/main.rs</url>
-          <line>43</line>
-          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
