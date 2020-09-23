@@ -5,11 +5,14 @@ use libc::in_addr;
 use libc::INADDR_ANY;
 use std::mem::ManuallyDrop;
 use std::ptr;
+use fancy_regex::Regex;
+use std::fs::{File, read_to_string};
+use std::io::Read;
 
-const PORT:u16 = 8080;
+const PORT:u16 = 8090;
 
 fn main() {
-    let hello = "Hello from server";
+    let hello = "HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: 500\n\n";
 
     let server_fd = socket(
         AddressFamily::Inet,
@@ -46,6 +49,8 @@ fn main() {
         let mut buffer: [u8; 30000] = [0; 30000];
         let vec_buffer = ManuallyDrop::new(IoVec::from_mut_slice(&mut buffer));
 
+        let mut val_read_str: String;
+
         unsafe {
             recvmsg(
                 new_socket,
@@ -53,16 +58,25 @@ fn main() {
                 None,
                 MsgFlags::empty()
             ).expect("Reading Failed");
-
-            let val_read_str: String = String::from_utf8_lossy(vec_buffer.as_slice()).parse()
+            val_read_str = String::from_utf8_lossy(vec_buffer.as_slice()).parse()
                 .expect("Parsing Failed");
-
-            println!("Read Result: {}", val_read_str);
         }
+
+        println!("---Client Message---\n{}", val_read_str);
+
+
+        let result = val_read_str.split_whitespace().nth(1);
+
+        let path = format!("resources{}", result.unwrap());
+
+        let html_string = read_to_string(path);
+
+        let mime_response = format!("{}{}", hello, html_string.unwrap());
+
 
         send(
             new_socket,
-             hello.as_ref(),
+            mime_response.as_ref(),
             MsgFlags::empty()
         ).expect("Sending Failed");
 
