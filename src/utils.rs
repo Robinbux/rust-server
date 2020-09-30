@@ -3,13 +3,23 @@ pub mod utils {
     use std::fs::read_to_string;
     use std::fs;
     use crate::utils::utils;
+    use std::path::Path;
 
     pub fn load_resource(file_path: String) -> Result<String, String> {
         let complete_resource_path = format!("resources{}", file_path);
+        let valid_resource_path = check_resource_path(complete_resource_path);
         let content_type = ContentType::get_content_type_from_file_path(file_path);
         return match content_type {
-            ContentType::HTML => Ok(utils::load_html(complete_resource_path)),
-            ContentType::ICO => Ok(utils::load_ico(complete_resource_path)),
+            ContentType::HTML => Ok(utils::load_html(valid_resource_path)),
+            ContentType::ICO => Ok(utils::load_ico(valid_resource_path)),
+        }
+    }
+
+    fn check_resource_path(file_path: String) -> String{
+        let exists = Path::new(&file_path).exists();
+        return match exists {
+            True => file_path,
+            False => String::from("resources/error.html")
         }
     }
 
