@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be3ba483-2e99-4138-a40b-8eba3da261f9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/mime_response.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +66,17 @@
     <property name="settings.editor.selected.configurable" value="project.scopes" />
   </component>
   <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Run rust_server" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
       <option name="channel" value="DEFAULT" />
       <option name="command" value="run --package rust_server --bin rust_server" />
@@ -103,7 +111,7 @@
       <workItem from="1600263880939" duration="761000" />
       <workItem from="1600855737357" duration="11420000" />
       <workItem from="1601296131593" duration="11947000" />
-      <workItem from="1601454979518" duration="1363000" />
+      <workItem from="1601454979518" duration="5252000" />
     </task>
     <servers />
   </component>
@@ -115,6 +123,10 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="640" y="176" key="#xdebugger.evaluate/0.23.1440.877@0.23.1440.877" timestamp="1600868865627" />
+    <state x="149" y="123" width="1106" height="827" key="DiffContextDialog" timestamp="1601462004486">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="149" y="123" width="1106" height="827" key="DiffContextDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1601462004486" />
     <state width="1845" height="396" key="GridCell.Tab.0.bottom" timestamp="1601314005584">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
