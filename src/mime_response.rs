@@ -1,4 +1,4 @@
-use crate::content_type::ContentType;
+use crate::enums::content_type::ContentType;
 
 mod mime_response_constants {
     pub(crate) const LINEBREAK: &str = "\r\n";

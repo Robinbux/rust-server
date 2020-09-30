@@ -4,7 +4,7 @@ use nix::sys::socket::*;
 use std::os::unix::io::RawFd;
 use crate::mime_response::MimeResponse;
 use nix::unistd::close;
-use crate::content_type::ContentType;
+use crate::enums::content_type::ContentType;
 use crate::utils::utils;
 
 const PORT: u16 = 8070;
@@ -68,8 +68,8 @@ impl Server {
 
         let mime_response = MimeResponse {
             http_status_code: String::from("200 OK"),
-            content_type: content_type,
-            content: content,
+            content_type,
+            content,
         };
         Server::send_message(new_socket, mime_response);
         println!("------------------Hello message sent-------------------\n");

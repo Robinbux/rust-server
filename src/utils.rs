@@ -1,5 +1,5 @@
 pub mod utils {
-    use crate::content_type::ContentType;
+    use crate::enums::content_type::ContentType;
     use std::fs::read_to_string;
     use std::fs;
     use crate::utils::utils;
