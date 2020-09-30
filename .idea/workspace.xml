@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4287cff0-bfaa-4a5c-a3f9-cc790a91554e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

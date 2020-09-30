@@ -18,8 +18,8 @@ pub mod utils {
     fn check_resource_path(file_path: String) -> String{
         let exists = Path::new(&file_path).exists();
         return match exists {
-            True => file_path,
-            False => String::from("resources/error.html")
+            true => file_path,
+            false => String::from("resources/error.html")
         }
     }
 
