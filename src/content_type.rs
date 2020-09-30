@@ -18,4 +18,9 @@ impl ContentType {
             _ => ContentType::HTML // TODO: Error handling!
         }
     }
+
+    pub fn get_content_type_from_file_path(path: String) -> ContentType {
+        let content_type_str = path.split(".").last().expect("Unable to split path.");
+        return ContentType::from_str(content_type_str)
+    }
 }

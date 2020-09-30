@@ -2,11 +2,10 @@ use libc::in_addr;
 use libc::INADDR_ANY;
 use nix::sys::socket::*;
 use std::os::unix::io::RawFd;
-use std::fs;
 use crate::mime_response::MimeResponse;
-use std::fs::read_to_string;
 use nix::unistd::close;
 use crate::content_type::ContentType;
+use crate::utils::utils;
 
 const PORT: u16 = 8070;
 
@@ -58,14 +57,14 @@ impl Server {
             .nth(1)
             .expect("Unable to split result");
 
-        let content = match Server::load_resource(String::from(route_path)) {
+        let content = match utils::load_resource(String::from(route_path)) {
             Ok(content) => content,
             Err(e) => {
                 println!("{}", e.to_string());
                 return
             }
         };
-        let content_type = Server::get_content_type(String::from(route_path));
+        let content_type = ContentType::get_content_type_from_file_path(String::from(route_path));
 
         let mime_response = MimeResponse {
             http_status_code: String::from("200 OK"),
@@ -98,33 +97,5 @@ impl Server {
             mime_response.build_mime_response().as_ref(),
             MsgFlags::empty(),
         ).expect("Sending Failed");
-    }
-
-    fn load_resource(file_path: String) -> Result<String, String> {
-        let complete_resource_path = format!("resources{}", file_path);
-        let content_type = Server::get_content_type(file_path);
-        return match content_type {
-            ContentType::HTML => Ok(Server::load_html(complete_resource_path)),
-            ContentType::ICO => Ok(Server::load_ico(complete_resource_path)),
-        }
-    }
-
-    fn load_html(html_file_path: String) -> String {
-        return read_to_string(html_file_path).expect("Unable to read file to String");
-    }
-
-    fn load_ico(ico_file_path: String) -> String {
-        let icon = fs::read(ico_file_path).expect("Unable to read icon");
-        return base64::encode(&*icon);
-    }
-
-    fn get_file_type(path: String) -> String {
-        let file_type = path.split(".").last().expect("Unable to split path.");
-        return file_type.to_string()
-    }
-
-    fn get_content_type(path: String) -> ContentType {
-        let content_type_str = path.split(".").last().expect("Unable to split path.");
-        return ContentType::from_str(content_type_str)
     }
 }
