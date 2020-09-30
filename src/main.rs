@@ -1,5 +1,6 @@
 mod mime_response;
 mod server;
+mod content_type;
 
 use crate::server::Server;
 

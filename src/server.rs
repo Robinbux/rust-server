@@ -6,6 +6,7 @@ use std::fs;
 use crate::mime_response::MimeResponse;
 use std::fs::read_to_string;
 use nix::unistd::close;
+use crate::content_type::ContentType;
 
 const PORT: u16 = 8070;
 
@@ -68,7 +69,7 @@ impl Server {
 
         let mime_response = MimeResponse {
             http_status_code: String::from("200 OK"),
-            content_type: String::from(content_type),
+            content_type: content_type,
             content: content,
         };
         Server::send_message(new_socket, mime_response);
@@ -101,13 +102,10 @@ impl Server {
 
     fn load_resource(file_path: String) -> Result<String, String> {
         let complete_resource_path = format!("resources{}", file_path);
-        let file_type = Server::get_file_type(file_path);
-        let html = String::from("html");
-        let ico = String::from("ico");
-        return match file_type {
-            html => Ok(Server::load_html(complete_resource_path)),
-            ico => Ok(Server::load_ico(complete_resource_path)),
-            _ => Err(format!("Unsupported file type: {}", file_type))
+        let content_type = Server::get_content_type(file_path);
+        return match content_type {
+            ContentType::HTML => Ok(Server::load_html(complete_resource_path)),
+            ContentType::ICO => Ok(Server::load_ico(complete_resource_path)),
         }
     }
 
@@ -125,11 +123,8 @@ impl Server {
         return file_type.to_string()
     }
 
-    fn get_content_type(path: String) -> &'static str {
-        return match path.split(".").last().expect("Unable to split path.") {
-            "html" => "text/html",
-            "ico" => "image/x-icon",
-            _ => "text/html"
-        }
+    fn get_content_type(path: String) -> ContentType {
+        let content_type_str = path.split(".").last().expect("Unable to split path.");
+        return ContentType::from_str(content_type_str)
     }
 }

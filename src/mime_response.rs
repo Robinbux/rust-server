@@ -1,3 +1,5 @@
+use crate::content_type::ContentType;
+
 mod mime_response_constants {
     pub(crate) const LINEBREAK: &str = "\r\n";
     pub(crate) const DOUBLE_LINEBREAK: &str = "\n\n";
@@ -8,7 +10,7 @@ mod mime_response_constants {
 
 pub struct MimeResponse {
     pub http_status_code: String,
-    pub content_type: String,
+    pub content_type: ContentType,
     pub content: String,
 }
 
@@ -27,7 +29,7 @@ impl MimeResponse {
             http_status_code_constant = mime_response_constants::HTTP,
             http_status_code = self.http_status_code,
             content_type_constant = mime_response_constants::CONTENT_TYPE,
-            content_type = self.content_type,
+            content_type = self.content_type.as_str(),
             content_length_constant = mime_response_constants::CONTENT_LENGTH,
             constant_length = content_length,
             content = self.content
