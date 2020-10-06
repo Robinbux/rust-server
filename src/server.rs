@@ -7,7 +7,7 @@ use nix::unistd::close;
 use crate::enums::content_type::ContentType;
 use crate::utils::utils;
 
-const PORT: u16 = 8070;
+const PORT: u16 = 8080;
 
 pub struct Server {
     server_fd: RawFd
@@ -66,6 +66,7 @@ impl Server {
         };
         let content_type = ContentType::get_content_type_from_file_path(String::from(route_path));
 
+        println!("CONTENT TYPE: {}", content_type.as_str());
         let mime_response = MimeResponse {
             http_status_code: String::from("200 OK"),
             content_type,
@@ -91,7 +92,8 @@ impl Server {
         (new_socket, val_read_str)
     }
 
-    fn send_message(new_socket: RawFd, mime_response: MimeResponse) {
+    fn send_message(new_socket: RawFd, mut mime_response: MimeResponse) {
+        println!("MIME RESPONSE:\n{}", mime_response.build_mime_response());
         send(
             new_socket,
             mime_response.build_mime_response().as_ref(),

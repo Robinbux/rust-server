@@ -12,14 +12,15 @@ pub mod utils {
         return match content_type {
             ContentType::HTML => Ok(utils::load_html(valid_resource_path)),
             ContentType::ICO => Ok(utils::load_ico(valid_resource_path)),
+            ContentType::PNG => Ok(utils::load_png(valid_resource_path)),
         }
     }
 
     fn check_resource_path(file_path: String) -> String{
         let exists = Path::new(&file_path).exists();
         return match exists {
-            True => file_path,
-            False => String::from("resources/error.html")
+            true => file_path,
+            false => String::from("resources/404.html")
         }
     }
 
@@ -30,5 +31,9 @@ pub mod utils {
     fn load_ico(ico_file_path: String) -> String {
         let icon = fs::read(ico_file_path).expect("Unable to read icon");
         return base64::encode(&*icon);
+    }
+
+    fn load_png(png_file_path: String) -> String {
+        String::from_utf8_lossy(&*fs::read(png_file_path).unwrap()).parse().expect("Unable to read PNG")
     }
 }
