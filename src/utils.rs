@@ -20,7 +20,7 @@ pub mod utils {
         let exists = Path::new(&file_path).exists();
         return match exists {
             true => file_path,
-            false => String::from("resources/404.html")
+            false => String::from("resources/error.html")
         }
     }
 

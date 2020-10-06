@@ -4,6 +4,7 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="be3ba483-2e99-4138-a40b-8eba3da261f9" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/resources/404.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/enums/http_status_codes.rs" afterDir="false" />
@@ -12,6 +13,9 @@
       <change beforePath="$PROJECT_DIR$/src/enums/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/enums/mod.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mime_response.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/mime_response.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.rs" afterDir="false" />
+=======
+    <list default="true" id="4287cff0-bfaa-4a5c-a3f9-cc790a91554e" name="Default Changelist" comment="">
+>>>>>>> aa4e724de6b5d80322faaba22e2e0ea85782ed5d
       <change beforePath="$PROJECT_DIR$/src/utils.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,9 +26,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+<<<<<<< HEAD
         <option value="HTML File" />
         <option value="HTML4 File" />
+=======
+>>>>>>> aa4e724de6b5d80322faaba22e2e0ea85782ed5d
         <option value="Rust File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
