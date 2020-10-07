@@ -15,7 +15,7 @@ pub struct MimeResponse {
 }
 
 impl MimeResponse {
-    pub fn build_mime_response(self) -> String {
+    pub fn build_mime_response(&mut self) -> String {
         let content_length = self.content.len();
         format!(
             "\

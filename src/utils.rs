@@ -12,6 +12,7 @@ pub mod utils {
         return match content_type {
             ContentType::HTML => Ok(utils::load_html(valid_resource_path)),
             ContentType::ICO => Ok(utils::load_ico(valid_resource_path)),
+            ContentType::PNG => Ok(utils::load_png(valid_resource_path)),
         }
     }
 
@@ -48,7 +49,3 @@ pub mod utils {
     }
 
 }
-
-
-
-
