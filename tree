@@ -1,0 +1,46 @@
+rust_server v0.1.0 (/Users/katjaroth/CODE/rust-server)
+├── base64 v0.4.2
+│   └── byteorder v1.3.4
+├── chrono v0.4.19
+│   ├── libc v0.2.77
+│   ├── num-integer v0.1.43
+│   │   └── num-traits v0.2.12
+│   │       [build-dependencies]
+│   │       └── autocfg v1.0.1
+│   │   [build-dependencies]
+│   │   └── autocfg v1.0.1
+│   ├── num-traits v0.2.12 (*)
+│   └── time v0.1.44
+│       └── libc v0.2.77
+├── fancy-regex v0.3.5
+│   ├── bit-set v0.5.2
+│   │   └── bit-vec v0.6.2
+│   └── regex v1.3.9
+│       ├── aho-corasick v0.7.13
+│       │   └── memchr v2.3.3
+│       ├── memchr v2.3.3
+│       ├── regex-syntax v0.6.18
+│       └── thread_local v1.0.1
+│           └── lazy_static v1.4.0
+├── libc v0.2.77
+├── nix v0.18.0
+│   ├── bitflags v1.2.1
+│   ├── cfg-if v0.1.10
+│   └── libc v0.2.77
+├── serde v1.0.116
+│   └── serde_derive v1.0.116
+│       ├── proc-macro2 v1.0.24
+│       │   └── unicode-xid v0.2.1
+│       ├── quote v1.0.7
+│       │   └── proc-macro2 v1.0.24 (*)
+│       └── syn v1.0.42
+│           ├── proc-macro2 v1.0.24 (*)
+│           ├── quote v1.0.7 (*)
+│           └── unicode-xid v0.2.1
+├── serde_json v1.0.58
+│   ├── itoa v0.4.6
+│   ├── ryu v1.0.5
+│   └── serde v1.0.116 (*)
+└── tinytemplate v1.1.0
+    ├── serde v1.0.116 (*)
+    └── serde_json v1.0.58 (*)

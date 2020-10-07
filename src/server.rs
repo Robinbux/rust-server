@@ -1,25 +1,29 @@
+use crate::enums::content_type::ContentType;
+use crate::logger::Logger;
+use crate::mime_response::MimeResponse;
+use crate::utils::utils;
 use libc::in_addr;
 use libc::INADDR_ANY;
 use nix::sys::socket::*;
-use std::os::unix::io::RawFd;
-use crate::mime_response::MimeResponse;
 use nix::unistd::close;
-use crate::enums::content_type::ContentType;
-use crate::utils::utils;
+use std::os::unix::io::RawFd;
 
 const PORT: u16 = 8080;
 
 pub struct Server {
-    server_fd: RawFd
+    server_fd: RawFd,
+    logger: Logger,
 }
 
 impl Server {
     pub fn new() -> Server {
         let server_fd = Server::setup();
-        Server {server_fd}
+        let mut logger = Logger::new(String::from("Server"));
+        Server { server_fd, logger }
     }
 
     pub fn listen(&mut self, backlog: usize) {
+        self.logger.log("Server started listening.");
         listen(self.server_fd, backlog).expect("Listening Failed");
 
         loop {
@@ -29,22 +33,23 @@ impl Server {
         }
     }
 
-    fn setup()-> RawFd {
+    fn setup() -> RawFd {
         let server_fd = socket(
-        AddressFamily::Inet,
-        SockType::Stream,
-        SockFlag::empty(),
-        None,
-        ).expect("Unable to create socket.");
+            AddressFamily::Inet,
+            SockType::Stream,
+            SockFlag::empty(),
+            None,
+        )
+        .expect("Unable to create socket.");
 
         let in_address = in_addr { s_addr: INADDR_ANY };
 
         let sockaddr_in = nix::sys::socket::sockaddr_in {
-        sin_len: 255,
-        sin_family: libc::AF_INET as u8,
-        sin_port: PORT.to_be(),
-        sin_addr: in_address,
-        sin_zero: [0; 8],
+            sin_len: 255,
+            sin_family: libc::AF_INET as u8,
+            sin_port: PORT.to_be(),
+            sin_addr: in_address,
+            sin_zero: [0; 8],
         };
 
         bind(server_fd, &SockAddr::Inet(InetAddr::V4(sockaddr_in))).expect("Binding Failed");
@@ -57,13 +62,20 @@ impl Server {
             .nth(1)
             .expect("Unable to split result");
 
-        let content = match utils::load_resource(String::from(route_path)) {
+        let mut content = match utils::load_resource(String::from(route_path)) {
             Ok(content) => content,
             Err(e) => {
                 println!("{}", e.to_string());
-                return
+                return;
             }
         };
+
+        // REFACTOR! ------------------------------------------------------
+        if (route_path.contains("console")) {
+            content = Logger::replace_template_values(&content);
+        }
+        // REFACTOR! ------------------------------------------------------
+
         let content_type = ContentType::get_content_type_from_file_path(String::from(route_path));
 
         println!("CONTENT TYPE: {}", content_type.as_str());
@@ -89,6 +101,7 @@ impl Server {
             .expect("Parsing Failed");
 
         println!("---Client Message---\n{}", val_read_str);
+        self.logger.log("Received client message!");
         (new_socket, val_read_str)
     }
 
@@ -98,6 +111,7 @@ impl Server {
             new_socket,
             mime_response.build_mime_response().as_ref(),
             MsgFlags::empty(),
-        ).expect("Sending Failed");
+        )
+        .expect("Sending Failed");
     }
 }

@@ -1,0 +1,8 @@
+SystemTime { tv_sec: 1602073115, tv_nsec: 882953000 }  [Server]: Server started listening.
+SystemTime { tv_sec: 1602073121, tv_nsec: 437990000 }  [Server]: Received client message!
+2020-10-07T12:25:06.873367Z  [Server]: Server started listening.
+2020-10-07T12:25:12.545763Z  [Server]: Received client message!
+2020-10-07T15:28:10.083816+02:00  [Server]: Server started listening.
+2020-10-07T15:28:31.590213+02:00  [Server]: Received client message!
+2020-10-07T15:29:20.056979+02:00  [Server]: Server started listening.
+2020-10-07T15:29:22.263606+02:00  [Server]: Received client message!

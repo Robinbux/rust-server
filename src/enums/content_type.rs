@@ -1,9 +1,8 @@
-#[derive(PartialEq)]
-#[derive(Debug)]
+#[derive(PartialEq, Debug)]
 pub enum ContentType {
     HTML,
     ICO,
-    PNG
+    PNG,
 }
 
 impl ContentType {
@@ -11,7 +10,7 @@ impl ContentType {
         match *self {
             ContentType::HTML => "text/html",
             ContentType::ICO => "image/x-icon",
-            ContentType::PNG => "image/png"
+            ContentType::PNG => "image/png",
         }
     }
 
@@ -20,7 +19,7 @@ impl ContentType {
             "html" => Ok(ContentType::HTML),
             "ico" => Ok(ContentType::ICO),
             "png" => Ok(ContentType::PNG),
-            _ => Err(()) // TODO: Error handling!
+            _ => Err(()), // TODO: Error handling!
         };
         return result;
     }
@@ -28,50 +27,53 @@ impl ContentType {
     pub fn get_content_type_from_file_path(path: String) -> ContentType {
         let content_type_str = path.split(".").last().expect("Unable to split path.");
         let result = ContentType::from_str(String::from(content_type_str));
-        println!("BEFORE UNWRAPPING");
-        let unwrapped = result.unwrap();
-        println!("AFTER UNWRAPPING");
-        println!("VALUE:\n{}", unwrapped.as_str());
 
-        return unwrapped
+        let unwrapped = result.expect("Unable to convert given String to ContentType.");
+
+        return unwrapped;
     }
 }
 
 mod tests {
-    use super::*;
+    use super::ContentType;
 
     #[test]
-    fn from_html_str() { //
+    fn from_str_html() {
         let file_path = String::from("html");
-        let result = ContentType::from_str(&file_path);
-        assert_eq!(result, ContentType::HTML)
+        let result = ContentType::from_str(file_path);
+        assert_eq!(result.unwrap(), ContentType::HTML)
     }
+
     #[test]
-    fn from_ico_str() { //
+    fn from_str_ico() {
         let file_path = String::from("ico");
-        let result = ContentType::from_str(&file_path);
-        assert_eq!(result, ContentType::ICO)
+        let result = ContentType::from_str(file_path);
+        assert_eq!(result.unwrap(), ContentType::ICO)
     }
+
     #[test]
-    fn from_false_str() { //
+    fn from_str_false() {
         let file_path = String::from("index");
-        let result = ContentType::from_str(&file_path);
-        assert_eq!(result, ContentType::HTML)
+        let result = ContentType::from_str(file_path);
+        assert_eq!(result, Err(()))
     }
+
     #[test]
-    fn get_missing_content_type_from_file_path(){
+    #[should_panic]
+    fn get_content_type_from_file_path_missing() {
         let file_path = String::from("/home/portfolio");
-        let result = ContentType::get_content_type_from_file_path(file_path);
-        assert_eq!(result, ContentType::HTML)
+        ContentType::get_content_type_from_file_path(file_path);
     }
+
     #[test]
-    fn get_html_content_type_from_file_path(){
+    fn get_content_type_from_file_path_html() {
         let file_path = String::from("/home/portfolio.html");
         let result = ContentType::get_content_type_from_file_path(file_path);
         assert_eq!(result, ContentType::HTML)
     }
+
     #[test]
-    fn get_ico_content_type_from_file_path(){
+    fn get_content_type_from_file_path_ico() {
         let file_path = String::from("/fav.ico");
         let result = ContentType::get_content_type_from_file_path(file_path);
         assert_eq!(result, ContentType::ICO)

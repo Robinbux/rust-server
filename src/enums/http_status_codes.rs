@@ -1,25 +1,25 @@
 enum HTTPStatusCodes {
-    OK,
-    CREATED,
-    ACCEPTED,
-    BAD_REQUEST,
-    UNAUTHORIZED,
-    FORBIDDEN,
-    NOT_FOUND,
-    INTERNAL_SERVER_ERROR
+    Ok,
+    Created,
+    Accepted,
+    BadRequest,
+    Unauthorized,
+    Forbidden,
+    NotFound,
+    InternalServerError,
 }
 
 impl HTTPStatusCodes {
     pub fn as_code_value(&self) -> u16 {
         match *self {
-            HTTPStatusCodes::OK => 200,
-            HTTPStatusCodes::CREATED => 201,
-            HTTPStatusCodes::ACCEPTED => 202,
-            HTTPStatusCodes::BAD_REQUEST => 400,
-            HTTPStatusCodes::UNAUTHORIZED => 401,
-            HTTPStatusCodes::FORBIDDEN => 403,
-            HTTPStatusCodes::NOT_FOUND => 404,
-            HTTPStatusCodes::INTERNAL_SERVER_ERROR => 500,
+            HTTPStatusCodes::Ok => 200,
+            HTTPStatusCodes::Created => 201,
+            HTTPStatusCodes::Accepted => 202,
+            HTTPStatusCodes::BadRequest => 400,
+            HTTPStatusCodes::Unauthorized => 401,
+            HTTPStatusCodes::Forbidden => 403,
+            HTTPStatusCodes::NotFound => 404,
+            HTTPStatusCodes::InternalServerError => 500,
         }
     }
 }
