@@ -18,7 +18,7 @@ pub struct Server {
 impl Server {
     pub fn new() -> Server {
         let server_fd = Server::setup();
-        let mut logger = Logger::new(String::from("Server"));
+        let logger = Logger::new(String::from("Server"));
         Server { server_fd, logger }
     }
 
@@ -71,11 +71,14 @@ impl Server {
         };
 
         // REFACTOR! ------------------------------------------------------
-        if (route_path.contains("console")) {
+        if route_path.contains("console") {
             content = Logger::replace_template_values(&content);
         }
         // REFACTOR! ------------------------------------------------------
-
+        println!(
+            "---------------------------------content----------{}",
+            content
+        );
         let content_type = ContentType::get_content_type_from_file_path(String::from(route_path));
 
         println!("CONTENT TYPE: {}", content_type.as_str());
@@ -113,5 +116,36 @@ impl Server {
             MsgFlags::empty(),
         )
         .expect("Sending Failed");
+    }
+}
+
+mod tests {
+    use super::*;
+    use hyper::{Client, Uri};
+    use std::env;
+    use std::thread;
+    use chrono::prelude::*;
+    use std::fs::read_to_string;
+
+    #[tokio::main]
+    async fn client() {
+        let client = Client::new();
+
+        let url: Uri = "http://localhost:8080/index.html"
+            .parse()
+            .unwrap();
+
+        match client.get(url).await {
+            Ok(res) => println!("Response: {}", res.status()),
+            Err(err) => println!("Error: {}", err),
+        }
+    }
+
+    #[test]
+    fn listen() {
+        client();
+        let now: DateTime<Local> = Local::now();
+        let complete_message = format!("{:?}  [Server]: Server started listening.\n", now);
+        read_to_string("resources/logs/test_log.txt").expect("Unable to read file to String");
     }
 }

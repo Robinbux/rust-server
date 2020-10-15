@@ -33,7 +33,7 @@ impl ContentType {
         return unwrapped;
     }
 }
-
+#[cfg(test)]
 mod tests {
     use super::ContentType;
 

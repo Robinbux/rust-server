@@ -36,19 +36,25 @@ pub mod utils {
     fn load_png(html_file_path: String) -> String {
         return read_to_string(html_file_path).expect("Unable to read file to String");
     }
+}
 
+mod tests {
+    use super::utils::load_resource;
     #[test]
-    fn check_resource_path_erroneous() {
-        let file_path = String::from("index.html");
+    fn load_resource_erroneous() {
+        let file_path = String::from("test.html");
         let error_file_path = String::from("resources/html/error.html");
-        let result = check_resource_path(&file_path);
-        assert_eq!(result, error_file_path)
+        let expected_html = load_resource(error_file_path);
+        let html = load_resource(file_path);
+        assert_eq!(expected_html, html)
     }
 
     #[test]
-    fn check_resource_path_valid() {
-        let file_path = String::from("resources/html/index.html");
-        let result = check_resource_path(&file_path);
-        assert_eq!(result, file_path)
+    fn load_resource_valid() {
+        let file_path = String::from("index.html");
+        let error_file_path = String::from("resources/html/error.html");
+        let expected_html = load_resource(error_file_path);
+        let html = load_resource(file_path);
+        assert_eq!(expected_html, html)
     }
 }

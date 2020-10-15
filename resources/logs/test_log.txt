@@ -1,0 +1,6 @@
+2020-10-14T12:08:59.645152+02:00  [Server]: Server started listening.
+2020-10-14T12:09:45.504682+02:00  [Server]: Server started listening.
+2020-10-14T12:13:12.191797+02:00  [Server]: Server started listening.
+2020-10-14T15:41:42.676412+02:00  [Server]: Server started listening.
+2020-10-14T15:54:42.148235+02:00  [Server]: Server started listening.
+2020-10-14T15:54:51.151738+02:00  [Server]: Received client message!
