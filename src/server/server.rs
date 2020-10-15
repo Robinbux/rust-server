@@ -62,30 +62,6 @@ impl Server {
         server_fd
     }
 
-    fn send_response_to_socket(&mut self, new_socket: RawFd, val_read_str: String) {
-        let route_path = val_read_str
-            .split_whitespace()
-            .nth(1)
-            .expect("Unable to split result");
-
-        let content = self.base_controller.serve_content(route_path);
-
-        println!(
-            "---------------------------------content----------{}",
-            content
-        );
-        let content_type = ContentType::get_content_type_from_file_path(&route_path);
-
-        println!("CONTENT TYPE: {}", content_type.as_str());
-        let mime_response = MimeResponse {
-            http_status_code: String::from("200 OK"),
-            content_type,
-            content,
-        };
-        Server::send_message(new_socket, mime_response);
-        println!("------------------Hello message sent-------------------\n");
-    }
-
     fn read_incoming_connection(&mut self) -> (RawFd, String) {
         println!("\n+++++++ Waiting for new connection ++++++++\n\n");
 
@@ -98,12 +74,14 @@ impl Server {
             .parse()
             .expect("Parsing Failed");
 
-        println!("---Client Message---\n{}", val_read_str);
-        self.logger.log("Received client message!");
+        println!("---Client Request---\n{}", val_read_str);
+        self.logger.log("Received client request!");
         (new_socket, val_read_str)
     }
 
-    fn send_message(new_socket: RawFd, mut mime_response: MimeResponse) {
+    fn send_response_to_socket(&mut self, new_socket: RawFd, val_read_str: String) {
+        let mut mime_response = self.create_response(val_read_str);
+
         println!("MIME RESPONSE:\n{}", mime_response.build_mime_response());
         send(
             new_socket,
@@ -111,6 +89,30 @@ impl Server {
             MsgFlags::empty(),
         )
         .expect("Sending Failed");
+        println!("------------------Response sent-------------------\n");
+    }
+
+    fn create_response(&mut self, val_read_str: String) -> MimeResponse {
+        let route_path = val_read_str
+            .split_whitespace()
+            .nth(1)
+            .expect("Unable to split result");
+
+        let content = self.base_controller.serve_content(route_path);
+
+        println!(
+            "-------------------------------Content-------------------------\n{}",
+            content
+        );
+        let content_type = ContentType::get_content_type_from_file_path(&route_path);
+
+        println!("CONTENT TYPE: {}", content_type.as_str());
+        let mime_response = MimeResponse {
+            http_status_code: String::from("200 OK"),
+            content_type,
+            content,
+        };
+        mime_response
     }
 }
 

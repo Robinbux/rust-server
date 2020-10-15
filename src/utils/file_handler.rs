@@ -6,7 +6,7 @@ pub mod file_handler {
     use std::fs::read_to_string;
     use std::path::Path;
 
-    pub fn load_resource(file_name: String) -> Result<String, String> {
+    pub fn load_resource(file_name: &str) -> Result<String, String> {
         let content_type = ContentType::get_content_type_from_file_path(&file_name);
         match content_type {
             ContentType::HTML => Ok(load_html(format!("resources/html/{}", &file_name))),
@@ -50,7 +50,7 @@ mod tests {
         let file_path = String::from("test.html");
         let error_file_path = super::ERROR_FILE_PATH;
         let expected_html = read_to_string(error_file_path.to_string()).unwrap();
-        let html = load_resource(file_path).unwrap();
+        let html = load_resource(&file_path).unwrap();
         assert_eq!(expected_html, html)
     }
 
@@ -58,7 +58,7 @@ mod tests {
     fn load_resource_valid() {
         let file_path = String::from("index.html");
         let expected_html = read_to_string("resources/html/index.html".to_string()).unwrap();
-        let html = load_resource(file_path).unwrap();
+        let html = load_resource(&file_path).unwrap();
         assert_eq!(expected_html, html)
     }
 }

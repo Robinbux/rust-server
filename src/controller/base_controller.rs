@@ -19,15 +19,16 @@ impl BaseController {
     }
 
     pub fn serve_content(&self, path: &str) -> String {
-        let route_beginning = BaseController::extract_first_path_part(path);
+        let route_beginning = BaseController::extract_parent_path(path);
         let child_path = BaseController::extract_child_path(path);
+        assert_eq!(route_beginning, "admin");
         return match route_beginning {
             "admin" => self.admin_controller.serve_content(&child_path),
-            _ => panic!("Base Controller route not found"),
+            _ => panic!("Base controller route not found"),
         };
     }
 
-    pub fn extract_first_path_part(path: &str) -> &str {
+    pub fn extract_parent_path(path: &str) -> &str {
         path.split("/").nth(1).expect("Unable to split result")
     }
 
@@ -37,14 +38,20 @@ impl BaseController {
 }
 
 mod tests {
-    #[cfg(test)]
     use super::BaseController;
-    #[cfg(test)]
     use super::*;
+    #[cfg(test)]
     #[test]
     fn extract_child_path() {
         let path = "admin/console/index";
         let result = BaseController::extract_child_path(path);
         assert_eq!("console/index", result)
+    }
+
+    #[test]
+    fn extract_child_path_empty() {
+        let path = "admin/";
+        let result = BaseController::extract_child_path(path);
+        assert_eq!("", result)
     }
 }
