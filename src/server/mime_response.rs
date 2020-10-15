@@ -37,11 +37,11 @@ impl MimeResponse {
 }
 
 mod test {
+    #[cfg(test)]
     use super::*;
 
     #[test]
     fn build_mime_response_index_html() {
-
         let html_string = String::from(
             "\
             <!DOCTYPE html>
@@ -57,7 +57,9 @@ mod test {
             </body>
             </html>",
         );
-        let mut expected_mime_string = String::from("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: 327\r\n\r\n");
+        let mut expected_mime_string = String::from(
+            "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: 327\r\n\r\n",
+        );
         expected_mime_string.push_str(&html_string);
 
         let mime_response = MimeResponse {

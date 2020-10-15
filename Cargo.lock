@@ -454,6 +454,7 @@ dependencies = [
  "hyper",
  "libc",
  "nix",
+ "regex",
  "serde",
  "serde_json",
  "tinytemplate",

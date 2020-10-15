@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 enum HTTPStatusCodes {
     Ok,
     Created,
@@ -10,6 +11,7 @@ enum HTTPStatusCodes {
 }
 
 impl HTTPStatusCodes {
+    #[allow(dead_code)]
     pub fn as_code_value(&self) -> u16 {
         match *self {
             HTTPStatusCodes::Ok => 200,

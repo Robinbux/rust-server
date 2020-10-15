@@ -1,17 +1,8 @@
 use chrono::prelude::*;
-use serde::Serialize;
-use std::fs;
+use std::env;
 use std::fs::File;
 use std::fs::OpenOptions;
 use std::io::Write;
-use tinytemplate;
-use tinytemplate::TinyTemplate;
-use std::env;
-
-#[derive(Serialize)]
-struct Log {
-    logs: String,
-}
 
 pub struct Logger {
     name: String,
@@ -20,7 +11,6 @@ pub struct Logger {
 
 impl Logger {
     pub fn new(name: String) -> Logger {
-
         let key = "TESTING";
         let log_path = match env::var_os(key) {
             Some(_val) => String::from("resources/logs/test_log.txt"),
@@ -40,18 +30,5 @@ impl Logger {
         self.file
             .write_all(complete_message.as_bytes())
             .expect("write failed")
-    }
-
-    pub fn replace_template_values(html_str: &str) -> String {
-        let logs = fs::read_to_string("resources/logs/Log.txt")
-            .expect("Something went wrong reading the file");
-
-        let log = Log { logs };
-
-        let mut tt = TinyTemplate::new();
-        tt.add_template("log_template", html_str).expect("Unable to add template");
-
-        tt.render("log_template", &log)
-            .expect("Unable to render template.")
     }
 }

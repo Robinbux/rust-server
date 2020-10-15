@@ -1,7 +1,7 @@
+use crate::controller::base_controller::BaseController;
 use crate::enums::content_type::ContentType;
-use crate::logger::Logger;
-use crate::mime_response::MimeResponse;
-use crate::utils::utils;
+use crate::server::mime_response::MimeResponse;
+use crate::utils::logger::Logger;
 use libc::in_addr;
 use libc::INADDR_ANY;
 use nix::sys::socket::*;
@@ -13,13 +13,19 @@ const PORT: u16 = 8080;
 pub struct Server {
     server_fd: RawFd,
     logger: Logger,
+    base_controller: BaseController,
 }
 
 impl Server {
     pub fn new() -> Server {
         let server_fd = Server::setup();
         let logger = Logger::new(String::from("Server"));
-        Server { server_fd, logger }
+        let base_controller = BaseController::new();
+        Server {
+            server_fd,
+            logger,
+            base_controller,
+        }
     }
 
     pub fn listen(&mut self, backlog: usize) {
@@ -62,24 +68,13 @@ impl Server {
             .nth(1)
             .expect("Unable to split result");
 
-        let mut content = match utils::load_resource(String::from(route_path)) {
-            Ok(content) => content,
-            Err(e) => {
-                println!("{}", e.to_string());
-                return;
-            }
-        };
+        let content = self.base_controller.serve_content(route_path);
 
-        // REFACTOR! ------------------------------------------------------
-        if route_path.contains("console") {
-            content = Logger::replace_template_values(&content);
-        }
-        // REFACTOR! ------------------------------------------------------
         println!(
             "---------------------------------content----------{}",
             content
         );
-        let content_type = ContentType::get_content_type_from_file_path(String::from(route_path));
+        let content_type = ContentType::get_content_type_from_file_path(&route_path);
 
         println!("CONTENT TYPE: {}", content_type.as_str());
         let mime_response = MimeResponse {
@@ -120,20 +115,21 @@ impl Server {
 }
 
 mod tests {
+    #[cfg(test)]
     use super::*;
-    use hyper::{Client, Uri};
-    use std::env;
-    use std::thread;
+    #[cfg(test)]
     use chrono::prelude::*;
+    use hyper::{Client, Uri};
+    //use std::env;
+    #[cfg(test)]
     use std::fs::read_to_string;
+    //use std::thread;
 
     #[tokio::main]
     async fn client() {
         let client = Client::new();
 
-        let url: Uri = "http://localhost:8080/index.html"
-            .parse()
-            .unwrap();
+        let url: Uri = "http://localhost:8080/index.html".parse().unwrap();
 
         match client.get(url).await {
             Ok(res) => println!("Response: {}", res.status()),

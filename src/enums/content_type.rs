@@ -24,7 +24,7 @@ impl ContentType {
         return result;
     }
 
-    pub fn get_content_type_from_file_path(path: String) -> ContentType {
+    pub fn get_content_type_from_file_path(path: &str) -> ContentType {
         let content_type_str = path.split(".").last().expect("Unable to split path.");
         let result = ContentType::from_str(String::from(content_type_str));
 
@@ -62,20 +62,20 @@ mod tests {
     #[should_panic]
     fn get_content_type_from_file_path_missing() {
         let file_path = String::from("/home/portfolio");
-        ContentType::get_content_type_from_file_path(file_path);
+        ContentType::get_content_type_from_file_path(&file_path);
     }
 
     #[test]
     fn get_content_type_from_file_path_html() {
         let file_path = String::from("/home/portfolio.html");
-        let result = ContentType::get_content_type_from_file_path(file_path);
+        let result = ContentType::get_content_type_from_file_path(&file_path);
         assert_eq!(result, ContentType::HTML)
     }
 
     #[test]
     fn get_content_type_from_file_path_ico() {
         let file_path = String::from("/fav.ico");
-        let result = ContentType::get_content_type_from_file_path(file_path);
+        let result = ContentType::get_content_type_from_file_path(&file_path);
         assert_eq!(result, ContentType::ICO)
     }
 }

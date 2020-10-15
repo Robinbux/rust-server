@@ -1,10 +1,9 @@
+mod controller;
 mod enums;
-mod logger;
-mod mime_response;
 mod server;
 mod utils;
 
-use crate::server::Server;
+use crate::server::server::Server;
 
 fn main() {
     let mut server = Server::new();
