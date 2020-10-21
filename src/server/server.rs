@@ -104,7 +104,7 @@ impl Server {
             "-------------------------------Content-------------------------\n{}",
             content
         );
-        let content_type = ContentType::get_content_type_from_file_path(&route_path);
+        let content_type = self.base_controller.get_content_type_for_path(&route_path);
 
         println!("CONTENT TYPE: {}", content_type.as_str());
         let mime_response = MimeResponse {

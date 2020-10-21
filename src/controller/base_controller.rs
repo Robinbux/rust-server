@@ -1,6 +1,7 @@
 use crate::controller::admin_controller::AdminController;
 use crate::controller::controller::Controller;
 use crate::utils::logger::Logger;
+use crate::enums::content_type::ContentType;
 
 pub struct BaseController {
     #[allow(dead_code)]
@@ -18,22 +19,33 @@ impl BaseController {
         }
     }
 
-    pub fn serve_content(&self, path: &str) -> String {
+    pub fn extract_parent_path(path: &str) -> &str {
+        path.split("/").nth(1).expect("Unable to split result")
+    }
+
+    pub fn extract_child_path(path: &str) -> String {
+        let child_path = path.split("/").collect::<Vec<&str>>()[2..].join("/");
+        format!("/{}", child_path)
+    }
+}
+
+impl Controller for BaseController {
+    fn serve_content(&self, path: &str) -> String {
         let route_beginning = BaseController::extract_parent_path(path);
         let child_path = BaseController::extract_child_path(path);
-        assert_eq!(route_beginning, "admin");
         return match route_beginning {
             "admin" => self.admin_controller.serve_content(&child_path),
             _ => panic!("Base controller route not found"),
         };
     }
 
-    pub fn extract_parent_path(path: &str) -> &str {
-        path.split("/").nth(1).expect("Unable to split result")
-    }
-
-    pub fn extract_child_path(path: &str) -> String {
-        path.split("/").collect::<Vec<&str>>()[1..].join("/")
+    fn get_content_type_for_path(&self, path: &str) -> ContentType {
+        let route_beginning = BaseController::extract_parent_path(path);
+        let child_path = BaseController::extract_child_path(path);
+        return match route_beginning {
+            "admin" => self.admin_controller.get_content_type_for_path(&child_path),
+            _ => panic!("Base controller route not found"),
+        };
     }
 }
 
