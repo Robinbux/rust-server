@@ -10,19 +10,17 @@ mod mime_response_constants {
 pub struct MimeResponse {
     pub http_status_code: String,
     pub content_type: ContentType,
-    pub content: String,
+    pub content_length: usize,
 }
 
 impl MimeResponse {
     pub fn build_mime_response(&mut self) -> String {
-        let content_length = self.content.len();
         format!(
             "\
         {http_status_code_constant}{http_status_code}{linebreak}\
         {content_type_constant}{content_type}{linebreak}\
         {content_length_constant}{content_length}{linebreak}\
         {linebreak}\
-        {content}\
         ",
             linebreak = mime_response_constants::LINEBREAK,
             http_status_code_constant = mime_response_constants::HTTP,
@@ -30,8 +28,7 @@ impl MimeResponse {
             content_type_constant = mime_response_constants::CONTENT_TYPE,
             content_type = self.content_type.as_str(),
             content_length_constant = mime_response_constants::CONTENT_LENGTH,
-            content_length = content_length,
-            content = self.content
+            content_length = self.content_length,
         )
     }
 }

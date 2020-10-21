@@ -1,12 +1,12 @@
 use crate::controller::base_controller::BaseController;
 use crate::controller::controller::Controller;
+use crate::enums::content_type::ContentType;
 use crate::utils::file_handler::file_handler;
 use crate::utils::logger::Logger;
 use serde::Serialize;
 use std::fs;
 use tinytemplate;
 use tinytemplate::TinyTemplate;
-use crate::enums::content_type::ContentType;
 
 pub struct AdminController {
     #[allow(dead_code)]
@@ -22,7 +22,7 @@ impl Controller for AdminController {
         };
     }
 
-    fn get_content_type_for_path(path: &str) -> ContentType {
+    fn get_content_type_for_path(&self, path: &str) -> ContentType {
         let route_beginning = BaseController::extract_parent_path(&path);
         return match route_beginning {
             "console" => ContentType::HTML,
@@ -37,14 +37,13 @@ mod files {
 
 impl AdminController {
     pub fn new() -> AdminController {
-        let logger = Logger::new(String::from("BaseController"));
+        let logger = Logger::new(String::from("AdminController"));
         AdminController { logger: logger }
     }
 
     fn console(&self) -> String {
         AdminController::replace_template_values(
-            &file_handler::load_resource(files::CONSOLE)
-                .expect("Unable to load resource")[..],
+            &file_handler::load_resource(files::CONSOLE).expect("Unable to load resource")[..],
         )
     }
 
