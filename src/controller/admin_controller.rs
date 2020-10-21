@@ -18,7 +18,7 @@ impl Controller for AdminController {
         let route_beginning = BaseController::extract_parent_path(&path);
         return match route_beginning {
             "console" => self.console(),
-            _ => panic!("Unknown Path"),
+            _ => BaseController::serve_404_page(),
         };
     }
 
@@ -26,7 +26,7 @@ impl Controller for AdminController {
         let route_beginning = BaseController::extract_parent_path(&path);
         return match route_beginning {
             "console" => ContentType::HTML,
-            _ => panic!("Unknown Path"),
+            _ => ContentType::HTML,
         };
     }
 }

@@ -24,7 +24,7 @@ impl BaseController {
         }
     }
 
-    fn serve_404_page(&self) -> Vec<u8> {
+    pub fn serve_404_page() -> Vec<u8> {
         Vec::from(&file_handler::load_resource(files::ERROR_404).expect("Unable to load resource")[..])
     }
 
@@ -33,11 +33,12 @@ impl BaseController {
     }
 
     pub fn extract_child_path(path: &str) -> String {
-        let &split = path.split("/");
-        if split.count()< &3 {
+        let split: Vec<&str> = path.split("/").collect();
+
+        if split.len()< 3 {
             return String::from("")
         }
-        let child_path = split.collect::<Vec<&str>>()[2..].join("/");
+        let child_path = split[2..].join("/");
 
         format!("/{}", child_path)
     }
@@ -54,7 +55,8 @@ impl Controller for BaseController {
         return match route_beginning {
             "admin" => self.admin_controller.serve_content(&child_path),
             "assets" => self.assets_controller.serve_content(&child_path),
-            _ => self.serve_404_page(),
+            "favicon.ico" => self.assets_controller.serve_content("/favicon.ico"),
+            _ => BaseController::serve_404_page(),
         };
     }
 
@@ -64,7 +66,8 @@ impl Controller for BaseController {
         return match route_beginning {
             "admin" => self.admin_controller.get_content_type_for_path(&child_path),
             "assets" => self.assets_controller.get_content_type_for_path(&child_path),
-            _ => panic!("Base controller route not found"),
+            "favicon.ico" => self.assets_controller.get_content_type_for_path("/favicon.ico"),
+            _ => ContentType::HTML,
         };
     }
 }
