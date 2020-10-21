@@ -10,7 +10,7 @@ use nix::sys::socket::*;
 use nix::unistd::close;
 use std::os::unix::io::RawFd;
 
-const PORT: u16 = 8080;
+const PORT: u16 = 8087;
 
 pub struct Server {
     server_fd: RawFd,
@@ -94,32 +94,22 @@ impl Server {
             .nth(1)
             .expect("Unable to split result");
 
-        //let content = self.base_controller.serve_content(route_path);
+        let content = self.base_controller.serve_content(route_path);
 
-        let bytes: Vec<u8> = std::fs::read("resources/assets/pikachu.png").unwrap();
-        match image::load_from_memory_with_format(&bytes, ImageFormat::Png) {
-            Ok(img) => {
-                println!("input in png");
-            }
-            Err(_) => {
-                println!("input is not png");
-            }
-        }
-        let content_type = ContentType::PNG;
-        //let content_type = self.base_controller.get_content_type_for_path(route_path);
+        let content_type = self.base_controller.get_content_type_for_path(route_path);
 
         println!("CONTENT TYPE: {}", content_type.as_str());
         let mut mime_response = MimeResponse {
             http_status_code: String::from("200 OK"),
             content_type,
-            content_length: bytes.len(),
+            content_length: content.len(),
         };
 
         let builded_mime_response = mime_response.build_mime_response();
 
         let mut mime_res_ref: &[u8] = builded_mime_response.as_ref();
         let mut mime_res_vec =  mime_res_ref.to_vec();
-        mime_res_vec.extend(bytes);
+        mime_res_vec.extend(content);
         mime_res_vec
     }
 }

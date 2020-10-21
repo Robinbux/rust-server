@@ -14,7 +14,7 @@ pub struct AdminController {
 }
 
 impl Controller for AdminController {
-    fn serve_content(&self, path: &str) -> String {
+    fn serve_content(&self, path: &str) -> Vec<u8> {
         let route_beginning = BaseController::extract_parent_path(&path);
         return match route_beginning {
             "console" => self.console(),
@@ -41,10 +41,10 @@ impl AdminController {
         AdminController { logger: logger }
     }
 
-    fn console(&self) -> String {
-        AdminController::replace_template_values(
+    fn console(&self) -> Vec<u8> {
+        Vec::from(AdminController::replace_template_values(
             &file_handler::load_resource(files::CONSOLE).expect("Unable to load resource")[..],
-        )
+        ).as_bytes())
     }
 
     fn replace_template_values(html_str: &str) -> String {

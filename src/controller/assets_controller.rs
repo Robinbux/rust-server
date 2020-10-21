@@ -5,6 +5,7 @@ use crate::utils::file_handler::file_handler;
 use crate::utils::logger::Logger;
 use serde::Serialize;
 use std::fs;
+use image::ImageFormat;
 
 pub struct AssetsController {
     #[allow(dead_code)]
@@ -12,21 +13,30 @@ pub struct AssetsController {
 }
 
 impl AssetsController {
-    pub fn new() -> AdminController {
+    pub fn new() -> AssetsController {
         let logger = Logger::new(String::from("AssetsController"));
         AssetsController { logger: logger }
     }
 
-    pub fn pika() -> String {
-        "Test".to_string()
+    pub fn pika(&self) -> Vec<u8> {
+        let bytes: Vec<u8> = std::fs::read("resources/assets/pikachu.png").unwrap();
+        match image::load_from_memory_with_format(&bytes, ImageFormat::Png) {
+            Ok(img) => {
+                println!("input in png");
+            }
+            Err(_) => {
+                println!("input is not png");
+            }
+        }
+        bytes
     }
 }
 
 impl Controller for AssetsController {
-    fn serve_content(&self, path: &str) -> String {
+    fn serve_content(&self, path: &str) -> Vec<u8> {
         let route_beginning = BaseController::extract_parent_path(&path);
         return match route_beginning {
-            "pika" => self.console(),
+            "pika" => self.pika(),
             _ => panic!("Unknown Path"),
         };
     }
@@ -34,7 +44,7 @@ impl Controller for AssetsController {
     fn get_content_type_for_path(&self, path: &str) -> ContentType {
         let route_beginning = BaseController::extract_parent_path(&path);
         return match route_beginning {
-            "console" => ContentType::HTML,
+            "pika" => ContentType::PNG,
             _ => panic!("Unknown Path"),
         };
     }
