@@ -15,7 +15,7 @@ pub struct AdminController {
 
 impl Controller for AdminController {
     fn serve_content(&self, path: &str) -> String {
-        let route_beginning = BaseController::extract_first_path_part(&path);
+        let route_beginning = BaseController::extract_parent_path(&path);
         return match route_beginning {
             "console" => self.console(),
             _ => panic!("Unknown Path"),
@@ -23,7 +23,7 @@ impl Controller for AdminController {
     }
 
     fn get_content_type_for_path(path: &str) -> ContentType {
-        let route_beginning = BaseController::extract_first_path_part(&path);
+        let route_beginning = BaseController::extract_parent_path(&path);
         return match route_beginning {
             "console" => ContentType::HTML,
             _ => panic!("Unknown Path"),
@@ -43,7 +43,7 @@ impl AdminController {
 
     fn console(&self) -> String {
         AdminController::replace_template_values(
-            &file_handler::load_resource(files::CONSOLE.to_string())
+            &file_handler::load_resource(files::CONSOLE)
                 .expect("Unable to load resource")[..],
         )
     }

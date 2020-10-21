@@ -1,4 +1,4 @@
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone, Copy)]
 pub enum ContentType {
     HTML,
     ICO,
@@ -29,7 +29,6 @@ impl ContentType {
         let result = ContentType::from_str(String::from(content_type_str));
 
         let unwrapped = result.expect("Unable to convert given String to ContentType.");
-
         return unwrapped;
     }
 }

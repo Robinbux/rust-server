@@ -42,3 +42,17 @@ SystemTime { tv_sec: 1602073121, tv_nsec: 437990000 }  [Server]: Received client
 2020-10-15T13:55:12.134366+02:00  [Server]: Received client message!
 2020-10-15T13:56:11.898454+02:00  [Server]: Server started listening.
 2020-10-15T13:56:14.701981+02:00  [Server]: Received client message!
+2020-10-15T17:17:52.682143+02:00  [Server]: Server started listening.
+2020-10-15T17:18:03.774464+02:00  [Server]: Received client request!
+2020-10-15T17:18:54.419925+02:00  [Server]: Server started listening.
+2020-10-15T17:19:09.875899+02:00  [Server]: Received client request!
+2020-10-15T17:22:27.488988+02:00  [Server]: Server started listening.
+2020-10-15T17:22:32.350414+02:00  [Server]: Received client request!
+2020-10-15T17:24:47.958839+02:00  [Server]: Server started listening.
+2020-10-15T17:24:55.414304+02:00  [Server]: Received client request!
+2020-10-15T17:26:11.126139+02:00  [Server]: Server started listening.
+2020-10-15T17:26:13.153655+02:00  [Server]: Received client request!
+2020-10-15T17:29:08.793617+02:00  [Server]: Server started listening.
+2020-10-15T17:29:10.912220+02:00  [Server]: Received client request!
+2020-10-15T17:30:25.256317+02:00  [Server]: Server started listening.
+2020-10-15T17:30:27.704726+02:00  [Server]: Received client request!
