@@ -3,6 +3,7 @@ use crate::controller::controller::Controller;
 use crate::utils::logger::Logger;
 use crate::enums::content_type::ContentType;
 use crate::controller::assets_controller::AssetsController;
+use crate::utils::file_handler::file_handler;
 
 pub struct BaseController {
     #[allow(dead_code)]
@@ -23,14 +24,27 @@ impl BaseController {
         }
     }
 
+    fn serve_404_page(&self) -> Vec<u8> {
+        Vec::from(&file_handler::load_resource(files::ERROR_404).expect("Unable to load resource")[..])
+    }
+
     pub fn extract_parent_path(path: &str) -> &str {
         path.split("/").nth(1).expect("Unable to split result")
     }
 
     pub fn extract_child_path(path: &str) -> String {
-        let child_path = path.split("/").collect::<Vec<&str>>()[2..].join("/");
+        let &split = path.split("/");
+        if split.count()< &3 {
+            return String::from("")
+        }
+        let child_path = split.collect::<Vec<&str>>()[2..].join("/");
+
         format!("/{}", child_path)
     }
+}
+
+mod files {
+    pub const ERROR_404: &str = "404.html";
 }
 
 impl Controller for BaseController {
@@ -40,7 +54,7 @@ impl Controller for BaseController {
         return match route_beginning {
             "admin" => self.admin_controller.serve_content(&child_path),
             "assets" => self.assets_controller.serve_content(&child_path),
-            _ => panic!("Base controller route not found"),
+            _ => self.serve_404_page(),
         };
     }
 
