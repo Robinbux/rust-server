@@ -1,7 +1,9 @@
 use crate::controller::base_controller::BaseController;
+use crate::controller::controller::Controller;
 use crate::enums::content_type::ContentType;
 use crate::server::mime_response::MimeResponse;
 use crate::utils::logger::Logger;
+use image::ImageFormat;
 use libc::in_addr;
 use libc::INADDR_ANY;
 use nix::sys::socket::*;
@@ -82,37 +84,40 @@ impl Server {
     fn send_response_to_socket(&mut self, new_socket: RawFd, val_read_str: String) {
         let mut mime_response = self.create_response(val_read_str);
 
-        println!("MIME RESPONSE:\n{}", mime_response.build_mime_response());
-        send(
-            new_socket,
-            mime_response.build_mime_response().as_ref(),
-            MsgFlags::empty(),
-        )
-        .expect("Sending Failed");
+        send(new_socket, &mime_response.as_ref(), MsgFlags::empty()).expect("Sending Failed");
         println!("------------------Response sent-------------------\n");
     }
 
-    fn create_response(&mut self, val_read_str: String) -> MimeResponse {
+    fn create_response(&mut self, val_read_str: String) -> Vec<u8> {
         let route_path = val_read_str
             .split_whitespace()
             .nth(1)
             .expect("Unable to split result");
 
-        let content = self.base_controller.serve_content(route_path);
+        //let content = self.base_controller.serve_content(route_path);
 
-        println!(
-            "-------------------------------Content-------------------------\n{}",
-            content
-        );
-        let content_type = self.base_controller.get_content_type_for_path(&route_path);
+        let bytes: Vec<u8> = std::fs::read("resources/assets/pikachu.png").unwrap();
+        match image::load_from_memory_with_format(&bytes, ImageFormat::Png) {
+            Ok(img) => {
+                println!("input in png");
+            }
+            Err(_) => {
+                println!("input is not png");
+            }
+        }
+        let content_type = ContentType::PNG;
+        //let content_type = self.base_controller.get_content_type_for_path(route_path);
 
         println!("CONTENT TYPE: {}", content_type.as_str());
-        let mime_response = MimeResponse {
+        let mut mime_response = MimeResponse {
             http_status_code: String::from("200 OK"),
             content_type,
-            content,
+            content_length: bytes.len(),
         };
-        mime_response
+
+        let mime_res_vec: Vec<u8> = mime_response.build_mime_response().as_ref().to_vec();
+        mime_res_vec.extend(bytes);
+        mime_res_vec
     }
 }
 
