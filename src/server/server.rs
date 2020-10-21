@@ -115,7 +115,10 @@ impl Server {
             content_length: bytes.len(),
         };
 
-        let mime_res_vec: Vec<u8> = mime_response.build_mime_response().as_ref().to_vec();
+        let builded_mime_response = mime_response.build_mime_response();
+
+        let mut mime_res_ref: &[u8] = builded_mime_response.as_ref();
+        let mut mime_res_vec =  mime_res_ref.to_vec();
         mime_res_vec.extend(bytes);
         mime_res_vec
     }
