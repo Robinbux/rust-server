@@ -9,6 +9,8 @@ use libc::INADDR_ANY;
 use nix::sys::socket::*;
 use nix::unistd::close;
 use std::os::unix::io::RawFd;
+use crate::enums::http_status_codes;
+use crate::enums::http_status_codes::HTTPStatusCodes;
 
 const PORT: u16 = 8087;
 
@@ -94,13 +96,16 @@ impl Server {
             .nth(1)
             .expect("Unable to split result");
 
-        let content = self.base_controller.serve_content(route_path);
-
+        let content_result = self.base_controller.serve_content(route_path);
         let content_type = self.base_controller.get_content_type_for_path(route_path);
 
+        let (content, http_status_code) = match content_result {
+            Ok(ok_content) => (ok_content, HTTPStatusCodes::Ok),
+            Err(err_content) => (err_content, HTTPStatusCodes::NotFound),
+        };
         println!("CONTENT TYPE: {}", content_type.as_str());
         let mut mime_response = MimeResponse {
-            http_status_code: String::from("200 OK"),
+            http_status_code,
             content_type,
             content_length: content.len(),
         };

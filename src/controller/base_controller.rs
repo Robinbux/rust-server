@@ -49,14 +49,14 @@ mod files {
 }
 
 impl Controller for BaseController {
-    fn serve_content(&self, path: &str) -> Vec<u8> {
+    fn serve_content(&self, path: &str) -> Result<Vec<u8>, Vec<u8>> {
         let route_beginning = BaseController::extract_parent_path(path);
         let child_path = BaseController::extract_child_path(path);
         return match route_beginning {
             "admin" => self.admin_controller.serve_content(&child_path),
             "assets" => self.assets_controller.serve_content(&child_path),
             "favicon.ico" => self.assets_controller.serve_content("/favicon.ico"),
-            _ => BaseController::serve_404_page(),
+            _ => Err(BaseController::serve_404_page()),
         };
     }
 
@@ -78,15 +78,36 @@ mod tests {
     #[cfg(test)]
     #[test]
     fn extract_child_path() {
-        let path = "admin/console/index";
+        let path = "/admin/console/index";
         let result = BaseController::extract_child_path(path);
-        assert_eq!("console/index", result)
+        assert_eq!("/console/index", result)
     }
 
     #[test]
     fn extract_child_path_empty() {
-        let path = "admin/";
+        let path = "/admin/";
         let result = BaseController::extract_child_path(path);
+        assert_eq!("/", result)
+    }
+
+    #[test]
+    fn extract_child_path_missing() {
+        let path = "/admin";
+        let result = BaseController::extract_child_path(path);
+        assert_eq!("", result)
+    }
+
+    #[test]
+    fn extract_parent_path() {
+        let path = "/admin/console/index";
+        let result = BaseController::extract_parent_path(path);
+        assert_eq!("admin", result)
+    }
+
+    #[test]
+    fn extract_parent_path_empty() {
+        let path = "/";
+        let result = BaseController::extract_parent_path(path);
         assert_eq!("", result)
     }
 }

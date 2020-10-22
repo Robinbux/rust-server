@@ -13,24 +13,6 @@ pub struct AdminController {
     logger: Logger,
 }
 
-impl Controller for AdminController {
-    fn serve_content(&self, path: &str) -> Vec<u8> {
-        let route_beginning = BaseController::extract_parent_path(&path);
-        return match route_beginning {
-            "console" => self.console(),
-            _ => BaseController::serve_404_page(),
-        };
-    }
-
-    fn get_content_type_for_path(&self, path: &str) -> ContentType {
-        let route_beginning = BaseController::extract_parent_path(&path);
-        return match route_beginning {
-            "console" => ContentType::HTML,
-            _ => ContentType::HTML,
-        };
-    }
-}
-
 mod files {
     pub const CONSOLE: &str = "console.html";
 }
@@ -42,12 +24,13 @@ impl AdminController {
     }
 
     fn console(&self) -> Vec<u8> {
-        Vec::from(AdminController::replace_template_values(
-            &file_handler::load_resource(files::CONSOLE).expect("Unable to load resource")[..],
-        ).as_bytes())
+        let data_vec = &file_handler::load_resource(files::CONSOLE).expect("Unable to load resource");
+        AdminController::replace_template_values(
+            &file_handler::convert_vec_to_string(data_vec)
+        )
     }
 
-    fn replace_template_values(html_str: &str) -> String {
+    fn replace_template_values(html_str: &str) -> Vec<u8> {
         let logs = fs::read_to_string("resources/logs/Log.txt")
             .expect("Something went wrong reading the file");
 
@@ -57,8 +40,29 @@ impl AdminController {
         tt.add_template("log_template", html_str)
             .expect("Unable to add template");
 
-        tt.render("log_template", &log)
-            .expect("Unable to render template.")
+        let template_render = tt.render("log_template", &log)
+            .unwrap();
+        let template_render: &[u8] = template_render.as_ref();
+        let template_render_vec = template_render.to_vec();
+        template_render_vec
+    }
+}
+
+impl Controller for AdminController {
+    fn serve_content(&self, path: &str) -> Result<Vec<u8>, Vec<u8>> {
+        let route_beginning = BaseController::extract_parent_path(&path);
+        return match route_beginning {
+            "console" => Ok(self.console()),
+            _ => Err(BaseController::serve_404_page()),
+        };
+    }
+
+    fn get_content_type_for_path(&self, path: &str) -> ContentType {
+        let route_beginning = BaseController::extract_parent_path(&path);
+        return match route_beginning {
+            "console" => ContentType::HTML,
+            _ => ContentType::HTML,
+        };
     }
 }
 

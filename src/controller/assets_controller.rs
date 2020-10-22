@@ -19,39 +19,21 @@ impl AssetsController {
     }
 
     pub fn pika(&self) -> Vec<u8> {
-        let bytes: Vec<u8> = std::fs::read("resources/assets/pikachu.png").unwrap();
-        match image::load_from_memory_with_format(&bytes, ImageFormat::Png) {
-            Ok(img) => {
-                println!("input in png");
-            }
-            Err(_) => {
-                println!("input is not png");
-            }
-        }
-        bytes
+        file_handler::load_resource("pikachu.png").expect("Unable to load resource")
     }
 
     pub fn serve_fav_icon() -> Vec<u8> {
-        let bytes: Vec<u8> = std::fs::read("resources/assets/favicon.ico").unwrap();
-        match image::load_from_memory_with_format(&bytes, ImageFormat::Ico) {
-            Ok(img) => {
-                println!("input in png");
-            }
-            Err(_) => {
-                println!("input is not png");
-            }
-        }
-        bytes
+        file_handler::load_resource("favicon.ico").expect("Unable to load resource")
     }
 }
 
 impl Controller for AssetsController {
-    fn serve_content(&self, path: &str) -> Vec<u8> {
+    fn serve_content(&self, path: &str) -> Result<Vec<u8>, Vec<u8>>{
         let route_beginning = BaseController::extract_parent_path(&path);
         return match route_beginning {
-            "pika" => self.pika(),
-            "favicon.ico" => AssetsController::serve_fav_icon(),
-            _ => BaseController::serve_404_page(),
+            "pika" => Ok(self.pika()),
+            "favicon.ico" => Ok(AssetsController::serve_fav_icon()),
+            _ => Err(BaseController::serve_404_page()),
         };
     }
 

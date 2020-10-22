@@ -1,4 +1,5 @@
 use crate::enums::content_type::ContentType;
+use crate::enums::http_status_codes::HTTPStatusCodes;
 
 mod mime_response_constants {
     pub(crate) const LINEBREAK: &str = "\r\n";
@@ -8,7 +9,7 @@ mod mime_response_constants {
 }
 #[derive(PartialEq, Debug)]
 pub struct MimeResponse {
-    pub http_status_code: String,
+    pub http_status_code: HTTPStatusCodes,
     pub content_type: ContentType,
     pub content_length: usize,
 }
@@ -24,7 +25,7 @@ impl MimeResponse {
         ",
             linebreak = mime_response_constants::LINEBREAK,
             http_status_code_constant = mime_response_constants::HTTP,
-            http_status_code = self.http_status_code,
+            http_status_code = self.http_status_code.as_str(),
             content_type_constant = mime_response_constants::CONTENT_TYPE,
             content_type = self.content_type.as_str(),
             content_length_constant = mime_response_constants::CONTENT_LENGTH,
@@ -38,33 +39,46 @@ mod test {
     use super::*;
 
     #[test]
-    fn build_mime_response_index_html() {
-        let html_string = String::from(
-            "\
-            <!DOCTYPE html>
-            <html lang=\"en\">
-            <head>
-                <meta charset=\"UTF-8\">
-                <title>Hellooooooooo</title>
-            </head>
-            <body>
-            <!DOCTYPE html>
-            <h1>Cool Heading!</h1>
-            <p>Awesome Paragraph!</p>
-            </body>
-            </html>",
-        );
+    fn build_mime_response_html() {
         let mut expected_mime_string = String::from(
             "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: 327\r\n\r\n",
         );
-        expected_mime_string.push_str(&html_string);
 
         let mime_response = MimeResponse {
-            http_status_code: String::from("200 OK"),
+            http_status_code: HTTPStatusCodes::Ok,
             content_type: ContentType::HTML,
-            content: html_string,
-        }
-        .build_mime_response();
+            content_length: 327,
+        }.build_mime_response();
+
+        assert_eq!(expected_mime_string, mime_response)
+    }
+
+    #[test]
+    fn build_mime_response_not_found() {
+        let mut expected_mime_string = String::from(
+            "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\nContent-Length: 327\r\n\r\n",
+        );
+
+        let mime_response = MimeResponse {
+            http_status_code: HTTPStatusCodes::NotFound,
+            content_type: ContentType::HTML,
+            content_length: 327,
+        }.build_mime_response();
+
+        assert_eq!(expected_mime_string, mime_response)
+    }
+
+    #[test]
+    fn build_mime_response_png() {
+        let mut expected_mime_string = String::from(
+            "HTTP/1.1 500 Internal Server Error\r\nContent-Type: image/png\r\nContent-Length: 327\r\n\r\n",
+        );
+
+        let mime_response = MimeResponse {
+            http_status_code: HTTPStatusCodes::InternalServerError,
+            content_type: ContentType::PNG,
+            content_length: 327,
+        }.build_mime_response();
 
         assert_eq!(expected_mime_string, mime_response)
     }
