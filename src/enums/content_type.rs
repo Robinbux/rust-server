@@ -28,6 +28,8 @@ impl ContentType {
         let content_type_str = path.split(".").last().expect("Unable to split path.");
         let result = ContentType::from_str(String::from(content_type_str));
 
+        result.unwrap_or_else(result.unwrap_or());
+
         let unwrapped = result.expect("Unable to convert given String to ContentType.");
         return unwrapped;
     }

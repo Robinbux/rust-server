@@ -10,6 +10,7 @@ pub struct BaseController {
     logger: Logger,
     admin_controller: AdminController,
     assets_controller: AssetsController,
+    
 }
 
 impl BaseController {
