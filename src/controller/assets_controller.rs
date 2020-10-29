@@ -3,9 +3,9 @@ use crate::controller::controller::Controller;
 use crate::enums::content_type::ContentType;
 use crate::utils::file_handler::file_handler;
 use crate::utils::logger::Logger;
+use image::ImageFormat;
 use serde::Serialize;
 use std::fs;
-use image::ImageFormat;
 
 pub struct AssetsController {
     #[allow(dead_code)]
@@ -28,8 +28,8 @@ impl AssetsController {
 }
 
 impl Controller for AssetsController {
-    fn serve_content(&self, path: &str) -> Result<Vec<u8>, Vec<u8>>{
-        let route_beginning = BaseController::extract_parent_path(&path);
+    fn execute_request(&self, request: Request) -> Result<Vec<u8>, Vec<u8>> {
+        let route_beginning = BaseController::extract_parent_path(request.resource_path);
         return match route_beginning {
             "pika" => Ok(self.pika()),
             "favicon.ico" => Ok(AssetsController::serve_fav_icon()),

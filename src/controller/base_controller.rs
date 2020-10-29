@@ -1,16 +1,17 @@
 use crate::controller::admin_controller::AdminController;
-use crate::controller::controller::Controller;
-use crate::utils::logger::Logger;
-use crate::enums::content_type::ContentType;
 use crate::controller::assets_controller::AssetsController;
+use crate::controller::controller::Controller;
+use crate::controller::user_controller::UserController;
+use crate::enums::content_type::ContentType;
 use crate::utils::file_handler::file_handler;
+use crate::utils::logger::Logger;
 
 pub struct BaseController {
     #[allow(dead_code)]
     logger: Logger,
     admin_controller: AdminController,
     assets_controller: AssetsController,
-    
+    user_controller: UserController,
 }
 
 impl BaseController {
@@ -18,15 +19,19 @@ impl BaseController {
         let logger = Logger::new(String::from("BaseController"));
         let admin_controller = AdminController::new();
         let assets_controller = AssetsController::new();
+        let user_controller = UserController::new();
         BaseController {
             logger: logger,
             admin_controller: admin_controller,
             assets_controller: assets_controller,
+            user_controller: user_controller,
         }
     }
 
     pub fn serve_404_page() -> Vec<u8> {
-        Vec::from(&file_handler::load_resource(files::ERROR_404).expect("Unable to load resource")[..])
+        Vec::from(
+            &file_handler::load_resource(files::ERROR_404).expect("Unable to load resource")[..],
+        )
     }
 
     pub fn extract_parent_path(path: &str) -> &str {
@@ -36,27 +41,26 @@ impl BaseController {
     pub fn extract_child_path(path: &str) -> String {
         let split: Vec<&str> = path.split("/").collect();
 
-        if split.len()< 3 {
-            return String::from("")
+        if split.len() < 3 {
+            return String::from("");
         }
         let child_path = split[2..].join("/");
 
         format!("/{}", child_path)
     }
 }
-
 mod files {
     pub const ERROR_404: &str = "404.html";
 }
-
 impl Controller for BaseController {
-    fn serve_content(&self, path: &str) -> Result<Vec<u8>, Vec<u8>> {
-        let route_beginning = BaseController::extract_parent_path(path);
-        let child_path = BaseController::extract_child_path(path);
+    fn execute_request(&self, request: Request) -> Result<Veexecute_request>> {
+        let route_beginning = BaseController::extract_parent_path(request.resource_path);
+        let child_path = BaseController::extract_child_path(request.resource_path);
         return match route_beginning {
-            "admin" => self.admin_controller.serve_content(&child_path),
-            "assets" => self.assets_controller.serve_content(&child_path),
-            "favicon.ico" => self.assets_controller.serve_content("/favicon.ico"),
+            "admin" => self.admin_controller.execute_request(&child_path),
+            "assets" => self.assets_controller.execute_request(&child_path),
+            "favicon.ico" => self.assets_controller.execute_request("/favicon.ico"),
+            "user" => self.user_controller.execute_request(),
             _ => Err(BaseController::serve_404_page()),
         };
     }
@@ -66,8 +70,12 @@ impl Controller for BaseController {
         let child_path = BaseController::extract_child_path(path);
         return match route_beginning {
             "admin" => self.admin_controller.get_content_type_for_path(&child_path),
-            "assets" => self.assets_controller.get_content_type_for_path(&child_path),
-            "favicon.ico" => self.assets_controller.get_content_type_for_path("/favicon.ico"),
+            "assets" => self
+                .assets_controller
+                .get_content_type_for_path(&child_path),
+            "favicon.ico" => self
+                .assets_controller
+                .get_content_type_for_path("/favicon.ico"),
             _ => ContentType::HTML,
         };
     }

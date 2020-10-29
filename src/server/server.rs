@@ -1,7 +1,10 @@
 use crate::controller::base_controller::BaseController;
 use crate::controller::controller::Controller;
 use crate::enums::content_type::ContentType;
+use crate::enums::http_status_codes;
+use crate::enums::http_status_codes::HTTPStatusCodes;
 use crate::server::mime_response::MimeResponse;
+use crate::server::request;
 use crate::utils::logger::Logger;
 use image::ImageFormat;
 use libc::in_addr;
@@ -9,8 +12,6 @@ use libc::INADDR_ANY;
 use nix::sys::socket::*;
 use nix::unistd::close;
 use std::os::unix::io::RawFd;
-use crate::enums::http_status_codes;
-use crate::enums::http_status_codes::HTTPStatusCodes;
 
 const PORT: u16 = 8087;
 
@@ -91,13 +92,12 @@ impl Server {
     }
 
     fn create_response(&mut self, val_read_str: String) -> Vec<u8> {
-        let route_path = val_read_str
-            .split_whitespace()
-            .nth(1)
-            .expect("Unable to split result");
+        let request = request::Request::new(&val_read_str);
 
-        let content_result = self.base_controller.serve_content(route_path);
-        let content_type = self.base_controller.get_content_type_for_path(route_path);
+        let content_result = self.base_controller.execute_request(request);
+        let content_type = self
+            .base_controller
+            .get_content_type_for_path(request.resource_path);
 
         let (content, http_status_code) = match content_result {
             Ok(ok_content) => (ok_content, HTTPStatusCodes::Ok),
@@ -113,7 +113,7 @@ impl Server {
         let builded_mime_response = mime_response.build_mime_response();
 
         let mut mime_res_ref: &[u8] = builded_mime_response.as_ref();
-        let mut mime_res_vec =  mime_res_ref.to_vec();
+        let mut mime_res_vec = mime_res_ref.to_vec();
         mime_res_vec.extend(content);
         mime_res_vec
     }

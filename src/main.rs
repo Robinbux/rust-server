@@ -1,7 +1,9 @@
 mod controller;
 mod enums;
 mod server;
+mod services;
 mod utils;
+mod dtos,
 
 use crate::server::server::Server;
 
