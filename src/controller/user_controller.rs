@@ -14,5 +14,10 @@ impl UserController {
         return crate::services
     }
 
-    pub fn delete_user()
+    pub fn delete_user() {
+    }
+
+    pub fn update_user() {
+
+    }
 }
