@@ -1,10 +1,9 @@
 mod controller;
+mod dtos;
 mod enums;
 mod server;
 mod services;
 mod utils;
-mod dtos,
-
 use crate::server::server::Server;
 
 fn main() {

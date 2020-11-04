@@ -1,20 +1,21 @@
 use crate::controller::base_controller;
 use crate::enums::content_type::ContentType;
 use crate::enums::http_methods::HttpMethod;
+use regex::Regex;
 
 pub struct Request {
-    http_method: HttpMethod,
-    resource_path: String,
-    payload: String,
+    pub(crate) http_method: HttpMethod,
+    pub(crate) resource_path: String,
+    pub(crate) payload: String,
     content_type: ContentType,
 }
 
 impl Request {
     pub fn new(request_string: &str) -> Request {
         let http_method = HttpMethod::get_http_method(request_string);
-        let resource_path = Request::extract_resource_path(request_string);
+        let resource_path = Request::extract_resource_path(request_string).into_string();
         let payload = Request::extract_payload(request_string);
-        let content_type = extract_content_type(request_string);
+        let content_type = Request::extract_content_type(request_string);
 
         Request {
             http_method,
