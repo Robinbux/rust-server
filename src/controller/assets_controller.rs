@@ -1,19 +1,27 @@
 use crate::controller::base_controller::BaseController;
 use crate::controller::controller::Controller;
 use crate::enums::content_type::ContentType;
+use crate::enums::http_status_codes::HTTPStatusCodes;
+use crate::server::request::Request;
+use crate::server::response::Response;
+use crate::services::error_service::ErrorService;
 use crate::utils::file_handler::file_handler;
 use crate::utils::logger::Logger;
-use crate::server::request::Request;
 
 pub struct AssetsController {
     #[allow(dead_code)]
     logger: Logger,
+    error_service: ErrorService,
 }
 
 impl AssetsController {
     pub fn new() -> AssetsController {
         let logger = Logger::new(String::from("AssetsController"));
-        AssetsController { logger: logger }
+        let error_service = ErrorService::new();
+        AssetsController {
+            logger,
+            error_service,
+        }
     }
 
     pub fn pika(&self) -> Vec<u8> {
@@ -26,18 +34,22 @@ impl AssetsController {
 }
 
 impl Controller for AssetsController {
-    fn execute_request(&self, request: Request) -> Result<Vec<u8>, Vec<u8>> {
-        let route_beginning = BaseController::extract_parent_path(request.resource_path);
-        return match route_beginning {
-            "pika" => Ok(self.pika()),
-            "favicon.ico" => Ok(AssetsController::serve_fav_icon()),
-            _ => Err(BaseController::serve_404_page()),
-        };
+    fn execute_request(&self, request: &mut Request) -> Response {
+        request.current_child_path = BaseController::extract_child_path(&request.resource_path);
+        let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
+        match route_beginning {
+            "pika" => Response::new(self.pika(), ContentType::PNG, HTTPStatusCodes::Ok),
+            "favicon.ico" => Response::new(
+                AssetsController::serve_fav_icon(),
+                ContentType::ICO,
+                HTTPStatusCodes::Ok,
+            ),
+            _ => self.error_service.serve_404_page(),
+        }
     }
 
     fn get_content_type_for_path(&self, path: &str) -> ContentType {
-        let route_beginning = BaseController::extract_parent_path(&path);
-        return match route_beginning {
+        return match path {
             "pika" => ContentType::PNG,
             "favicon.ico" => ContentType::ICO,
             _ => ContentType::HTML,

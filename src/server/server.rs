@@ -91,29 +91,21 @@ impl Server {
     }
 
     fn create_response(&mut self, val_read_str: String) -> Vec<u8> {
-        let request = request::Request::new(&val_read_str);
+        let mut request = request::Request::new(&val_read_str);
+        let response = self.base_controller.execute_request(&mut request);
 
-        let content_result = self.base_controller.execute_request(request);
-        let content_type = self
-            .base_controller
-            .get_content_type_for_path(request.resource_path);
-
-        let (content, http_status_code) = match content_result {
-            Ok(ok_content) => (ok_content, HTTPStatusCodes::Ok),
-            Err(err_content) => (err_content, HTTPStatusCodes::NotFound),
-        };
-        println!("CONTENT TYPE: {}", content_type.as_str());
+        println!("CONTENT TYPE: {}", response.content_type.as_str());
         let mut mime_response = MimeResponse {
-            http_status_code,
-            content_type,
-            content_length: content.len(),
+            http_status_code: response.http_status_code,
+            content_type: response.content_type,
+            content_length: response.content_bytes.len(),
         };
 
         let builded_mime_response = mime_response.build_mime_response();
 
         let mut mime_res_ref: &[u8] = builded_mime_response.as_ref();
         let mut mime_res_vec = mime_res_ref.to_vec();
-        mime_res_vec.extend(content);
+        mime_res_vec.extend(response.content_bytes);
         mime_res_vec
     }
 }

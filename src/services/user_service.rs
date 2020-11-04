@@ -1,6 +1,6 @@
-use postgres::{Client, NoTls, Error};
-use crate::utils::logger::Logger;
 use crate::dtos::user_dto;
+use crate::utils::logger::Logger;
+use postgres::{Client, Error, NoTls};
 
 pub struct UserService {
     logger: Logger,
@@ -8,7 +8,7 @@ pub struct UserService {
 }
 
 impl UserService {
-    pub fn new() -> UserService {
+    /* pub fn new() -> UserService {
         let logger = Logger::new(String::from("UserService"));
         let mut client = Client::connect("host=localhost user=postgres", NoTls)?;
 
@@ -39,5 +39,5 @@ impl UserService {
             "DELETE * FROM user u WHERE u.id = $1",
             &[&user_id],
         )?;
-    }
+    } */
 }
