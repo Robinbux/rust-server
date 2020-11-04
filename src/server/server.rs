@@ -6,7 +6,6 @@ use crate::enums::http_status_codes::HTTPStatusCodes;
 use crate::server::mime_response::MimeResponse;
 use crate::server::request;
 use crate::utils::logger::Logger;
-use image::ImageFormat;
 use libc::in_addr;
 use libc::INADDR_ANY;
 use nix::sys::socket::*;

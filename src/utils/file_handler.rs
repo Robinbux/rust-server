@@ -1,14 +1,9 @@
-use image::ImageFormat;
-
 const ERROR_FILE_PATH: &str = "resources/html/404.html";
 
 pub mod file_handler {
     use crate::enums::content_type::ContentType;
-    use std::fs;
-    use std::io::Read;
     use std::path::Path;
     use image::ImageFormat;
-    use tokio::io::AsyncReadExt;
     use std::str;
     use std::fs::read_to_string;
 

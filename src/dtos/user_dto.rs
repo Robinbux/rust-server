@@ -1,10 +1,10 @@
 pub struct CreateUserDTO {
-    username: String,
-    password: String,
+    pub(crate) username: String,
+    pub(crate) password: String,
 }
 
 pub struct UpdateUserDTO {
-    username: String,
+    pub(crate) username: String,
 }
 
 pub struct UserDTO {

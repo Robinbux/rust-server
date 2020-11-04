@@ -5,6 +5,7 @@ use crate::controller::user_controller::UserController;
 use crate::enums::content_type::ContentType;
 use crate::utils::file_handler::file_handler;
 use crate::utils::logger::Logger;
+use crate::server::request::Request;
 
 pub struct BaseController {
     #[allow(dead_code)]
@@ -53,7 +54,7 @@ mod files {
     pub const ERROR_404: &str = "404.html";
 }
 impl Controller for BaseController {
-    fn execute_request(&self, request: Request) -> Result<Veexecute_request>> {
+    fn execute_request(&self, request: Request) -> Result<Vec<u8>, Vec<u8>> {
         let route_beginning = BaseController::extract_parent_path(request.resource_path);
         let child_path = BaseController::extract_child_path(request.resource_path);
         return match route_beginning {

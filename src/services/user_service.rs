@@ -1,4 +1,6 @@
-use postgres::{Client, NoTls};
+use postgres::{Client, NoTls, Error};
+use crate::utils::logger::Logger;
+use crate::dtos::user_dto;
 
 pub struct UserService {
     logger: Logger,
@@ -11,34 +13,31 @@ impl UserService {
         let mut client = Client::connect("host=localhost user=postgres", NoTls)?;
 
         UserService {
-            logger: logger,
-            conn: conn,
+            logger,
+            client
         }
     }
 
-    pub fn create_user(&self, create_user_dto: CreateUserDTO) -> Result<User, Error> {
+    pub fn create_user(&mut self, create_user_dto: user_dto::CreateUserDTO) -> Result<u64, Error> {
         self.client.execute(
             "INSERT INTO users (username, password) VALUES ($1, $2)",
-            &[&create_user_dto.username, &author.password],
+            &[&create_user_dto.username, &create_user_dto.password],
         )?;
-        Ok()
     }
 
-    pub fn update_user(&self, update_user_dto: UpdateUserDTO, user_id: u32) -> Result<User, Error> {
+    pub fn update_user(&mut self, update_user_dto: user_dto::UpdateUserDTO, user_id: u32) -> Result<u64, Error> {
         self.client.execute(
             "UPDATE users u
                 SET u.username = $1
              WHERE u.id = $2",
-            &[&update_user_dto.username, $user_id],
+            &[&update_user_dto.username, user_id],
         )?;
-        Ok()
     }
 
-    pub fn delete_user(&self, user_id: u32) -> Result<(), Error> {
+    pub fn delete_user(&mut self, user_id: u32) -> Result<u64, Error> {
         self.client.execute(
             "DELETE * FROM user u WHERE u.id = $1",
             &[&user_id],
         )?;
-        Ok()
     }
 }

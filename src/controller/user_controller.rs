@@ -6,7 +6,6 @@ use crate::enums::http_methods::HttpMethod;
 use crate::server::request::Request;
 use crate::services::user_service::UserService;
 use crate::utils::logger::Logger;
-use serde::{Deserialize, Serialize};
 use serde_json::Result;
 
 pub struct UserController {
@@ -19,8 +18,8 @@ impl UserController {
         let logger = Logger::new(String::from("UserController"));
         let user_service = UserService::new();
         UserController {
-            logger: logger,
-            user_service: UserService,
+            logger,
+            user_service
         }
     }
 
@@ -38,12 +37,11 @@ impl UserController {
         self.user_service.updateUser(dto);
     }
 
-    pub fn delete_user(&self, user_id: u32) -> Result<Vec<u8>, Vec<u8>> {
-        let dto: CreateUserDTO = serde_json::from_str(data)?;
+    pub fn delete_user(&mut self, user_id: u32) -> Result<Vec<u8>, Vec<u8>> {
         self.user_service.delete_user(user_id);
     }
 
-    pub fn extract_user_id(path: String) -> String {
+    pub fn extract_user_id(path: String) -> u32 {
         path.split("/").last()
     }
 }

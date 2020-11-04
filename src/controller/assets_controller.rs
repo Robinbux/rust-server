@@ -3,9 +3,7 @@ use crate::controller::controller::Controller;
 use crate::enums::content_type::ContentType;
 use crate::utils::file_handler::file_handler;
 use crate::utils::logger::Logger;
-use image::ImageFormat;
-use serde::Serialize;
-use std::fs;
+use crate::server::request::Request;
 
 pub struct AssetsController {
     #[allow(dead_code)]
