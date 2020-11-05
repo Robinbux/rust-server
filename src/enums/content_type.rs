@@ -3,6 +3,7 @@ pub enum ContentType {
     HTML,
     ICO,
     PNG,
+    JSON,
 }
 
 impl ContentType {
@@ -11,6 +12,7 @@ impl ContentType {
             ContentType::HTML => "text/html",
             ContentType::ICO => "image/x-icon",
             ContentType::PNG => "image/png",
+            ContentType::JSON => "application/json",
         }
     }
 
@@ -19,7 +21,8 @@ impl ContentType {
             "html" => Ok(ContentType::HTML),
             "ico" => Ok(ContentType::ICO),
             "png" => Ok(ContentType::PNG),
-            _ => Err(()), // TODO: Error handling!
+            "application/json" => Ok(ContentType::JSON), // TODO: Check if correct
+            _ => Err(()),                                // TODO: Error handling!
         };
         return result;
     }
@@ -27,8 +30,6 @@ impl ContentType {
     pub fn get_content_type_from_file_path(path: &str) -> ContentType {
         let content_type_str = path.split(".").last().expect("Unable to split path.");
         let result = ContentType::from_str(String::from(content_type_str));
-
-        result.unwrap_or_else(result.unwrap_or());
 
         let unwrapped = result.expect("Unable to convert given String to ContentType.");
         return unwrapped;

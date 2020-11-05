@@ -14,7 +14,7 @@ pub struct UserController {
 }
 
 impl UserController {
-    pub fn new() -> UserController {
+    /* pub fn new() -> UserController {
         let logger = Logger::new(String::from("UserController"));
         let user_service = UserService::new();
         UserController {
@@ -43,10 +43,10 @@ impl UserController {
 
     pub fn extract_user_id(path: String) -> u32 {
         path.split("/").last()
-    }
+    } */
 }
 
-impl Controller for UserController {
+/* impl Controller for UserController {
     fn execute_request(&self, request: Request) -> Result<Vec<u8>, Vec<u8>> {
         return match request.http_method {
             HttpMethod::POST => self.create_user(request.payload),
@@ -69,3 +69,4 @@ impl Controller for UserController {
         };
     }
 }
+ */

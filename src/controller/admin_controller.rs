@@ -1,9 +1,10 @@
 use crate::controller::base_controller::BaseController;
 use crate::controller::controller::Controller;
 use crate::enums::content_type::ContentType;
+use crate::server::request::Request;
+use crate::server::response::Response;
 use crate::utils::file_handler::file_handler;
 use crate::utils::logger::Logger;
-use crate::server::request::Request;
 use serde::Serialize;
 use std::fs;
 use tinytemplate;
@@ -48,8 +49,9 @@ impl AdminController {
 }
 
 impl Controller for AdminController {
-    fn execute_request(&self, request: Request) -> Result<Vec<u8>, Vec<u8>> {
-        let route_beginning = BaseController::extract_parent_path(&request.resource_path);
+    fn execute_request(&self, request: &mut Request) -> Response {
+        request.current_child_path = BaseController::extract_child_path(&request.resource_path);
+        let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
         return match route_beginning {
             "console" => Ok(self.console()),
             _ => Err(BaseController::serve_404_page()),
