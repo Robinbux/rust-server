@@ -47,12 +47,4 @@ impl Controller for AssetsController {
             _ => self.error_service.serve_404_page(),
         }
     }
-
-    fn get_content_type_for_path(&self, path: &str) -> ContentType {
-        return match path {
-            "pika" => ContentType::PNG,
-            "favicon.ico" => ContentType::ICO,
-            _ => ContentType::HTML,
-        };
-    }
 }

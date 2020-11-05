@@ -1,4 +1,3 @@
-use crate::controller::base_controller;
 use crate::enums::content_type::ContentType;
 use crate::enums::http_methods::HttpMethod;
 use regex::Regex;

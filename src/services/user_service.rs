@@ -1,6 +1,6 @@
-use crate::dtos::user_dto;
+//use crate::dtos::user_dto;
 use crate::utils::logger::Logger;
-use postgres::{Client, Error, NoTls};
+use postgres::{Client};
 
 pub struct UserService {
     logger: Logger,

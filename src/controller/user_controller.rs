@@ -1,18 +1,12 @@
-use crate::controller::base_controller::BaseController;
-use crate::controller::controller::Controller;
-use crate::dtos::user_dto::{CreateUserDTO, UpdateUserDTO};
-use crate::enums::content_type::ContentType;
-use crate::enums::http_methods::HttpMethod;
-use crate::server::request::Request;
+#[allow(dead_code)]
 use crate::services::user_service::UserService;
 use crate::utils::logger::Logger;
-use serde_json::Result;
-
+#[allow(dead_code)]
 pub struct UserController {
     logger: Logger,
     user_service: UserService,
 }
-
+#[allow(dead_code)]
 impl UserController {
     /* pub fn new() -> UserController {
         let logger = Logger::new(String::from("UserController"));

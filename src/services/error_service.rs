@@ -3,6 +3,8 @@ use crate::enums::http_status_codes::HTTPStatusCodes;
 use crate::server::response::Response;
 use crate::utils::file_handler::file_handler;
 use crate::utils::logger::Logger;
+use serde_json;
+use serde::{Deserialize, Serialize};
 
 mod files {
     pub const ERROR_404: &str = "404.html";
@@ -11,6 +13,11 @@ mod files {
 pub struct ErrorService {
     #[allow(dead_code)]
     logger: Logger,
+}
+
+#[derive(Serialize, Deserialize)]
+struct ErrorMessage {
+    message: String
 }
 
 impl ErrorService {
@@ -24,5 +31,19 @@ impl ErrorService {
             &file_handler::load_resource(files::ERROR_404).expect("Unable to load resource")[..],
         );
         Response::new(content_bytes, ContentType::HTML, HTTPStatusCodes::NotFound)
+    }
+
+    pub fn serve_400_response(&self, error_message: String) -> Response {
+        let json_message = ErrorMessage{message: error_message};
+        let content_bytes: &[u8] = serde_json::to_string(&json_message).unwrap().as_ref();
+        let content_bytes = content_bytes.to_vec();
+        Response::new(content_bytes, ContentType::JSON, HTTPStatusCodes::BadRequest)
+    }
+
+    pub fn serve_500_response(&self, error_message: String) -> Response {
+        let json_message = ErrorMessage{message: error_message};
+        let content_bytes: &[u8] = serde_json::to_string(&json_message).unwrap().as_ref();
+        let content_bytes = content_bytes.to_vec();
+        Response::new(content_bytes, ContentType::JSON, HTTPStatusCodes::InternalServerError)
     }
 }

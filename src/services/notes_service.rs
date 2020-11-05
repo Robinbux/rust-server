@@ -1,5 +1,6 @@
-use crate::dtos::note_dto;
 use postgres::{Client, Error, NoTls};
+use crate::utils::logger::Logger;
+use crate::dtos::note_dto::{NoteDTO, CreateNoteDTO, UpdateNoteDTO};
 
 pub struct NotesService {
     logger: Logger,
@@ -9,7 +10,7 @@ pub struct NotesService {
 impl NotesService {
     pub fn new() -> NotesService {
         let logger = Logger::new(String::from("NotesService"));
-        let mut client = Client::connect("host=localhost user=postgres", NoTls)?;
+        let client = Client::connect("host=localhost user=postgres", NoTls).unwrap();
 
         NotesService { logger, client }
     }
@@ -19,7 +20,7 @@ impl NotesService {
             "INSERT INTO notes (note_message) VALUES ($1)",
             &[&create_note_dto.note_message],
         )?;
-        OK(NoteDTO {
+        Ok(NoteDTO {
             id: row.get(0),
             note_message: row.get(1),
         })
@@ -34,9 +35,9 @@ impl NotesService {
             "UPDATE notes n
                 SET n.note_message = $1
              WHERE n.id = $2",
-            &[&update_note_dto.note_message, note_id],
+            &[&update_note_dto.note_message, &note_id],
         )?;
-        OK(NoteDTO {
+        Ok(NoteDTO {
             id: row.get(0),
             note_message: row.get(1),
         })
@@ -60,6 +61,6 @@ impl NotesService {
     pub fn delete_note(&mut self, note_id: u32) -> Result<(), Error> {
         self.client
             .execute("DELETE * FROM notes n WHERE n.id = $1", &[&note_id])?;
-        Ok()
+        Ok(())
     }
 }

@@ -1,8 +1,5 @@
 use crate::controller::base_controller::BaseController;
 use crate::controller::controller::Controller;
-use crate::enums::content_type::ContentType;
-use crate::enums::http_status_codes;
-use crate::enums::http_status_codes::HTTPStatusCodes;
 use crate::server::mime_response::MimeResponse;
 use crate::server::request;
 use crate::utils::logger::Logger;
@@ -84,7 +81,7 @@ impl Server {
     }
 
     fn send_response_to_socket(&mut self, new_socket: RawFd, val_read_str: String) {
-        let mut mime_response = self.create_response(val_read_str);
+        let mime_response = self.create_response(val_read_str);
 
         send(new_socket, &mime_response.as_ref(), MsgFlags::empty()).expect("Sending Failed");
         println!("------------------Response sent-------------------\n");
@@ -101,9 +98,9 @@ impl Server {
             content_length: response.content_bytes.len(),
         };
 
-        let builded_mime_response = mime_response.build_mime_response();
+        let built_mime_response = mime_response.build_mime_response();
 
-        let mut mime_res_ref: &[u8] = builded_mime_response.as_ref();
+        let mime_res_ref: &[u8] = built_mime_response.as_ref();
         let mut mime_res_vec = mime_res_ref.to_vec();
         mime_res_vec.extend(response.content_bytes);
         mime_res_vec

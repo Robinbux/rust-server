@@ -13,6 +13,7 @@ pub mod file_handler {
             ContentType::HTML => Ok(load_html(format!("resources/html/{}", &file_name))),
             ContentType::ICO => Ok(load_ico(format!("resources/assets/{}", &file_name))),
             ContentType::PNG => Ok(load_png(format!("resources/assets/{}", &file_name))),
+            _ => panic!("Unsupported content type!")
         }
     }
 
@@ -45,7 +46,7 @@ pub mod file_handler {
             }
         }
         bytes
-        }
+    }
 
     fn load_png(png_file_path: String) -> Vec<u8> {
         let valid_resource_path = check_resource_path(&png_file_path);

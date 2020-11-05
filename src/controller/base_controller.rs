@@ -1,12 +1,10 @@
 use crate::controller::admin_controller::AdminController;
 use crate::controller::assets_controller::AssetsController;
 use crate::controller::controller::Controller;
-use crate::controller::user_controller::UserController;
-use crate::enums::content_type::ContentType;
+use crate::controller::notes_controller::NotesController;
 use crate::server::request::Request;
 use crate::server::response::Response;
 use crate::services::error_service::ErrorService;
-use crate::utils::file_handler::file_handler;
 use crate::utils::logger::Logger;
 
 pub struct BaseController {
@@ -15,6 +13,7 @@ pub struct BaseController {
     admin_controller: AdminController,
     assets_controller: AssetsController,
     error_service: ErrorService, //user_controller: UserController,
+    notes_controller: NotesController,
 }
 
 impl BaseController {
@@ -23,12 +22,14 @@ impl BaseController {
         let admin_controller = AdminController::new();
         let assets_controller = AssetsController::new();
         let error_service = ErrorService::new();
+        let notes_controller = NotesController::new();
         //let user_controller = UserController::new();
         BaseController {
             logger: logger,
             admin_controller,
             assets_controller,
             error_service,
+            notes_controller
             //user_controller: user_controller,
         }
     }
@@ -56,30 +57,17 @@ impl Controller for BaseController {
             "admin" => self.admin_controller.execute_request(request),
             "assets" => self.assets_controller.execute_request(request),
             "favicon.ico" => self.assets_controller.execute_request(request),
+            "notes" => self.notes_controller.execute_request(request),
             //"user" => self.user_controller.execute_request(),
-            _ => ErrorService::serve_404_page(),
-        };
-    }
-
-    fn get_content_type_for_path(&self, path: &str) -> ContentType {
-        let route_beginning = BaseController::extract_parent_path(path);
-        let child_path = BaseController::extract_child_path(path);
-        return match route_beginning {
-            "admin" => self.admin_controller.get_content_type_for_path(&child_path),
-            "assets" => self
-                .assets_controller
-                .get_content_type_for_path(&child_path),
-            "favicon.ico" => self
-                .assets_controller
-                .get_content_type_for_path("/favicon.ico"),
-            _ => ContentType::HTML,
+            _ => self.error_service.serve_404_page(),
         };
     }
 }
 
+#[allow(dead_code)]
 mod tests {
-    use super::BaseController;
-    use super::*;
+    #[allow(dead_code)]
+    #[allow(dead_code)]
     #[cfg(test)]
     #[test]
     fn extract_child_path() {
