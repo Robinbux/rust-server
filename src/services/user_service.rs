@@ -3,7 +3,9 @@ use crate::utils::logger::Logger;
 use postgres::{Client};
 
 pub struct UserService {
+    #[allow(dead_code)]
     logger: Logger,
+    #[allow(dead_code)]
     client: Client,
 }
 

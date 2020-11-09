@@ -6,6 +6,7 @@ pub struct Request {
     pub(crate) http_method: HttpMethod,
     pub(crate) resource_path: String,
     pub(crate) payload: String,
+    #[allow(dead_code)]
     pub(crate) content_type: ContentType,
     pub(crate) current_child_path: String,
 }

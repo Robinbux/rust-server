@@ -3,6 +3,7 @@ use crate::utils::logger::Logger;
 use crate::dtos::note_dto::{NoteDTO, CreateNoteDTO, UpdateNoteDTO};
 
 pub struct NotesService {
+    #[allow(dead_code)]
     logger: Logger,
     client: Client,
 }

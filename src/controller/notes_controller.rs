@@ -12,6 +12,7 @@ use crate::enums::http_methods::HttpMethod;
 use crate::controller::base_controller::BaseController;
 
 pub struct NotesController {
+    #[allow(dead_code)]
     logger: Logger,
     error_service: ErrorService,
     notes_service: NotesService,
