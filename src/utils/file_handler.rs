@@ -38,7 +38,7 @@ pub mod file_handler {
         let valid_resource_path = check_resource_path(&ico_file_path);
         let bytes: Vec<u8> = std::fs::read(valid_resource_path).unwrap();
         match image::load_from_memory_with_format(&bytes, ImageFormat::Ico) {
-            Ok(img) => {
+            Ok(_img) => {
                 println!("input in ico");
             }
             Err(_) => {
@@ -52,7 +52,7 @@ pub mod file_handler {
         let valid_resource_path = check_resource_path(&png_file_path);
         let bytes: Vec<u8> = std::fs::read(valid_resource_path).unwrap();
         match image::load_from_memory_with_format(&bytes, ImageFormat::Png) {
-            Ok(img) => {
+            Ok(_img) => {
                 println!("input in png");
             }
             Err(_) => {

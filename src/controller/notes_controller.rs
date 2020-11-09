@@ -32,7 +32,7 @@ impl NotesController {
 
     // POST
     // PATH: /
-    pub fn create_note(&mut self, request: &mut Request) -> Response {
+    pub fn create_note(&mut self, request: &Request) -> Response {
         let create_note_dto = match serde_json::from_str::<CreateNoteDTO>(&request.payload) {
             Ok(dto) => dto,
             Err(_) => {
@@ -45,7 +45,7 @@ impl NotesController {
             return self.error_service.serve_500_response("Unable to create note!".to_string());
         }
         let result_str = serde_json::to_string(&result.unwrap()).unwrap(); // TODO: Change!
-        let mut result_ref: &[u8] = result_str.as_ref();
+        let result_ref: &[u8] = result_str.as_ref();
         Response::new(
             result_ref.to_vec(),
             ContentType::JSON,
@@ -55,7 +55,7 @@ impl NotesController {
 
     // PUT
     // PATH: /$NOTE_ID
-    pub fn update_note(&mut self, request: &mut Request) -> Response {
+    pub fn update_note(&mut self, request: &Request) -> Response {
         let update_note_dto = match serde_json::from_str::<UpdateNoteDTO>(&request.payload) {
             Ok(dto) => dto,
             Err(_) => {
@@ -63,7 +63,7 @@ impl NotesController {
             }
         };
 
-        let note_id = NotesController::get_note_id_from_request(request);
+        let note_id = NotesController::get_note_id_from_request(&request);
         if note_id.is_err() {
             return self.error_service.serve_400_response("Unable to parse provided id!".to_string());
         }
@@ -73,7 +73,7 @@ impl NotesController {
             return self.error_service.serve_500_response("Unable to update note!".to_string());
         }
         let result_str = serde_json::to_string(&result.unwrap()).unwrap();
-        let mut result_ref: &[u8] = result_str.as_ref();
+        let result_ref: &[u8] = result_str.as_ref();
         Response::new(
             result_ref.to_vec(),
             ContentType::JSON,
@@ -89,7 +89,7 @@ impl NotesController {
             return self.error_service.serve_500_response("Unable to retrieve notes!".to_string());
         }
         let result_str = serde_json::to_string(&result.unwrap()).unwrap();
-        let mut result_ref: &[u8] = result_str.as_ref();
+        let result_ref: &[u8] = result_str.as_ref();
         Response::new(
             result_ref.to_vec(),
             ContentType::JSON,
@@ -99,7 +99,7 @@ impl NotesController {
 
     // DELETE
     // PATH: /$NOTE_ID
-    pub fn delete_note(&mut self, request: &mut Request) -> Response {
+    pub fn delete_note(&mut self, request: &Request) -> Response {
         let note_id = NotesController::get_note_id_from_request(request);
         if note_id.is_err() {
             return self.error_service.serve_400_response("Unable to parse provided id!".to_string());
@@ -109,7 +109,8 @@ impl NotesController {
         if result.is_err() {
             return self.error_service.serve_500_response("Unable to delete note!".to_string());
         }
-        let mut result_ref: &[u8] = String::from("{\"temp\":\"Change\"}").as_ref();
+        let json_response = String::from("{\"temp\":\"Change\"}");
+        let result_ref: &[u8] = json_response.as_ref();
         Response::new(
             result_ref.to_vec(), // TODO: See how to handle no response
             ContentType::JSON,
@@ -129,14 +130,14 @@ impl NotesController {
         Ok(id_result.unwrap())
     }
 
-    fn error_or_note_id_request(&self, request: &mut Request) -> Response {
+    fn error_or_note_id_request(&mut self, request: &Request) -> Response {
         let note_id_result = NotesController::get_note_id_from_request(&request);
         return match note_id_result {
             Ok(_id) => {
                     if request.http_method == HttpMethod::UPDATE{
-                        self.update_note(&mut request)
+                        self.update_note(&request)
                     } else {
-                        self.delete_note(&mut request)
+                        self.delete_note(&request)
                     }
                 },
             Err(_) => self.error_service.serve_404_page()
@@ -145,7 +146,7 @@ impl NotesController {
 }
 
 impl Controller for NotesController {
-    fn execute_request(&self, mut request: &mut Request) -> Response {
+    fn execute_request(&mut self, mut request: &mut Request) -> Response {
         request.current_child_path = BaseController::extract_child_path(&request.resource_path);
         let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
         return match route_beginning {

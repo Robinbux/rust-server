@@ -51,7 +51,7 @@ impl BaseController {
 }
 
 impl Controller for BaseController {
-    fn execute_request(&self, request: &mut Request) -> Response {
+    fn execute_request(&mut self, request: &mut Request) -> Response {
         let route_beginning = BaseController::extract_parent_path(&request.resource_path);
         return match route_beginning {
             "admin" => self.admin_controller.execute_request(request),
@@ -66,8 +66,7 @@ impl Controller for BaseController {
 
 #[allow(dead_code)]
 mod tests {
-    #[allow(dead_code)]
-    #[allow(dead_code)]
+
     #[cfg(test)]
     #[test]
     fn extract_child_path() {
