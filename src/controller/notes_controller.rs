@@ -57,7 +57,7 @@ impl NotesController {
     // PUT
     // PATH: /$NOTE_ID
     pub fn update_note(&mut self, request: &Request) -> Response {
-        let update_note_dto = match serde_json::from_str::<UpdateNoteDTO>(&request.payload) {
+        /*let update_note_dto = match serde_json::from_str::<UpdateNoteDTO>(&request.payload) {
             Ok(dto) => dto,
             Err(_) => {
                 return self.error_service.serve_400_response("Incorrect Payload Structure!".to_string());
@@ -72,8 +72,9 @@ impl NotesController {
         let result = self.notes_service.update_note(update_note_dto, note_id.unwrap());
         if result.is_err() {
             return self.error_service.serve_500_response("Unable to update note!".to_string());
-        }
-        let result_str = serde_json::to_string(&result.unwrap()).unwrap();
+        }*/
+        //let result_str = serde_json::to_string(&result.unwrap()).unwrap();
+        let result_str = "Nothing";
         let result_ref: &[u8] = result_str.as_ref();
         Response::new(
             result_ref.to_vec(),

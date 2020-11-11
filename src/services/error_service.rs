@@ -33,7 +33,8 @@ impl ErrorService {
         Response::new(content_bytes, ContentType::HTML, HTTPStatusCodes::NotFound)
     }
 
-    pub fn serve_400_response(&self, error_message: String) -> Response {
+    pub fn serve_400_response(&mut self, error_message: String) -> Response {
+        self.logger.log(&error_message);
         let json_message = ErrorMessage{message: error_message};
         let json_str = serde_json::to_string(&json_message).unwrap();
         let content_bytes: &[u8] = json_str.as_ref();
@@ -41,7 +42,8 @@ impl ErrorService {
         Response::new(content_bytes, ContentType::JSON, HTTPStatusCodes::BadRequest)
     }
 
-    pub fn serve_500_response(&self, error_message: String) -> Response {
+    pub fn serve_500_response(&mut self, error_message: String) -> Response {
+        self.logger.log(&error_message);
         let json_message = ErrorMessage{message: error_message};
         let json_str = serde_json::to_string(&json_message).unwrap();
         let content_bytes: &[u8] = json_str.as_ref();

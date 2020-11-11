@@ -1,17 +1,18 @@
 pub mod db_handler {
-    use postgres::{Client, NoTls};
+    extern crate diesel;
+    extern crate dotenv;
 
-    pub fn setup_database() {
-        let client = Client::connect("host=localhost user=postgres", NoTls);
-        let result = client.unwrap().simple_query(r#"
-        CREATE TABLE IF NOT EXISTS notes (
-            id              int   PRIMARY KEY,
-            note_message    text
-        );
-        "#);
+    use diesel::prelude::*;
+    use diesel::pg::PgConnection;
+    use dotenv::dotenv;
+    use std::env;
 
-        if result.is_err() {
-            println!("Error establishing connection to DB");
-        }
+    pub fn establish_connection() -> PgConnection {
+        dotenv().ok();
+    
+        let database_url = env::var("DATABASE_URL")
+            .expect("DATABASE_URL must be set");
+        PgConnection::establish(&database_url)
+            .expect("Error connecting to DB")
     }
 }

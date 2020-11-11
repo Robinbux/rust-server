@@ -3,6 +3,7 @@ use crate::controller::controller::Controller;
 use crate::server::mime_response::MimeResponse;
 use crate::server::request;
 use crate::utils::logger::Logger;
+use crate::services::error_service::ErrorService;
 use libc::in_addr;
 use libc::INADDR_ANY;
 use nix::sys::socket::*;
@@ -15,40 +16,48 @@ pub struct Server {
     server_fd: RawFd,
     logger: Logger,
     base_controller: BaseController,
+    error_service: ErrorService,
 }
 
 impl Server {
     pub fn new() -> Server {
-        let server_fd = Server::setup();
+        let mut error_service = ErrorService::new();
+        let server_fd = Server::setup(&mut error_service);
         let logger = Logger::new(String::from("Server"));
         let base_controller = BaseController::new();
         Server {
             server_fd,
             logger,
             base_controller,
+            error_service,
         }
     }
 
     pub fn listen(&mut self, backlog: usize) {
+        if listen(self.server_fd, backlog).is_err() {
+            self.error_service.serve_500_response("Listening failed".to_string());
+        };
         self.logger.log("Server started listening.");
-        listen(self.server_fd, backlog).expect("Listening Failed");
-
         loop {
             let (connection_socket, val_read_string) = self.read_incoming_connection();
             self.send_response_to_socket(connection_socket, val_read_string);
-            close(connection_socket).expect("Closing Failed");
+            if close(connection_socket).is_err(){
+                self.logger.log("Closing of Socket RawFD failed.");
+            }
         }
     }
 
-    fn setup() -> RawFd {
+    fn setup(error_service: &mut ErrorService) -> RawFd {
         let server_fd = socket(
             AddressFamily::Inet,
             SockType::Stream,
             SockFlag::empty(),
             None,
-        )
-        .expect("Unable to create socket.");
-
+        );
+        if server_fd.is_err() {
+            error_service.serve_500_response("Unable to create socket".to_string());
+        }
+        let server_fd = server_fd.unwrap();
         let in_address = in_addr { s_addr: INADDR_ANY };
 
         let sockaddr_in = nix::sys::socket::sockaddr_in {
@@ -59,14 +68,20 @@ impl Server {
             sin_zero: [0; 8],
         };
 
-        bind(server_fd, &SockAddr::Inet(InetAddr::V4(sockaddr_in))).expect("Binding Failed");
+        if bind(server_fd, &SockAddr::Inet(InetAddr::V4(sockaddr_in))).is_err() {
+            error_service.serve_500_response("Binding failed".to_string());
+        }
         server_fd
     }
 
     fn read_incoming_connection(&mut self) -> (RawFd, String) {
         println!("\n+++++++ Waiting for new connection ++++++++\n\n");
 
-        let new_socket = accept(self.server_fd).expect("Accepting Failed");
+        let new_socket = accept(self.server_fd);
+        if new_socket.is_err() {
+            self.error_service.serve_500_response("Accepting failed".to_string());
+        };
+        let new_socket = new_socket.unwrap();
         let mut buffer = vec![0; 30000];
         let val_read_str: String;
 
@@ -83,7 +98,10 @@ impl Server {
     fn send_response_to_socket(&mut self, new_socket: RawFd, val_read_str: String) {
         let mime_response = self.create_response(val_read_str);
 
-        send(new_socket, &mime_response.as_ref(), MsgFlags::empty()).expect("Sending Failed");
+        if send(new_socket, &mime_response.as_ref(), MsgFlags::empty()).is_err(){
+            self.error_service.serve_500_response("Sending failed".to_string());
+        };
+        self.logger.log("Response sent");
         println!("------------------Response sent-------------------\n");
     }
 
@@ -91,7 +109,6 @@ impl Server {
         let mut request = request::Request::new(&val_read_str);
         let response = self.base_controller.execute_request(&mut request);
 
-        println!("CONTENT TYPE: {}", response.content_type.as_str());
         let mut mime_response = MimeResponse {
             http_status_code: response.http_status_code,
             content_type: response.content_type,
