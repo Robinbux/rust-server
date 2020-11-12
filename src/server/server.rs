@@ -2,8 +2,8 @@ use crate::controller::base_controller::BaseController;
 use crate::controller::controller::Controller;
 use crate::server::mime_response::MimeResponse;
 use crate::server::request;
-use crate::utils::logger::Logger;
 use crate::services::error_service::ErrorService;
+use crate::utils::logger::Logger;
 use libc::in_addr;
 use libc::INADDR_ANY;
 use nix::sys::socket::*;
@@ -35,13 +35,14 @@ impl Server {
 
     pub fn listen(&mut self, backlog: usize) {
         if listen(self.server_fd, backlog).is_err() {
-            self.error_service.serve_500_response("Listening failed".to_string());
+            self.error_service
+                .serve_500_response("Listening failed".to_string());
         };
         self.logger.log("Server started listening.");
         loop {
             let (connection_socket, val_read_string) = self.read_incoming_connection();
             self.send_response_to_socket(connection_socket, val_read_string);
-            if close(connection_socket).is_err(){
+            if close(connection_socket).is_err() {
                 self.logger.log("Closing of Socket RawFD failed.");
             }
         }
@@ -79,7 +80,8 @@ impl Server {
 
         let new_socket = accept(self.server_fd);
         if new_socket.is_err() {
-            self.error_service.serve_500_response("Accepting failed".to_string());
+            self.error_service
+                .serve_500_response("Accepting failed".to_string());
         };
         let new_socket = new_socket.unwrap();
         let mut buffer = vec![0; 30000];
@@ -98,15 +100,16 @@ impl Server {
     fn send_response_to_socket(&mut self, new_socket: RawFd, val_read_str: String) {
         let mime_response = self.create_response(val_read_str);
 
-        if send(new_socket, &mime_response.as_ref(), MsgFlags::empty()).is_err(){
-            self.error_service.serve_500_response("Sending failed".to_string());
+        if send(new_socket, &mime_response.as_ref(), MsgFlags::empty()).is_err() {
+            self.error_service
+                .serve_500_response("Sending failed".to_string());
         };
         self.logger.log("Response sent");
         println!("------------------Response sent-------------------\n");
     }
 
     fn create_response(&mut self, val_read_str: String) -> Vec<u8> {
-        let mut request = request::Request::new(&val_read_str);
+        let mut request = request::Request::new(val_read_str);
         let response = self.base_controller.execute_request(&mut request);
 
         let mut mime_response = MimeResponse {

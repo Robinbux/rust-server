@@ -1,15 +1,15 @@
+use crate::controller::base_controller::BaseController;
 use crate::controller::controller::Controller;
 use crate::dtos::note_dto::CreateNoteDTO;
-use crate::dtos::note_dto::UpdateNoteDTO;
-use crate::utils::logger::Logger;
+use crate::enums::content_type::ContentType;
+use crate::enums::http_methods::HttpMethod;
+use crate::enums::http_status_codes::HTTPStatusCodes;
 use crate::server::request::Request;
 use crate::server::response::Response;
-use crate::services::notes_service::NotesService;
 use crate::services::error_service::ErrorService;
-use crate::enums::content_type::ContentType;
-use crate::enums::http_status_codes::HTTPStatusCodes;
-use crate::enums::http_methods::HttpMethod;
-use crate::controller::base_controller::BaseController;
+use crate::services::notes_service::NotesService;
+use crate::utils::logger::Logger;
+use std::str;
 
 pub struct NotesController {
     #[allow(dead_code)]
@@ -34,16 +34,28 @@ impl NotesController {
     // POST
     // PATH: /
     pub fn create_note(&mut self, request: &Request) -> Response {
-        let create_note_dto = match serde_json::from_str::<CreateNoteDTO>(&request.payload) {
+        let str_payload = match &request.payload {
+            Some(payload) => str::from_utf8(payload).expect("Unable to convert into String"),
+            None => {
+                return self
+                    .error_service
+                    .serve_400_response("Incorrect Payload Structure!".to_string());
+            }
+        };
+        let create_note_dto = match serde_json::from_str::<CreateNoteDTO>(str_payload) {
             Ok(dto) => dto,
             Err(_) => {
-                return self.error_service.serve_400_response("Incorrect Payload Structure!".to_string());
+                return self
+                    .error_service
+                    .serve_400_response("Incorrect Payload Structure!".to_string());
             }
         };
 
         let result = self.notes_service.create_note(create_note_dto);
         if result.is_err() {
-            return self.error_service.serve_500_response("Unable to create note!".to_string());
+            return self
+                .error_service
+                .serve_500_response("Unable to create note!".to_string());
         }
         let result_str = serde_json::to_string(&result.unwrap()).unwrap(); // TODO: Change!
         let result_ref: &[u8] = result_str.as_ref();
@@ -56,7 +68,7 @@ impl NotesController {
 
     // PUT
     // PATH: /$NOTE_ID
-    pub fn update_note(&mut self, request: &Request) -> Response {
+    pub fn update_note(&mut self, _request: &Request) -> Response {
         /*let update_note_dto = match serde_json::from_str::<UpdateNoteDTO>(&request.payload) {
             Ok(dto) => dto,
             Err(_) => {
@@ -76,11 +88,7 @@ impl NotesController {
         //let result_str = serde_json::to_string(&result.unwrap()).unwrap();
         let result_str = "Nothing";
         let result_ref: &[u8] = result_str.as_ref();
-        Response::new(
-            result_ref.to_vec(),
-            ContentType::JSON,
-            HTTPStatusCodes::Ok,
-        )
+        Response::new(result_ref.to_vec(), ContentType::JSON, HTTPStatusCodes::Ok)
     }
 
     // GET
@@ -88,15 +96,13 @@ impl NotesController {
     pub fn get_all_notes(&mut self) -> Response {
         let result = self.notes_service.get_all_notes();
         if result.is_err() {
-            return self.error_service.serve_500_response("Unable to retrieve notes!".to_string());
+            return self
+                .error_service
+                .serve_500_response("Unable to retrieve notes!".to_string());
         }
         let result_str = serde_json::to_string(&result.unwrap()).unwrap();
         let result_ref: &[u8] = result_str.as_ref();
-        Response::new(
-            result_ref.to_vec(),
-            ContentType::JSON,
-            HTTPStatusCodes::Ok,
-        )
+        Response::new(result_ref.to_vec(), ContentType::JSON, HTTPStatusCodes::Ok)
     }
 
     // DELETE
@@ -104,12 +110,16 @@ impl NotesController {
     pub fn delete_note(&mut self, request: &Request) -> Response {
         let note_id = NotesController::get_note_id_from_request(request);
         if note_id.is_err() {
-            return self.error_service.serve_400_response("Unable to parse provided id!".to_string());
+            return self
+                .error_service
+                .serve_400_response("Unable to parse provided id!".to_string());
         }
 
         let result = self.notes_service.delete_note(note_id.unwrap());
         if result.is_err() {
-            return self.error_service.serve_500_response("Unable to delete note!".to_string());
+            return self
+                .error_service
+                .serve_500_response("Unable to delete note!".to_string());
         }
         let json_response = String::from("{\"temp\":\"Change\"}");
         let result_ref: &[u8] = json_response.as_ref();
@@ -136,14 +146,14 @@ impl NotesController {
         let note_id_result = NotesController::get_note_id_from_request(&request);
         return match note_id_result {
             Ok(_id) => {
-                    if request.http_method == HttpMethod::UPDATE{
-                        self.update_note(&request)
-                    } else {
-                        self.delete_note(&request)
-                    }
-                },
-            Err(_) => self.error_service.serve_404_page()
-        }
+                if request.http_method == HttpMethod::UPDATE {
+                    self.update_note(&request)
+                } else {
+                    self.delete_note(&request)
+                }
+            }
+            Err(_) => self.error_service.serve_404_page(),
+        };
     }
 }
 
@@ -153,13 +163,13 @@ impl Controller for NotesController {
         let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
         return match route_beginning {
             "" => {
-                    if request.http_method == HttpMethod::GET{
-                        self.get_all_notes()
-                    } else {
-                        self.create_note(&mut request)
-                    }
-                },
-            _ => self.error_or_note_id_request(&mut request)
-        }
+                if request.http_method == HttpMethod::GET {
+                    self.get_all_notes()
+                } else {
+                    self.create_note(&mut request)
+                }
+            }
+            _ => self.error_or_note_id_request(&mut request),
+        };
     }
 }

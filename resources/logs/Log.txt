@@ -166,3 +166,54 @@ SystemTime { tv_sec: 1602073121, tv_nsec: 437990000 }  [Server]: Received client
 2020-11-11T12:53:53.220849+01:00  [Server]: Server started listening.
 2020-11-11T12:56:10.369664+01:00  [Server]: Server started listening.
 2020-11-11T13:08:36.955269+01:00  [Server]: Server started listening.
+2020-11-11T13:09:20.066688+01:00  [Server]: Server started listening.
+2020-11-11T13:09:55.596125+01:00  [Server]: Received client request!
+2020-11-11T13:10:34.975302+01:00  [Server]: Server started listening.
+2020-11-11T13:10:38.245779+01:00  [Server]: Received client request!
+2020-11-12T15:46:51.640307+01:00  [Server]: Server started listening.
+2020-11-12T15:47:43.662008+01:00  [Server]: Server started listening.
+2020-11-12T15:51:23.649512+01:00  [Server]: Server started listening.
+2020-11-12T15:52:05.143146+01:00  [Server]: Received client request!
+2020-11-12T17:12:53.458837+01:00  [Server]: Server started listening.
+2020-11-12T17:13:20.565847+01:00  [Server]: Received client request!
+2020-11-12T17:14:10.452115+01:00  [ErrorService]: Binding failed
+2020-11-12T17:14:10.452922+01:00  [Server]: Server started listening.
+2020-11-12T17:15:27.762223+01:00  [Server]: Server started listening.
+2020-11-12T17:15:32.088174+01:00  [Server]: Received client request!
+2020-11-12T17:15:32.101294+01:00  [Server]: Response sent
+2020-11-12T17:15:32.395748+01:00  [Server]: Received client request!
+2020-11-12T17:17:30.288052+01:00  [Server]: Server started listening.
+2020-11-12T17:17:41.992486+01:00  [Server]: Received client request!
+2020-11-12T17:18:26.609051+01:00  [Server]: Response sent
+2020-11-12T17:18:26.875630+01:00  [Server]: Received client request!
+2020-11-12T17:21:24.595710+01:00  [ErrorService]: Binding failed
+2020-11-12T17:21:24.596530+01:00  [Server]: Server started listening.
+2020-11-12T17:24:29.838022+01:00  [Server]: Server started listening.
+2020-11-12T17:24:32.881254+01:00  [Server]: Received client request!
+2020-11-12T17:24:32.898442+01:00  [Server]: Response sent
+2020-11-12T17:24:33.127824+01:00  [Server]: Received client request!
+2020-11-12T17:24:33.143784+01:00  [Server]: Response sent
+2020-11-12T17:24:36.415641+01:00  [Server]: Received client request!
+2020-11-12T17:24:36.419458+01:00  [Server]: Response sent
+2020-11-12T17:24:49.101827+01:00  [Server]: Received client request!
+2020-11-12T17:24:49.106716+01:00  [Server]: Response sent
+2020-11-12T17:24:58.262140+01:00  [Server]: Received client request!
+2020-11-12T17:24:58.505889+01:00  [Server]: Response sent
+2020-11-12T17:25:15.105852+01:00  [Server]: Received client request!
+2020-11-12T17:25:15.106909+01:00  [Server]: Response sent
+2020-11-12T17:25:51.593412+01:00  [Server]: Received client request!
+2020-11-12T17:26:00.093546+01:00  [ErrorService]: Binding failed
+2020-11-12T17:26:00.094683+01:00  [Server]: Server started listening.
+2020-11-12T17:29:51.525727+01:00  [Server]: Server started listening.
+2020-11-12T17:29:55.188063+01:00  [Server]: Received client request!
+2020-11-12T17:33:14.907161+01:00  [Server]: Server started listening.
+2020-11-12T17:33:24.234884+01:00  [Server]: Received client request!
+2020-11-12T17:36:22.779302+01:00  [Server]: Server started listening.
+2020-11-12T17:36:30.396427+01:00  [Server]: Received client request!
+2020-11-12T17:42:43.063534+01:00  [Server]: Server started listening.
+2020-11-12T17:42:48.970109+01:00  [Server]: Received client request!
+2020-11-12T17:43:01.117555+01:00  [ErrorService]: Incorrect Payload Structure!
+2020-11-12T17:43:01.117775+01:00  [Server]: Response sent
+2020-11-12T17:45:01.014440+01:00  [ErrorService]: Accepting failed
+2020-11-12T17:45:48.269711+01:00  [Server]: Server started listening.
+2020-11-12T17:45:52.003745+01:00  [Server]: Received client request!

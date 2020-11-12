@@ -29,13 +29,16 @@ impl BaseController {
             admin_controller,
             assets_controller,
             error_service,
-            notes_controller
-            //user_controller: user_controller,
+            notes_controller, //user_controller: user_controller,
         }
     }
 
     pub fn extract_parent_path(path: &str) -> &str {
-        path.split("/").nth(1).expect("Unable to split result")
+        let result = path.split("/").collect::<Vec<&str>>();
+        if result.len() == 1 {
+            return result[0]
+        }
+        result[1]
     }
 
     pub fn extract_child_path(path: &str) -> String {
@@ -56,7 +59,7 @@ impl Controller for BaseController {
         return match route_beginning {
             "admin" => self.admin_controller.execute_request(request),
             "assets" => self.assets_controller.execute_request(request),
-            "favicon.ico" => self.assets_controller.execute_request(request),
+            "favicon.ico" => AssetsController::favicon(),
             "notes" => self.notes_controller.execute_request(request),
             //"user" => self.user_controller.execute_request(),
             _ => self.error_service.serve_404_page(),
