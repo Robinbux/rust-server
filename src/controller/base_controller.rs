@@ -36,7 +36,7 @@ impl BaseController {
     pub fn extract_parent_path(path: &str) -> &str {
         let result = path.split("/").collect::<Vec<&str>>();
         if result.len() == 1 {
-            return result[0]
+            return result[0];
         }
         result[1]
     }
@@ -45,7 +45,7 @@ impl BaseController {
         let split: Vec<&str> = path.split("/").collect();
 
         if split.len() < 3 {
-            return String::from("");
+            return String::from("/");
         }
         let child_path = split[2..].join("/");
 
@@ -59,7 +59,7 @@ impl Controller for BaseController {
         return match route_beginning {
             "admin" => self.admin_controller.execute_request(request),
             "assets" => self.assets_controller.execute_request(request),
-            "favicon.ico" => AssetsController::favicon(),
+            "favicon.ico" => self.assets_controller.execute_request(request),
             "notes" => self.notes_controller.execute_request(request),
             //"user" => self.user_controller.execute_request(),
             _ => self.error_service.serve_404_page(),

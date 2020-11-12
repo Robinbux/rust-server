@@ -31,14 +31,6 @@ impl AssetsController {
     pub fn serve_fav_icon() -> Vec<u8> {
         file_handler::load_resource("favicon.ico").expect("Unable to load resource")
     }
-
-    pub fn favicon() -> Response {
-        Response::new(
-            AssetsController::serve_fav_icon(),
-            ContentType::ICO,
-            HTTPStatusCodes::Ok,
-        )
-    }
 }
 
 impl Controller for AssetsController {
