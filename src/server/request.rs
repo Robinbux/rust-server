@@ -11,10 +11,14 @@ pub struct Request {
 }
 
 impl Request {
-    pub fn new(request_string: String) -> Request {
+    pub fn new(buffer: Vec<u8>) -> Request {
+        let request_string: String;
+        request_string = String::from_utf8_lossy(buffer.as_slice())
+            .parse()
+            .expect("Parsing Failed");
         let http_method = HttpMethod::get_http_method(&request_string);
         let resource_path = Request::extract_resource_path(&request_string).to_string();
-        let payload = Request::extract_payload(&request_string);
+        let payload = Request::extract_payload(&buffer);
         let content_type = Request::extract_content_type(&request_string);
         let current_child_path = resource_path.clone();
 
@@ -27,14 +31,34 @@ impl Request {
         }
     }
 
-    fn extract_payload(request_string: &String) -> Option<Vec<u8>> {
-        let result = request_string.split("\r\n\r\n").collect::<Vec<&str>>();
+    fn extract_payload(buffer: &Vec<u8>) -> Option<Vec<u8>> {
+        let index = Request::find_payload_index(&buffer);
+        if let Some(index) = index {
+            let test_str = std::str::from_utf8(&buffer[index + 4..]);
+            return Some(buffer[index + 4..].to_vec());
+        }
+        None
+    }
+
+    fn find_payload_index(buffer: &[u8]) -> Option<usize> {
+        buffer
+            .windows(4)
+            .enumerate()
+            .find(|(_, w)| matches!(*w, b"\r\n\r\n"))
+            .map(|(i, _)| i)
+    }
+
+    /*
+    let result = buffer.split("\r\n\r\n".as_bytes());
+        let test_one = "Das ist ein Test";
+        let test_two =  String::from("Das ist ein Test");
+        let str_request = std::str::from_utf8(request_string.as_ref());
         if result.len() == 1 {
             return None;
         }
-        let payload = result.last().expect("Unable to split result").as_bytes();
+        let payload = result.last().expect("Unable to split result");
         Some(payload.to_vec())
-    }
+     */
 
     fn extract_resource_path(request_string: &str) -> &str {
         request_string
@@ -55,6 +79,7 @@ impl Request {
             .nth(0)
             .expect("Unable to split content type")
             .to_string();
-        Some(ContentType::from_str(content_type).unwrap())
+        let content_type_result = ContentType::from_str(content_type);
+        Some(content_type_result.unwrap())
     }
 }

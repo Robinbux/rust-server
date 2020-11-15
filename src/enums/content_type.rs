@@ -17,7 +17,7 @@ impl ContentType {
     }
 
     pub fn from_str(content_type: String) -> Result<ContentType, ()> {
-        let result = match content_type.as_ref() {
+        let result = match content_type.replace(";", "").as_ref() {
             "html" => Ok(ContentType::HTML),
             "ico" => Ok(ContentType::ICO),
             "png" => Ok(ContentType::PNG),

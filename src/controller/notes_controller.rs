@@ -42,7 +42,10 @@ impl NotesController {
                     .serve_400_response("Incorrect Payload Structure!".to_string());
             }
         };
-        let create_note_dto = match serde_json::from_str::<CreateNoteDTO>(str_payload) {
+        let json_end_index = str_payload.rfind('}').expect("Invalid Json");
+        let trimmed_json = &str_payload[..json_end_index + 1];
+        let test_result = serde_json::from_str::<CreateNoteDTO>(trimmed_json);
+        let create_note_dto = match serde_json::from_str::<CreateNoteDTO>(trimmed_json) {
             Ok(dto) => dto,
             Err(_) => {
                 return self

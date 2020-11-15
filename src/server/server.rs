@@ -40,8 +40,8 @@ impl Server {
         };
         self.logger.log("Server started listening.");
         loop {
-            let (connection_socket, val_read_string) = self.read_incoming_connection();
-            self.send_response_to_socket(connection_socket, val_read_string);
+            let (connection_socket, buffer) = self.read_incoming_connection();
+            self.send_response_to_socket(connection_socket, buffer);
             if close(connection_socket).is_err() {
                 self.logger.log("Closing of Socket RawFD failed.");
             }
@@ -75,7 +75,7 @@ impl Server {
         server_fd
     }
 
-    fn read_incoming_connection(&mut self) -> (RawFd, String) {
+    fn read_incoming_connection(&mut self) -> (RawFd, Vec<u8>) {
         println!("\n+++++++ Waiting for new connection ++++++++\n\n");
 
         let new_socket = accept(self.server_fd);
@@ -94,11 +94,11 @@ impl Server {
 
         println!("---Client Request---\n{}", val_read_str);
         self.logger.log("Received client request!");
-        (new_socket, val_read_str)
+        (new_socket, buffer)
     }
 
-    fn send_response_to_socket(&mut self, new_socket: RawFd, val_read_str: String) {
-        let mime_response = self.create_response(val_read_str);
+    fn send_response_to_socket(&mut self, new_socket: RawFd, buffer: Vec<u8>) {
+        let mime_response = self.create_response(buffer);
 
         if send(new_socket, &mime_response.as_ref(), MsgFlags::empty()).is_err() {
             self.error_service
@@ -108,8 +108,8 @@ impl Server {
         println!("------------------Response sent-------------------\n");
     }
 
-    fn create_response(&mut self, val_read_str: String) -> Vec<u8> {
-        let mut request = request::Request::new(val_read_str);
+    fn create_response(&mut self, buffer: Vec<u8>) -> Vec<u8> {
+        let mut request = request::Request::new(buffer);
         let response = self.base_controller.execute_request(&mut request);
 
         let mut mime_response = MimeResponse {
