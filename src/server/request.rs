@@ -48,18 +48,6 @@ impl Request {
             .map(|(i, _)| i)
     }
 
-    /*
-    let result = buffer.split("\r\n\r\n".as_bytes());
-        let test_one = "Das ist ein Test";
-        let test_two =  String::from("Das ist ein Test");
-        let str_request = std::str::from_utf8(request_string.as_ref());
-        if result.len() == 1 {
-            return None;
-        }
-        let payload = result.last().expect("Unable to split result");
-        Some(payload.to_vec())
-     */
-
     fn extract_resource_path(request_string: &str) -> &str {
         request_string
             .split_whitespace()

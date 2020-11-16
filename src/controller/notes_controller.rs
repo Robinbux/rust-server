@@ -1,6 +1,6 @@
 use crate::controller::base_controller::BaseController;
 use crate::controller::controller::Controller;
-use crate::dtos::note_dto::CreateNoteDTO;
+use crate::dtos::note_dto::{CreateNoteDTO, UpdateNoteDTO};
 use crate::enums::content_type::ContentType;
 use crate::enums::http_methods::HttpMethod;
 use crate::enums::http_status_codes::HTTPStatusCodes;
@@ -31,21 +31,27 @@ impl NotesController {
         }
     }
 
-    // POST
-    // PATH: /
-    pub fn create_note(&mut self, request: &Request) -> Response {
+    fn get_trimmed_payload_from_request<'a>(&mut self, request: &'a Request) -> Result<&'a str, Response> {
         let str_payload = match &request.payload {
             Some(payload) => str::from_utf8(payload).expect("Unable to convert into String"),
             None => {
-                return self
+                return Err(self
                     .error_service
-                    .serve_400_response("Incorrect Payload Structure!".to_string());
+                    .serve_400_response("Incorrect Payload Structure!".to_string()));
             }
         };
         let json_end_index = str_payload.rfind('}').expect("Invalid Json");
-        let trimmed_json = &str_payload[..json_end_index + 1];
-        let test_result = serde_json::from_str::<CreateNoteDTO>(trimmed_json);
-        let create_note_dto = match serde_json::from_str::<CreateNoteDTO>(trimmed_json) {
+        Ok(&str_payload[..json_end_index + 1])
+    }
+
+    // POST
+    // PATH: /
+    pub fn create_note(&mut self, request: &Request) -> Response {
+        let json_request_result = self.get_trimmed_payload_from_request(request);
+        if json_request_result.is_err() {
+            return json_request_result.err().unwrap()
+        }
+        let create_note_dto = match serde_json::from_str::<CreateNoteDTO>(json_request_result.unwrap()) {
             Ok(dto) => dto,
             Err(_) => {
                 return self
@@ -71,27 +77,33 @@ impl NotesController {
 
     // PUT
     // PATH: /$NOTE_ID
-    pub fn update_note(&mut self, _request: &Request) -> Response {
-        /*let update_note_dto = match serde_json::from_str::<UpdateNoteDTO>(&request.payload) {
+    pub fn update_note(&mut self, request: &Request, note_id: i32) -> Response {
+        let json_request_result = self.get_trimmed_payload_from_request(request);
+        if json_request_result.is_err() {
+            return json_request_result.err().unwrap()
+        }
+        let update_note_dto = match serde_json::from_str::<UpdateNoteDTO>(json_request_result.unwrap()) {
             Ok(dto) => dto,
             Err(_) => {
-                return self.error_service.serve_400_response("Incorrect Payload Structure!".to_string());
+                return self
+                    .error_service
+                    .serve_400_response("Incorrect Payload Structure!".to_string());
             }
         };
 
-        let note_id = NotesController::get_note_id_from_request(&request);
-        if note_id.is_err() {
-            return self.error_service.serve_400_response("Unable to parse provided id!".to_string());
-        }
-
-        let result = self.notes_service.update_note(update_note_dto, note_id.unwrap());
+        let result = self.notes_service.update_note(update_note_dto, note_id);
         if result.is_err() {
-            return self.error_service.serve_500_response("Unable to update note!".to_string());
-        }*/
-        //let result_str = serde_json::to_string(&result.unwrap()).unwrap();
-        let result_str = "Nothing";
+            return self
+                .error_service
+                .serve_500_response("Unable to update note!".to_string());
+        }
+        let result_str = serde_json::to_string(&result.unwrap()).unwrap(); // TODO: Change!
         let result_ref: &[u8] = result_str.as_ref();
-        Response::new(result_ref.to_vec(), ContentType::JSON, HTTPStatusCodes::Ok)
+        Response::new(
+            result_ref.to_vec(),
+            ContentType::JSON,
+            HTTPStatusCodes::Created,
+        )
     }
 
     // GET
@@ -110,7 +122,7 @@ impl NotesController {
 
     // DELETE
     // PATH: /$NOTE_ID
-    pub fn delete_note(&mut self, request: &Request) -> Response {
+    pub fn delete_note(&mut self, request: &Request, note_id: i32) -> Response {
         let note_id = NotesController::get_note_id_from_request(request);
         if note_id.is_err() {
             return self
@@ -133,12 +145,12 @@ impl NotesController {
         )
     }
 
-    fn get_note_id_from_request(request: &Request) -> Result<u32, String> {
+    fn get_note_id_from_request(request: &Request) -> Result<i32, String> {
         let id_option = request.current_child_path.split("/").last();
         if id_option.is_none() {
             return Err("".to_string());
         }
-        let id_result = id_option.unwrap().parse::<u32>();
+        let id_result = id_option.unwrap().parse::<i32>();
         if id_result.is_err() {
             return Err("".to_string());
         }
@@ -148,11 +160,11 @@ impl NotesController {
     fn error_or_note_id_request(&mut self, request: &Request) -> Response {
         let note_id_result = NotesController::get_note_id_from_request(&request);
         return match note_id_result {
-            Ok(_id) => {
-                if request.http_method == HttpMethod::UPDATE {
-                    self.update_note(&request)
+            Ok(id) => {
+                if request.http_method == HttpMethod::PUT {
+                    self.update_note(&request, id)
                 } else {
-                    self.delete_note(&request)
+                    self.delete_note(&request, id)
                 }
             }
             Err(_) => self.error_service.serve_404_page(),

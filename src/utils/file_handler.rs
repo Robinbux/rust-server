@@ -2,10 +2,10 @@ const ERROR_FILE_PATH: &str = "resources/html/404.html";
 
 pub mod file_handler {
     use crate::enums::content_type::ContentType;
-    use std::path::Path;
     use image::ImageFormat;
-    use std::str;
     use std::fs::read_to_string;
+    use std::path::Path;
+    use std::str;
 
     pub fn load_resource(file_name: &str) -> Result<Vec<u8>, String> {
         let content_type = ContentType::get_content_type_from_file_path(&file_name);
@@ -13,7 +13,7 @@ pub mod file_handler {
             ContentType::HTML => Ok(load_html(format!("resources/html/{}", &file_name))),
             ContentType::ICO => Ok(load_ico(format!("resources/assets/{}", &file_name))),
             ContentType::PNG => Ok(load_png(format!("resources/assets/{}", &file_name))),
-            _ => panic!("Unsupported content type!")
+            _ => panic!("Unsupported content type!"),
         }
     }
 
@@ -25,7 +25,7 @@ pub mod file_handler {
         };
     }
 
-    pub fn convert_vec_to_string (vec: &Vec<u8>) -> &str {
+    pub fn convert_vec_to_string(vec: &Vec<u8>) -> &str {
         str::from_utf8(&vec).unwrap()
     }
 

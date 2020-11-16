@@ -1,6 +1,6 @@
 //use crate::dtos::user_dto;
 use crate::utils::logger::Logger;
-use postgres::{Client};
+use postgres::Client;
 
 pub struct UserService {
     #[allow(dead_code)]

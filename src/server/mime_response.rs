@@ -48,7 +48,8 @@ mod test {
             http_status_code: HTTPStatusCodes::Ok,
             content_type: ContentType::HTML,
             content_length: 327,
-        }.build_mime_response();
+        }
+        .build_mime_response();
 
         assert_eq!(expected_mime_string, mime_response)
     }
@@ -63,7 +64,8 @@ mod test {
             http_status_code: HTTPStatusCodes::NotFound,
             content_type: ContentType::HTML,
             content_length: 327,
-        }.build_mime_response();
+        }
+        .build_mime_response();
 
         assert_eq!(expected_mime_string, mime_response)
     }
@@ -78,7 +80,8 @@ mod test {
             http_status_code: HTTPStatusCodes::InternalServerError,
             content_type: ContentType::PNG,
             content_length: 327,
-        }.build_mime_response();
+        }
+        .build_mime_response();
 
         assert_eq!(expected_mime_string, mime_response)
     }

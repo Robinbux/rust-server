@@ -1,6 +1,7 @@
 use crate::enums::content_type::ContentType;
 use crate::enums::http_status_codes::HTTPStatusCodes;
 
+#[derive(Debug)]
 pub struct Response {
     pub(crate) content_bytes: Vec<u8>,
     pub(crate) content_type: ContentType,

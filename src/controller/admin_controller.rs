@@ -1,12 +1,12 @@
 use crate::controller::base_controller::BaseController;
 use crate::controller::controller::Controller;
-use crate::server::request::Request;
-use crate::server::response::Response;
-use crate::utils::file_handler::file_handler;
-use crate::utils::logger::Logger;
-use crate::services::error_service::ErrorService;
 use crate::enums::content_type::ContentType;
 use crate::enums::http_status_codes::HTTPStatusCodes;
+use crate::server::request::Request;
+use crate::server::response::Response;
+use crate::services::error_service::ErrorService;
+use crate::utils::file_handler::file_handler;
+use crate::utils::logger::Logger;
 
 use serde::Serialize;
 use std::fs;
@@ -27,18 +27,19 @@ impl AdminController {
     pub fn new() -> AdminController {
         let logger = Logger::new(String::from("AdminController"));
         let error_service = ErrorService::new();
-        AdminController { logger, error_service}
+        AdminController {
+            logger,
+            error_service,
+        }
     }
 
     fn console(&self) -> Response {
         let data_vec =
             &file_handler::load_resource(files::CONSOLE).expect("Unable to load resource");
-        let content = AdminController::replace_template_values(&file_handler::convert_vec_to_string(data_vec));
-        Response::new(
-            content,
-            ContentType::HTML,
-            HTTPStatusCodes::Ok,
-        )
+        let content = AdminController::replace_template_values(
+            &file_handler::convert_vec_to_string(data_vec),
+        );
+        Response::new(content, ContentType::HTML, HTTPStatusCodes::Ok)
     }
 
     fn replace_template_values(html_str: &str) -> Vec<u8> {
