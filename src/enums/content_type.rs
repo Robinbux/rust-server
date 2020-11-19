@@ -4,6 +4,8 @@ pub enum ContentType {
     ICO,
     PNG,
     JSON,
+    JAVASCRIPT,
+    CSS
 }
 
 impl ContentType {
@@ -13,6 +15,8 @@ impl ContentType {
             ContentType::ICO => "image/x-icon",
             ContentType::PNG => "image/png",
             ContentType::JSON => "application/json",
+            ContentType::JAVASCRIPT => "text/javascript",
+            ContentType::CSS => "text/css",
         }
     }
 
@@ -21,7 +25,9 @@ impl ContentType {
             "html" => Ok(ContentType::HTML),
             "ico" => Ok(ContentType::ICO),
             "png" => Ok(ContentType::PNG),
-            "application/json" => Ok(ContentType::JSON), // TODO: Check if correct
+            "application/json" => Ok(ContentType::JSON), // TODO: Check if correct,
+            "js" => Ok(ContentType::JAVASCRIPT),
+            "css" => Ok(ContentType::CSS),
             _ => Err(()),                                // TODO: Error handling!
         };
         return result;

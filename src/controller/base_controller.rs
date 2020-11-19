@@ -6,6 +6,8 @@ use crate::server::request::Request;
 use crate::server::response::Response;
 use crate::services::error_service::ErrorService;
 use crate::utils::logger::Logger;
+use crate::controller::home_controller::HomeController;
+use crate::controller::resources_controller::ResourcesController;
 
 pub struct BaseController {
     #[allow(dead_code)]
@@ -14,6 +16,8 @@ pub struct BaseController {
     assets_controller: AssetsController,
     error_service: ErrorService, //user_controller: UserController,
     notes_controller: NotesController,
+    home_controller: HomeController,
+    resources_controller: ResourcesController
 }
 
 impl BaseController {
@@ -23,13 +27,17 @@ impl BaseController {
         let assets_controller = AssetsController::new();
         let error_service = ErrorService::new();
         let notes_controller = NotesController::new();
+        let home_controller = HomeController::new();
+        let resources_controller = ResourcesController::new();
         //let user_controller = UserController::new();
         BaseController {
-            logger: logger,
+            logger,
             admin_controller,
             assets_controller,
             error_service,
             notes_controller, //user_controller: user_controller,
+            home_controller,
+            resources_controller
         }
     }
 
@@ -61,6 +69,8 @@ impl Controller for BaseController {
             "assets" => self.assets_controller.execute_request(request),
             "favicon.ico" => self.assets_controller.execute_request(request),
             "notes" => self.notes_controller.execute_request(request),
+            "home" => self.home_controller.execute_request(request),
+            "resources" => self.resources_controller.execute_request(request),
             //"user" => self.user_controller.execute_request(),
             _ => self.error_service.serve_404_page(),
         };

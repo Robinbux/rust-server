@@ -8,13 +8,24 @@ pub mod file_handler {
     use std::str;
 
     pub fn load_resource(file_name: &str) -> Result<Vec<u8>, String> {
-        let content_type = ContentType::get_content_type_from_file_path(&file_name);
+        let raw_file_name = extract_raw_file_name(file_name);
+        let content_type = ContentType::get_content_type_from_file_path(&raw_file_name);
         match content_type {
-            ContentType::HTML => Ok(load_html(format!("resources/html/{}", &file_name))),
-            ContentType::ICO => Ok(load_ico(format!("resources/assets/{}", &file_name))),
-            ContentType::PNG => Ok(load_png(format!("resources/assets/{}", &file_name))),
+            ContentType::HTML => Ok(load_text(format!("resources/html/{}", &raw_file_name))),
+            ContentType::ICO => Ok(load_ico(format!("resources/assets/{}", &raw_file_name))),
+            ContentType::PNG => Ok(load_png(format!("resources/assets/{}", &raw_file_name))),
+            ContentType::JAVASCRIPT => Ok(load_text(format!("resources/js/{}", &raw_file_name))),
+            ContentType::CSS => Ok(load_text(format!("resources/css/{}", &raw_file_name))),
             _ => panic!("Unsupported content type!"),
         }
+    }
+
+    // If the provided file_name is a path eg. /css/style.css, we cant to extract the raw file name.
+    fn extract_raw_file_name(file_name: &str) -> String {
+        if !file_name.contains("/") {
+            return file_name.to_owned()
+        }
+        file_name.split("/").last().unwrap().to_owned()
     }
 
     fn check_resource_path(file_path: &str) -> String {
@@ -29,7 +40,7 @@ pub mod file_handler {
         str::from_utf8(&vec).unwrap()
     }
 
-    fn load_html(html_file_path: String) -> Vec<u8> {
+    fn load_text(html_file_path: String) -> Vec<u8> {
         let valid_resource_path = check_resource_path(&html_file_path);
         read_to_string(valid_resource_path).unwrap().into_bytes()
     }
