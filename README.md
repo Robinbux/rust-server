@@ -5,6 +5,7 @@ In this project we build a simple Todo app. The frontend is done in vanilla JS, 
 As this project had it's main goal in creating a server from scratch, and exploring the raw low-level interactions between frontend and backend, rather than building a big application,  we did not find it usefull to host the page.
 
 - [Setup instructions](documentation/setup.md)
+- [Code documentation](documentation/code_documentation.md)
 - [API documentation](documentation/api/README.md)
 
 
