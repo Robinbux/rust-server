@@ -48,6 +48,13 @@ impl TodoController {
         Ok(&str_payload[..json_end_index + 1])
     }
 
+    /*
+    let decoded_payload = percent_decode_str(str_payload).decode_utf8().unwrap();
+        let decoded_payload_deref = String::from(decoded_payload.deref());
+        //let decoded_payload_owned = String::from(&decoded_payload);
+        let json_end_index = decoded_payload_deref.rfind('}').expect("Invalid Json");
+     */
+
     // POST
     // PATH: /
     pub fn create_todo(&mut self, request: &Request) -> Response {

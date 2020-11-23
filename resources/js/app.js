@@ -20,6 +20,7 @@ function addSingleTodo(todo) {
     // Wrapping Div
     const todoDiv = document.createElement('div');
     todoDiv.classList.add('todo_element');
+    todoDiv.setAttribute("id", todo.id)
     if (todo.completed) todoDiv.classList.add('completed-item');
 
     // Green Checkmark Button
@@ -44,18 +45,19 @@ function addSingleTodo(todo) {
     todoList.appendChild(todoDiv);
 }
 
-function deleteCheck(e) {
-    const item = e.target;
+function deleteCheck(event) {
+    const item = event.target;
     // Delete todo
     if (item.classList[0] === "delete_btn") {
         const todo = item.parentElement;
-        todo.addEventListener('transitionend', function () {
-            todo.remove()
-        })
+        deleteTodo(event, todo.id)
+        todo.remove();
     }
     // Complete todo
     if (item.classList[0] === "todo_item" || item.classList[0] === "complete_btn") {
         const todo = item.parentElement;
+        updateTodo(event, todo.id, !todo.classList.contains("completed-item"))
+
         todo.classList.toggle("completed-item")
         todo.querySelector('.complete_btn').children[0].classList.toggle("md-completed")
     }
@@ -96,25 +98,34 @@ function addNewTodo(event) {
         todo_message: todoInput.value
     }
 
-    /*var xmlhttp = new XMLHttpRequest();
-    xmlhttp.addEventListener("load", fetchTodosReqListener);
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.addEventListener("load", createTodoReqListener);
     xmlhttp.open("POST", baseTodoURL, false);
     xmlhttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-    xmlhttp.send(JSON.stringify(params));*/
-
-    fetch(baseTodoURL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json; charset=utf-8"
-        },
-        body: JSON.stringify({todo_message:"Something Else"})
-    })
-        .then((res) => res.text())
-        .then(console.log.bind(console))
-        .catch(console.error.bind(console));
-
+    xmlhttp.send(JSON.stringify(params));
     todoInput.value = "";
+}
 
+// DELETE Todo
+function deleteTodo(event, id) {
+    event.preventDefault();
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("DELETE", baseTodoURL + "/" + id, false);
+    xmlhttp.send();
+}
+
+// UPDATE Todo
+function updateTodo(event, id, completed) {
+    event.preventDefault();
+    const params = {
+        completed: completed
+    }
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.addEventListener("load", createTodoReqListener);
+    xmlhttp.open("PUT", baseTodoURL + "/" + id, false);
+    xmlhttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+    xmlhttp.send(JSON.stringify(params));
 }
 
 window.onpaint = fetchTodos();

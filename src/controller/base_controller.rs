@@ -69,7 +69,7 @@ impl Controller for BaseController {
             "assets" => self.assets_controller.execute_request(request),
             "favicon.ico" => self.assets_controller.execute_request(request),
             "todo" => self.todo_controller.execute_request(request),
-            "home" => self.home_controller.execute_request(request),
+            "home" | "home?" => self.home_controller.execute_request(request),
             "resources" => self.resources_controller.execute_request(request),
             //"user" => self.user_controller.execute_request(),
             _ => self.error_service.serve_404_page(),

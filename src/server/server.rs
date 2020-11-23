@@ -9,6 +9,7 @@ use libc::INADDR_ANY;
 use nix::sys::socket::*;
 use nix::unistd::close;
 use std::os::unix::io::RawFd;
+use percent_encoding::{percent_decode_str, AsciiSet, CONTROLS};
 
 const PORT: u16 = 8087;
 
@@ -92,7 +93,7 @@ impl Server {
             .parse()
             .expect("Parsing Failed");
 
-        println!("---Client Request---\n{}", val_read_str);
+        println!("---Client Request---\n{}", percent_decode_str(&val_read_str).decode_utf8().unwrap());
         self.logger.log("Received client request!");
         (new_socket, buffer)
     }
