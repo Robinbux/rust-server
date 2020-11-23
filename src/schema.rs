@@ -1,6 +1,7 @@
 table! {
-    notes (id) {
+    todos (id) {
         id -> Int4,
-        note_message -> Text,
+        todo_message -> Text,
+        completed -> Bool,
     }
 }

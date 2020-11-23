@@ -5,7 +5,7 @@ pub enum ContentType {
     PNG,
     JSON,
     JAVASCRIPT,
-    CSS
+    CSS,
 }
 
 impl ContentType {
@@ -28,7 +28,7 @@ impl ContentType {
             "application/json" => Ok(ContentType::JSON), // TODO: Check if correct,
             "js" => Ok(ContentType::JAVASCRIPT),
             "css" => Ok(ContentType::CSS),
-            _ => Err(()),                                // TODO: Error handling!
+            _ => Err(()), // TODO: Error handling!
         };
         return result;
     }

@@ -23,7 +23,7 @@ pub mod file_handler {
     // If the provided file_name is a path eg. /css/style.css, we cant to extract the raw file name.
     fn extract_raw_file_name(file_name: &str) -> String {
         if !file_name.contains("/") {
-            return file_name.to_owned()
+            return file_name.to_owned();
         }
         file_name.split("/").last().unwrap().to_owned()
     }

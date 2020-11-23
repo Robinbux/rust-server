@@ -34,7 +34,6 @@ impl Request {
     fn extract_payload(buffer: &Vec<u8>) -> Option<Vec<u8>> {
         let index = Request::find_payload_index(&buffer);
         if let Some(index) = index {
-            let test_str = std::str::from_utf8(&buffer[index + 4..]);
             return Some(buffer[index + 4..].to_vec());
         }
         None
