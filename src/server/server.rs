@@ -11,10 +11,11 @@ use nix::unistd::close;
 use num_cpus;
 use rust_server::ThreadPool;
 use std::os::unix::io::RawFd;
-use std::sync::{Arc, Mutex};
+use std::sync::Arc;
 
 const PORT: u16 = 8087;
 
+#[derive(Clone)]
 pub struct Server {
     server_fd: RawFd,
     logger: Logger,
@@ -59,6 +60,7 @@ impl Server {
 
         if bind(server_fd, &SockAddr::Inet(InetAddr::V4(sockaddr_in))).is_err() {
             error_service.serve_500_response("Binding failed".to_string());
+            panic!("Binding failed")
         }
         server_fd
     }
@@ -72,34 +74,35 @@ impl Server {
 
         let logical_cpus = num_cpus::get();
         let pool = ThreadPool::new(logical_cpus);
-        let base_controller = Arc::new(self.base_controller);
+        let server = Arc::new(self);
 
         loop {
             println!("\n+++++++ Waiting for new connection ++++++++\n\n");
-            let new_socket = accept(self.server_fd);
+            let new_socket = accept(server.server_fd);
             if new_socket.is_err() {
-                self.error_service
+                server
+                    .error_service
                     .serve_500_response("Accepting failed".to_string());
             };
             let new_socket = new_socket.unwrap();
 
-            let base_controller = base_controller.clone();
+            let server = server.clone();
 
             pool.execute(move || {
-                Server::handle_connection(base_controller, new_socket);
+                Server::handle_connection(server, new_socket);
             });
         }
     }
 
-    fn handle_connection(base_controller: Arc<BaseController>, connection_socket: RawFd) {
-        let buffer = Server::read_into_buffer(&connection_socket);
-        Server::send_response_to_socket(base_controller, connection_socket, buffer);
-        /*if close(connection_socket).is_err() {
-            self.logger.log("Closing of Socket RawFD failed.");
-        }*/
+    fn handle_connection(server: Arc<Server>, connection_socket: RawFd) {
+        let buffer = Server::read_into_buffer(&server, &connection_socket);
+        Server::send_response_to_socket(&server, connection_socket, buffer);
+        if close(connection_socket).is_err() {
+            server.logger.log("Closing of Socket RawFD failed.");
+        }
     }
 
-    fn read_into_buffer(connection_socket: &RawFd) -> Vec<u8> {
+    fn read_into_buffer(server: &Arc<Server>, connection_socket: &RawFd) -> Vec<u8> {
         let mut buffer = vec![0; 30000];
         let val_read_str: String;
 
@@ -109,29 +112,26 @@ impl Server {
             .expect("Parsing Failed");
 
         println!("---Client Request---\n{}", val_read_str);
-        // self.logger.log("Received client request!");
+        server.logger.log("Received client request!");
         buffer
     }
 
-    fn send_response_to_socket(
-        base_controller: Arc<BaseController>,
-        new_socket: RawFd,
-        buffer: Vec<u8>,
-    ) {
-        let mime_response = Server::create_response(base_controller, buffer);
+    fn send_response_to_socket(server: &Arc<Server>, new_socket: RawFd, buffer: Vec<u8>) {
+        let mime_response = Server::create_response(&server, buffer);
 
         if send(new_socket, &mime_response.as_ref(), MsgFlags::empty()).is_err() {
             println!("failed to send");
-            /*self.error_service
-            .serve_500_response("Sending failed".to_string());*/
+            server
+                .error_service
+                .serve_500_response("Sending failed".to_string());
         };
-        // self.logger.log("Response sent");
+        server.logger.log("Response sent");
         println!("------------------Response sent-------------------\n");
     }
 
-    fn create_response(base_controller: Arc<BaseController>, buffer: Vec<u8>) -> Vec<u8> {
+    fn create_response(server: &Arc<Server>, buffer: Vec<u8>) -> Vec<u8> {
         let mut request = request::Request::new(buffer);
-        let response = base_controller.execute_request(&mut request);
+        let response = server.base_controller.execute_request(&mut request);
 
         let mut mime_response = MimeResponse {
             http_status_code: response.http_status_code,
