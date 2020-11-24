@@ -12,7 +12,7 @@ mod files {
     pub const HOME: &str = "home.html";
 }
 
-
+#[derive(Clone)]
 pub struct HomeController {
     #[allow(dead_code)]
     logger: Logger,
@@ -38,7 +38,7 @@ impl HomeController {
 }
 
 impl Controller for HomeController {
-    fn execute_request(&mut self, request: &mut Request) -> Response {
+    fn execute_request(&self, request: &mut Request) -> Response {
         request.current_child_path = BaseController::extract_child_path(&request.resource_path);
         let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
         match route_beginning {

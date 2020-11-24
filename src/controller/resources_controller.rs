@@ -8,6 +8,7 @@ use crate::services::error_service::ErrorService;
 use crate::utils::file_handler::file_handler;
 use crate::utils::logger::Logger;
 
+#[derive(Clone)]
 pub struct ResourcesController {
     #[allow(dead_code)]
     logger: Logger,
@@ -24,22 +25,21 @@ impl ResourcesController {
         }
     }
 
-    pub fn load_resource(&mut self, request: &Request) -> Response {
+    pub fn load_resource(&self, request: &Request) -> Response {
         let content_result = file_handler::load_resource(&request.current_child_path);
         if content_result.is_err() {
-            return self.error_service.serve_400_response(String::from("Resource not found!"));
+            return self
+                .error_service
+                .serve_400_response(String::from("Resource not found!"));
         }
-        let content_type = ContentType::get_content_type_from_file_path(&request.current_child_path);
-        Response::new(
-            content_result.unwrap(),
-            content_type,
-            HTTPStatusCodes::Ok,
-        )
+        let content_type =
+            ContentType::get_content_type_from_file_path(&request.current_child_path);
+        Response::new(content_result.unwrap(), content_type, HTTPStatusCodes::Ok)
     }
 }
 
 impl Controller for ResourcesController {
-    fn execute_request(&mut self, request: &mut Request) -> Response {
+    fn execute_request(&self, request: &mut Request) -> Response {
         request.current_child_path = BaseController::extract_child_path(&request.resource_path);
         self.load_resource(request)
     }

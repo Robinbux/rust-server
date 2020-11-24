@@ -1,17 +1,13 @@
 use crate::controller::admin_controller::AdminController;
 use crate::controller::assets_controller::AssetsController;
 use crate::controller::controller::Controller;
+use crate::controller::home_controller::HomeController;
 use crate::controller::notes_controller::NotesController;
+use crate::controller::resources_controller::ResourcesController;
 use crate::server::request::Request;
 use crate::server::response::Response;
 use crate::services::error_service::ErrorService;
 use crate::utils::logger::Logger;
-<<<<<<< HEAD
-use crate::controller::home_controller::HomeController;
-use crate::controller::resources_controller::ResourcesController;
-=======
-use std::ops::{Deref, DerefMut};
->>>>>>> working multi-threading
 
 #[derive(Clone)]
 pub struct BaseController {
@@ -22,7 +18,7 @@ pub struct BaseController {
     error_service: ErrorService, //user_controller: UserController,
     notes_controller: NotesController,
     home_controller: HomeController,
-    resources_controller: ResourcesController
+    resources_controller: ResourcesController,
 }
 
 impl BaseController {
@@ -42,7 +38,7 @@ impl BaseController {
             error_service,
             notes_controller, //user_controller: user_controller,
             home_controller,
-            resources_controller
+            resources_controller,
         }
     }
 
