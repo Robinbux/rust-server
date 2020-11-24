@@ -8,6 +8,7 @@ use crate::services::error_service::ErrorService;
 use crate::utils::file_handler::file_handler;
 use crate::utils::logger::Logger;
 
+#[derive(Clone)]
 pub struct AssetsController {
     #[allow(dead_code)]
     logger: Logger,
@@ -34,7 +35,7 @@ impl AssetsController {
 }
 
 impl Controller for AssetsController {
-    fn execute_request(&mut self, request: &mut Request) -> Response {
+    fn execute_request(&self, request: &mut Request) -> Response {
         request.current_child_path = BaseController::extract_child_path(&request.resource_path);
         let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
         match route_beginning {

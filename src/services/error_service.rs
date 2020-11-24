@@ -10,6 +10,7 @@ mod files {
     pub const ERROR_404: &str = "404.html";
 }
 
+#[derive(Clone)]
 pub struct ErrorService {
     #[allow(dead_code)]
     logger: Logger,
@@ -33,7 +34,7 @@ impl ErrorService {
         Response::new(content_bytes, ContentType::HTML, HTTPStatusCodes::NotFound)
     }
 
-    pub fn serve_400_response(&mut self, error_message: String) -> Response {
+    pub fn serve_400_response(&self, error_message: String) -> Response {
         self.logger.log(&error_message);
         let json_message = ErrorMessage {
             message: error_message,
@@ -48,7 +49,7 @@ impl ErrorService {
         )
     }
 
-    pub fn serve_500_response(&mut self, error_message: String) -> Response {
+    pub fn serve_500_response(&self, error_message: String) -> Response {
         self.logger.log(&error_message);
         let json_message = ErrorMessage {
             message: error_message,

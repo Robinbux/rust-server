@@ -6,9 +6,14 @@ use crate::server::request::Request;
 use crate::server::response::Response;
 use crate::services::error_service::ErrorService;
 use crate::utils::logger::Logger;
+<<<<<<< HEAD
 use crate::controller::home_controller::HomeController;
 use crate::controller::resources_controller::ResourcesController;
+=======
+use std::ops::{Deref, DerefMut};
+>>>>>>> working multi-threading
 
+#[derive(Clone)]
 pub struct BaseController {
     #[allow(dead_code)]
     logger: Logger,
@@ -62,7 +67,7 @@ impl BaseController {
 }
 
 impl Controller for BaseController {
-    fn execute_request(&mut self, request: &mut Request) -> Response {
+    fn execute_request(&self, request: &mut Request) -> Response {
         let route_beginning = BaseController::extract_parent_path(&request.resource_path);
         return match route_beginning {
             "admin" => self.admin_controller.execute_request(request),

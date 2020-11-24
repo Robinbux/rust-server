@@ -8,7 +8,10 @@ use libc::in_addr;
 use libc::INADDR_ANY;
 use nix::sys::socket::*;
 use nix::unistd::close;
+use num_cpus;
+use rust_server::ThreadPool;
 use std::os::unix::io::RawFd;
+use std::sync::{Arc, Mutex};
 
 const PORT: u16 = 8087;
 
@@ -30,21 +33,6 @@ impl Server {
             logger,
             base_controller,
             error_service,
-        }
-    }
-
-    pub fn listen(&mut self, backlog: usize) {
-        if listen(self.server_fd, backlog).is_err() {
-            self.error_service
-                .serve_500_response("Listening failed".to_string());
-        };
-        self.logger.log("Server started listening.");
-        loop {
-            let (connection_socket, buffer) = self.read_incoming_connection();
-            self.send_response_to_socket(connection_socket, buffer);
-            if close(connection_socket).is_err() {
-                self.logger.log("Closing of Socket RawFD failed.");
-            }
         }
     }
 
@@ -75,42 +63,75 @@ impl Server {
         server_fd
     }
 
-    fn read_incoming_connection(&mut self) -> (RawFd, Vec<u8>) {
-        println!("\n+++++++ Waiting for new connection ++++++++\n\n");
-
-        let new_socket = accept(self.server_fd);
-        if new_socket.is_err() {
+    pub fn listen(self, backlog: usize) {
+        if listen(self.server_fd, backlog).is_err() {
             self.error_service
-                .serve_500_response("Accepting failed".to_string());
+                .serve_500_response("Listening failed".to_string());
         };
-        let new_socket = new_socket.unwrap();
+        self.logger.log("Server started listening.");
+
+        let logical_cpus = num_cpus::get();
+        let pool = ThreadPool::new(logical_cpus);
+        let base_controller = Arc::new(self.base_controller);
+
+        loop {
+            println!("\n+++++++ Waiting for new connection ++++++++\n\n");
+            let new_socket = accept(self.server_fd);
+            if new_socket.is_err() {
+                self.error_service
+                    .serve_500_response("Accepting failed".to_string());
+            };
+            let new_socket = new_socket.unwrap();
+
+            let base_controller = base_controller.clone();
+
+            pool.execute(move || {
+                Server::handle_connection(base_controller, new_socket);
+            });
+        }
+    }
+
+    fn handle_connection(base_controller: Arc<BaseController>, connection_socket: RawFd) {
+        let buffer = Server::read_into_buffer(&connection_socket);
+        Server::send_response_to_socket(base_controller, connection_socket, buffer);
+        /*if close(connection_socket).is_err() {
+            self.logger.log("Closing of Socket RawFD failed.");
+        }*/
+    }
+
+    fn read_into_buffer(connection_socket: &RawFd) -> Vec<u8> {
         let mut buffer = vec![0; 30000];
         let val_read_str: String;
 
-        recvfrom(new_socket, &mut *buffer).expect("Reading Failed");
+        recvfrom(*connection_socket, &mut *buffer).expect("Reading Failed");
         val_read_str = String::from_utf8_lossy(buffer.as_slice())
             .parse()
             .expect("Parsing Failed");
 
         println!("---Client Request---\n{}", val_read_str);
-        self.logger.log("Received client request!");
-        (new_socket, buffer)
+        // self.logger.log("Received client request!");
+        buffer
     }
 
-    fn send_response_to_socket(&mut self, new_socket: RawFd, buffer: Vec<u8>) {
-        let mime_response = self.create_response(buffer);
+    fn send_response_to_socket(
+        base_controller: Arc<BaseController>,
+        new_socket: RawFd,
+        buffer: Vec<u8>,
+    ) {
+        let mime_response = Server::create_response(base_controller, buffer);
 
         if send(new_socket, &mime_response.as_ref(), MsgFlags::empty()).is_err() {
-            self.error_service
-                .serve_500_response("Sending failed".to_string());
+            println!("failed to send");
+            /*self.error_service
+            .serve_500_response("Sending failed".to_string());*/
         };
-        self.logger.log("Response sent");
+        // self.logger.log("Response sent");
         println!("------------------Response sent-------------------\n");
     }
 
-    fn create_response(&mut self, buffer: Vec<u8>) -> Vec<u8> {
+    fn create_response(base_controller: Arc<BaseController>, buffer: Vec<u8>) -> Vec<u8> {
         let mut request = request::Request::new(buffer);
-        let response = self.base_controller.execute_request(&mut request);
+        let response = base_controller.execute_request(&mut request);
 
         let mut mime_response = MimeResponse {
             http_status_code: response.http_status_code,

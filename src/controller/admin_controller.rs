@@ -13,6 +13,7 @@ use std::fs;
 use tinytemplate;
 use tinytemplate::TinyTemplate;
 
+#[derive(Clone)]
 pub struct AdminController {
     #[allow(dead_code)]
     logger: Logger,
@@ -60,7 +61,7 @@ impl AdminController {
 }
 
 impl Controller for AdminController {
-    fn execute_request(&mut self, request: &mut Request) -> Response {
+    fn execute_request(&self, request: &mut Request) -> Response {
         request.current_child_path = BaseController::extract_child_path(&request.resource_path);
         let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
         return match route_beginning {

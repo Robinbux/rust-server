@@ -4,9 +4,10 @@ use std::fs::File;
 use std::fs::OpenOptions;
 use std::io::Write;
 
+#[derive(Clone)]
 pub struct Logger {
     name: String,
-    file: File,
+    file_path: String,
 }
 
 impl Logger {
@@ -17,18 +18,20 @@ impl Logger {
             None => String::from("resources/logs/Log.txt"),
         };
 
-        let file = OpenOptions::new()
-            .append(true)
-            .open(&log_path)
-            .expect("cannot open file");
-        Logger { name, file }
+        Logger {
+            name,
+            file_path: log_path,
+        }
     }
 
-    pub fn log(&mut self, log_message: &str) {
+    pub fn log(&self, log_message: &str) {
         let now: DateTime<Local> = Local::now();
         let complete_message = format!("{:?}  [{}]: {}\n", now, self.name, log_message);
-        self.file
-            .write_all(complete_message.as_bytes())
+        let mut file = OpenOptions::new()
+            .append(true)
+            .open(&self.file_path)
+            .expect("cannot open file");
+        file.write_all(complete_message.as_bytes())
             .expect("write failed")
     }
 }

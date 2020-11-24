@@ -1142,6 +1142,7 @@ dependencies = [
  "image",
  "libc",
  "nix",
+ "num_cpus",
  "postgres",
  "regex",
  "serde",
