@@ -8,4 +8,4 @@ As this project had it's main goal in creating a server from scratch, and explor
 - [Code documentation](documentation/code_documentation.md)
 - [API documentation](documentation/api/README.md)
 
-
+[Link to showcase video](https://www.youtube.com/watch?v=daVctoMoohE)
