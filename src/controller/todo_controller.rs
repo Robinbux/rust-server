@@ -43,7 +43,6 @@ impl TodoController {
                     .serve_400_response("Incorrect Payload Structure!".to_string()));
             }
         };
-        let debug_str = String::from(str_payload);
         let json_end_index = str_payload.rfind('}').expect("Invalid Json");
         Ok(&str_payload[..json_end_index + 1])
     }

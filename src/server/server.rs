@@ -9,7 +9,7 @@ use libc::INADDR_ANY;
 use nix::sys::socket::*;
 use nix::unistd::close;
 use std::os::unix::io::RawFd;
-use percent_encoding::{percent_decode_str, AsciiSet, CONTROLS};
+use percent_encoding::{percent_decode_str};
 
 const PORT: u16 = 8087;
 
