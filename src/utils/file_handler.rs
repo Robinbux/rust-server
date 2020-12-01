@@ -16,14 +16,15 @@ pub mod file_handler {
             ContentType::PNG => Ok(load_png(format!("resources/assets/{}", &raw_file_name))),
             ContentType::JAVASCRIPT => Ok(load_text(format!("resources/js/{}", &raw_file_name))),
             ContentType::CSS => Ok(load_text(format!("resources/css/{}", &raw_file_name))),
+            ContentType::MP4 => Ok(load_mp4(format!("resources/assets/{}", &raw_file_name))),
             _ => panic!("Unsupported content type!"),
         }
     }
 
-    // If the provided file_name is a path eg. /css/style.css, we cant to extract the raw file name.
+    // If the provided file_name is a path eg. /css/style.css, we have to extract the raw file name.
     fn extract_raw_file_name(file_name: &str) -> String {
         if !file_name.contains("/") {
-            return file_name.to_owned()
+            return file_name.to_owned();
         }
         file_name.split("/").last().unwrap().to_owned()
     }
@@ -70,6 +71,12 @@ pub mod file_handler {
                 println!("input is not png");
             }
         }
+        bytes
+    }
+
+    fn load_mp4(mp4_file_path: String) -> Vec<u8> {
+        let valid_resource_path = check_resource_path(&mp4_file_path);
+        let bytes: Vec<u8> = std::fs::read(valid_resource_path).unwrap();
         bytes
     }
 }

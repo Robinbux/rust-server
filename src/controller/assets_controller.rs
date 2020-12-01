@@ -29,6 +29,10 @@ impl AssetsController {
         file_handler::load_resource("pikachu.png").expect("Unable to load resource")
     }
 
+    pub fn serve_mp4(&self) -> Vec<u8> {
+        file_handler::load_resource("sample_vid.mp4").expect("Unable to load resource")
+    }
+
     pub fn serve_fav_icon() -> Vec<u8> {
         file_handler::load_resource("favicon.ico").expect("Unable to load resource")
     }
@@ -40,11 +44,12 @@ impl Controller for AssetsController {
         let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
         match route_beginning {
             "pika" => Response::new(self.pika(), ContentType::PNG, HTTPStatusCodes::Ok),
-            "favicon.ico" => Response::new(
+            "" => Response::new(
                 AssetsController::serve_fav_icon(),
                 ContentType::ICO,
                 HTTPStatusCodes::Ok,
             ),
+            "vid" => Response::new(self.serve_mp4(), ContentType::MP4, HTTPStatusCodes::Ok),
             _ => self.error_service.serve_404_page(),
         }
     }
