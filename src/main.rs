@@ -2,17 +2,18 @@
 extern crate diesel;
 
 mod controller;
+mod database;
 mod dtos;
 mod enums;
+pub mod schema;
 mod server;
 mod services;
+mod thread_pool;
 mod utils;
-mod database;
-pub mod schema;
 
 use crate::server::server::Server;
 
 fn main() {
-    let mut server = Server::new();
+    let server = Server::new();
     server.listen(10)
 }

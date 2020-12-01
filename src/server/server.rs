@@ -3,13 +3,13 @@ use crate::controller::controller::Controller;
 use crate::server::mime_response::MimeResponse;
 use crate::server::request;
 use crate::services::error_service::ErrorService;
+use crate::thread_pool::ThreadPool;
 use crate::utils::logger::Logger;
 use libc::in_addr;
 use libc::INADDR_ANY;
 use nix::sys::socket::*;
 use nix::unistd::close;
 use num_cpus;
-use rust_server::ThreadPool;
 use std::os::unix::io::RawFd;
 use std::sync::Arc;
 
@@ -125,7 +125,7 @@ impl Server {
                 .error_service
                 .serve_500_response("Sending failed".to_string());
         };
-        server.logger.log("Response sent");
+        server.logger.log("Response sent.");
         println!("------------------Response sent-------------------\n");
     }
 
