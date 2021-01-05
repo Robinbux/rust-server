@@ -1,83 +1,131 @@
-//selectors
 const todoInput = document.querySelector('.todo_input');
 const todoButton = document.querySelector('.todo_button');
 const todoList = document.querySelector('.todo_list');
-const filterOption = document.querySelector('.filter_todo');
-//event listeners
-todoButton.addEventListener("click", addTodo)
-todoList.addEventListener("click", deleteCheck)
-filterOption.addEventListener("click", filterTodo)
-//functions
 
-function addTodo(event) {
-    event.preventDefault();
-    //todo DIV
+todoButton.addEventListener("click", addNewTodo)
+todoList.addEventListener("click", deleteCheck)
+
+const baseTodoURL = "http://localhost:8087/todo"
+
+var todos = []
+
+// Load Todos into the DOM
+function loadTodos() {
+    todos.forEach( todo =>
+        addSingleTodo(todo)
+    )
+}
+
+function addSingleTodo(todo) {
+    // Wrapping Div
     const todoDiv = document.createElement('div');
-    todoDiv.classList.add('todo');
-    //todo LI
+    todoDiv.classList.add('todo_element');
+    todoDiv.setAttribute("id", todo.id)
+    if (todo.completed) todoDiv.classList.add('completed-item');
+
+    // Green Checkmark Button
+    const completedButton = document.createElement('button');
+    completedButton.innerHTML = '<i class="material-icons">check_circle_outline</i>';
+    completedButton.classList.add('complete_btn');
+    if (todo.completed) completedButton.children[0].classList.add("md-completed")
+    todoDiv.appendChild(completedButton);
+
+    // Todo Message
     const newTodo = document.createElement('li');
-    newTodo.innerText = todoInput.value;
+    newTodo.innerText = todo.todo_message;
     newTodo.classList.add('todo_item');
     todoDiv.appendChild(newTodo);
-    if(todoInput.value === ""){
-        return null
-    }
-    //check mark BUTTON
-    const completedButton = document.createElement('button');
-    completedButton.innerHTML = '<i class="fas fa-check"></i>';
-    completedButton.classList.add('complete_btn')
-    todoDiv.appendChild(completedButton);
-    //delete BUTTON
+
+    // Delete Button
     const deleteButton = document.createElement('button');
-    deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
+    deleteButton.innerHTML = '<i class="material-icons">delete</i>';
     deleteButton.classList.add('delete_btn')
     todoDiv.appendChild(deleteButton);
-    //Append to Actual LIST
+
     todoList.appendChild(todoDiv);
-    //Clear todo input VALUE
-    todoInput.value = ""
 }
 
-//DELETE & CHECK
-function deleteCheck(e) {
-    const item = e.target;
-    //DELETE ITEM
+function deleteCheck(event) {
+    const item = event.target;
+    // Delete todo
     if (item.classList[0] === "delete_btn") {
         const todo = item.parentElement;
-        //ANIMATION TRANSITION
-        todo.classList.add("fall")
-        todo.addEventListener('transitionend', function () {
-            todo.remove()
-        })
+        deleteTodo(event, todo.id)
+        todo.remove();
     }
-    //COMPLETE ITEM
-    if (item.classList[0] === "complete_btn") {
+    // Complete todo
+    if (item.classList[0] === "todo_item" || item.classList[0] === "complete_btn") {
         const todo = item.parentElement;
-        todo.classList.toggle("completedItem")
+        updateTodo(event, todo.id, !todo.classList.contains("completed-item"))
+
+        todo.classList.toggle("completed-item")
+        todo.querySelector('.complete_btn').children[0].classList.toggle("md-completed")
     }
 }
-//FILTERING THE TASKS ACCORDING THE OPTION
-function filterTodo(e) {
-    const todos = todoList.childNodes;
-    for(let i = 1; i<todos.length; i++ ){
-        switch (e.target.value) {
-            case "all":
-                todos[i].style.display = "flex";
-                break;
-            case "completed":
-                if (todos[i].classList.contains('completedItem')) {
-                    todos[i].style.display = "flex";
-                } else {
-                    todos[i].style.display = "none";
-                }
-                break;
-            case "uncompleted":
-                if (!todos[i].classList.contains('completedItem')) {
-                    todos[i].style.display = "flex";
-                } else {
-                    todos[i].style.display = "none";
-                }
-                break;
-        }
-    }
+
+// ------------------------------------------------------------------
+// HTTP Requests
+// ------------------------------------------------------------------
+function fetchTodosReqListener () {
+    console.log(this.responseText);
+    todos = JSON.parse(this.responseText);
+    loadTodos();
 }
+
+// Fetch Todos before page is loading
+// GET Todos
+function fetchTodos()
+{
+    console.log("FETCH TODOS");
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.addEventListener("load", fetchTodosReqListener);
+    xmlhttp.open("GET", baseTodoURL, false);
+    xmlhttp.send();
+    var x = 5;
+}
+
+function createTodoReqListener() {
+    const todo = JSON.parse(this.responseText);
+    addSingleTodo(todo);
+}
+
+// POST Todo
+function addNewTodo(event) {
+    event.preventDefault();
+    if (todoInput.value === "") return null
+
+    const params = {
+        todo_message: todoInput.value
+    }
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.addEventListener("load", createTodoReqListener);
+    xmlhttp.open("POST", baseTodoURL, false);
+    xmlhttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+    xmlhttp.send(JSON.stringify(params));
+    todoInput.value = "";
+}
+
+// DELETE Todo
+function deleteTodo(event, id) {
+    event.preventDefault();
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("DELETE", baseTodoURL + "/" + id, false);
+    xmlhttp.send();
+}
+
+// UPDATE Todo
+function updateTodo(event, id, completed) {
+    event.preventDefault();
+    const params = {
+        completed: completed
+    }
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.addEventListener("load", createTodoReqListener);
+    xmlhttp.open("PUT", baseTodoURL + "/" + id, false);
+    xmlhttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+    xmlhttp.send(JSON.stringify(params));
+}
+
+window.onpaint = fetchTodos();

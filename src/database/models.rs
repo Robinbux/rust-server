@@ -1,14 +1,16 @@
-use crate::schema::notes;
+use crate::schema::todos;
 use serde::{Deserialize, Serialize};
 
 #[derive(Queryable, Serialize, Deserialize)]
-pub struct Note {
+pub struct Todo {
     pub id: i32,
-    pub note_message: String,
+    pub todo_message: String,
+    pub completed: bool
 }
 
 #[derive(Insertable, Queryable)]
-#[table_name = "notes"]
-pub struct NewNote<'a> {
-    pub note_message: &'a str,
+#[table_name = "todos"]
+pub struct NewTodo<'a> {
+    pub todo_message: &'a str,
+    pub completed: bool,
 }

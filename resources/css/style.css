@@ -1,86 +1,79 @@
-/* REMOVING THE DEFAULT STYLINGS FROM THE PAGE */
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-/* ADDING BACKGROUND COLOR, FONT  FAMILY, FOREGROUND COLOR AND MINIMUN HEIGHT TO OUR PAGE  */
 body{
-    background-image: linear-gradient(120deg, #5f57d1, #c065c0);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: #F6F7EB;
     font-family: 'Poppins', sans-serif;
-    color: white;
     min-height: 100vh;
 }
 
-/* STYLYING INPUT ELEMENT AND TH EBUTTON */
-header,form{
-    display: flex;
-    min-height: 15vh;
-    justify-content: center;
-    align-items: center;
-}
-form input, form button{
-    padding: 0.4rem;
-    border: none;
-    font-size: 1.6rem;
-    background: white;
-}
-form button{
-    color: #c065c0;
-    background: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-form button:hover{
-    background: #c065c0;
-    color: white;
-}
-/* STYLING DROPDOWN */
-select{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    outline: none;
-    border: none;
-}
-.select{
-    margin: 1rem;
-    position: relative;
-    overflow: hidden;
-}
-select{
-    color: #c065c0;
-    width: 8rem;
-    cursor: pointer;
-    padding: 0.7rem;
-}
-.select::after{
-    content: "\25bc";
-    position: absolute;
-    color: #c065c0;
-    top: 7px;
-    right: 6px;
-    pointer-events: none;
-}
-.select:hover::after{
-    color: #583429;
+header {
+    margin-top: -20px;
+    margin-bottom: -20px;
+    margin-left: 20px;
+    color: #5C415D;
+    font-size: 25px;
 }
 
-/* STYLING CONTAINER WHERE THE TASKS ARE SHOWN */
-.todo_container{
+form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #5C415D;
+    font-size: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+form input{
+    padding: 0.4rem;
+    font-size: 1.6rem;
+    background: transparent;
+    border: none;
+    border-bottom: 1.2px solid #393E41;
+    color: #393E41;
+}
+
+form button{
+    visibility: hidden;
+}
+
+/* Remove blue box around text input */
+textarea:focus, input:focus{
+    outline: none;
+    border-bottom: 2.2px solid #8EA4D2;
+    transition: 0.5s;
+}
+
+.todo_list_complete_frame {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    background-color: white;
+    margin-top: 100px;
+    border-radius: 20px;
+    box-shadow: 10px 10px 8px #888888;
+}
+
+.todo_list_container{
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .todo_list{
+    width: 100%;
     min-width: 40%;
     list-style: none;
+    padding-left: 0;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
-.todo{
+.todo_element{
     margin: 5px auto;
-    background: white;
-    color: #000000;
+    color: #393E41;
     display: flex;
     font-size: 1.2rem;
     padding: 0.3rem;
@@ -89,31 +82,31 @@ select{
     transition: all 0.5s ease;
 }
 
-.todo li {
+.todo_element:hover {
+    background-color: #F4F7FA;
+    cursor: pointer;
+}
+
+.todo_element li {
     flex: 1;
 }
 
-/* STYLING THE BUTTONS ON THE TASKS  */
 .complete_btn,
 .delete_btn{
     padding: 0.5rem;
-    background: #ff3700;
-    color: white;
     border: none;
     margin-left: 0.2rem;
     cursor: pointer;
     font-size: 1rem;
+    background: none;
 }
 
 .complete_btn{
-    background: rgb(67, 179, 67);
-}
-.complete_btn:active{
-    background: green;
+    background: none;
 }
 
-.delete_btn:active{
-    background: #b65337;
+.delete_btn:hover{
+    color: #E3170A;
 }
 
 .fa-trash,
@@ -121,14 +114,17 @@ select{
     pointer-events: none;
 }
 
-/* STYLING TASK THAT IS COMPLETED */
-.completedItem{
+.completed-item{
     text-decoration: line-through;
+    font-style: italic;
+    color: gray;
     opacity: 0.5;
-    transform: scale(0.96);
 }
-/* DELETING THE TASKS */
-.fall{
-    transform: translateY(4rem) scale(0.4) rotateZ(20deg);
-    opacity: 0;
+
+.material-icons.md-completed {
+    color: #00A878;
+}
+
+.material-icons {
+    pointer-events:none;
 }

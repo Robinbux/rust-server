@@ -2,7 +2,7 @@ use crate::controller::admin_controller::AdminController;
 use crate::controller::assets_controller::AssetsController;
 use crate::controller::controller::Controller;
 use crate::controller::home_controller::HomeController;
-use crate::controller::notes_controller::NotesController;
+use crate::controller::todo_controller::TodoController;
 use crate::controller::resources_controller::ResourcesController;
 use crate::server::request::Request;
 use crate::server::response::Response;
@@ -16,7 +16,7 @@ pub struct BaseController {
     admin_controller: AdminController,
     assets_controller: AssetsController,
     error_service: ErrorService, //user_controller: UserController,
-    notes_controller: NotesController,
+    todo_controller: TodoController,
     home_controller: HomeController,
     resources_controller: ResourcesController,
 }
@@ -27,7 +27,7 @@ impl BaseController {
         let admin_controller = AdminController::new();
         let assets_controller = AssetsController::new();
         let error_service = ErrorService::new();
-        let notes_controller = NotesController::new();
+        let todo_controller = TodoController::new();
         let home_controller = HomeController::new();
         let resources_controller = ResourcesController::new();
         //let user_controller = UserController::new();
@@ -36,7 +36,7 @@ impl BaseController {
             admin_controller,
             assets_controller,
             error_service,
-            notes_controller, //user_controller: user_controller,
+            todo_controller,
             home_controller,
             resources_controller,
         }
@@ -69,8 +69,8 @@ impl Controller for BaseController {
             "admin" => self.admin_controller.execute_request(request),
             "assets" => self.assets_controller.execute_request(request),
             "favicon.ico" => self.assets_controller.execute_request(request),
-            "notes" => self.notes_controller.execute_request(request),
-            "home" => self.home_controller.execute_request(request),
+            "todo" => self.todo_controller.execute_request(request),
+            "home" | "home?" => self.home_controller.execute_request(request),
             "resources" => self.resources_controller.execute_request(request),
             //"user" => self.user_controller.execute_request(),
             _ => self.error_service.serve_404_page(),

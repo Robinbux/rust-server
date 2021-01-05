@@ -1,4 +1,3 @@
 /target
 .idea
 postgres/
-resources/logs/Log.txt

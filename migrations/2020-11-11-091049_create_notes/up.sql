@@ -1,7 +1,0 @@
--- Your SQL goes here
-CREATE TABLE notes (
-    id SERIAL PRIMARY KEY,
-    note_message TEXT NOT NULL
-    --created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    --updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-)

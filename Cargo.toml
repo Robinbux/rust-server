@@ -24,3 +24,4 @@ diesel = { version = "1.4.4", features = ["postgres"] }
 dotenv = "0.15.0"
 shared_singleton = "0.1.0"
 num_cpus = "1.12.0"
+

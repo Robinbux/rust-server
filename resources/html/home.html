@@ -3,36 +3,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
-          crossorigin="anonymous" />
     <link rel="stylesheet" href="resources/css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+
     <title>To-Do List App</title>
 </head>
 <body>
-<!-- TITLE -->
-<header>
-    <h1>WORKS TO BE DONE</h1>
-</header>
-<!-- INPUT FIELD TO ENTER TASK AND DROPDOWN FILTER -->
-<form>
-    <input type="text" placeholder="Enter The Work" class="todo_input" />
-    <button class="todo_button" type="submit">
-        <i class="fas fa-plus-square"></i>
-    </button>
-    <div class="select">
-        <select name="todos" class="filter_todo">
-            <option value="all">All</option>
-            <option value="completed">Completed</option>
-            <option value="uncompleted">Uncompleted</option>
-        </select>
+<div class="todo_list_complete_frame">
+    <header>
+        <u><h1>Your Todos:</h1></u>
+    </header>
+    <form>
+        <div>
+            <input type="text" placeholder="Change the world..." class="todo_input" />
+            <button class="todo_button" type="submit">
+                <i class="fas fa-plus-square"></i>
+            </button>
+        </div>
+    </form>
+    <div class="todo_list_container">
+        <ul class="todo_list">
+            <!--<div class="todo_element">
+                <button class="complete_btn">
+                    <i class="material-icons">check_circle_outline</i>
+                </button>
+                <li class="todo_item">
+                    Buy Milk
+                </li>
+                <button class="delete_btn">
+                    <i class="material-icons">delete</i>
+                </button>
+            </div>
+            <div class="todo_element completed-item">
+                <button class="complete_btn">
+                    <i class="material-icons md-completed">check_circle_outline</i>
+                </button>
+                <li class="todo_item">
+                    Work on CODE
+                </li>
+                <button class="delete_btn">
+                    <i class="material-icons">delete</i>
+                </button>
+            </div>
+            <div class="todo_element">
+                <button class="complete_btn">
+                    <i class="material-icons">check_circle_outline</i>
+                </button>
+                <li class="todo_item">
+                    Play Games
+                </li>
+                <button class="delete_btn">
+                    <i class="material-icons">delete</i>
+                </button>
+            </div> -->
+        </ul>
     </div>
-</form>
-<!-- CONTAINER FOR DISPLAYING TO-DO LIST BY ADDING TASKS DYNAMICALLY USING JAVASCRIPT -->
-<div class="todo_container">
-    <ul class="todo_list"></ul>
 </div>
-<!-- ADDING JAVA SCRIPT -->
 <script src="resources/js/app.js"></script>
 </body>
 </html>
