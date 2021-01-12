@@ -36,12 +36,12 @@ impl ContentType {
         return result;
     }
 
-    pub fn get_content_type_from_file_path(path: &str) -> ContentType {
+    pub fn get_content_type_from_file_path(path: &str) -> Result<ContentType, String> {
         let content_type_str = path.split(".").last().expect("Unable to split path.");
         let result = ContentType::from_str(String::from(content_type_str));
 
         let unwrapped = result.expect("Unable to convert given String to ContentType.");
-        return unwrapped;
+        Ok(unwrapped)
     }
 }
 #[cfg(test)]

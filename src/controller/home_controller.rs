@@ -6,14 +6,13 @@ use crate::server::request::Request;
 use crate::server::response::Response;
 use crate::services::error_service::ErrorService;
 use crate::services::resource_service::ResourceService;
-use crate::utils::file_handler::file_handler;
 use crate::utils::logger::Logger;
 
 mod files {
     pub const HOME: &str = "home.html";
 }
 
-
+#[derive(Clone)]
 pub struct HomeController {
     #[allow(dead_code)]
     logger: Logger,
@@ -34,15 +33,10 @@ impl HomeController {
     }
 
     pub fn home_page(&self) -> Response {
-        let content_bytes = Vec::from(
-            &file_handler::load_resource(files::HOME).expect("Unable to load resource")[..],
-        );
+        let content_bytes = ResourceService::load_resource(&self.error_service, files::HOME).expect("Unable to load resource");
         Response::new(content_bytes, ContentType::HTML, HTTPStatusCodes::Ok)
     }
 
-    pub fn resource(&mut self, request: &Request) -> Response {
-        self.resource_service.load_resource(request)
-    }
 }
 
 impl Controller for HomeController {
@@ -51,7 +45,6 @@ impl Controller for HomeController {
         let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
         match route_beginning {
             "" => self.home_page(),
-            "resources" => self.resource(&request),
             _ => self.error_service.serve_404_page(),
         }
     }

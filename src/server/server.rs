@@ -150,13 +150,10 @@ impl Server {
 }
 
 mod tests {
-    #[cfg(test)]
     use super::*;
-    #[cfg(test)]
     use chrono::prelude::*;
     use hyper::{Client, Uri};
     //use std::env;
-    #[cfg(test)]
     use std::fs::read_to_string;
     //use std::thread;
 

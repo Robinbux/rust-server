@@ -5,47 +5,48 @@ use crate::enums::http_status_codes::HTTPStatusCodes;
 use crate::server::request::Request;
 use crate::server::response::Response;
 use crate::services::error_service::ErrorService;
-use crate::utils::file_handler::file_handler;
 use crate::utils::logger::Logger;
+use crate::services::resource_service::ResourceService;
 
 use serde::Serialize;
 use std::fs;
 use tinytemplate;
 use tinytemplate::TinyTemplate;
+use std::str;
 
 #[derive(Clone)]
 pub struct AdminController {
     #[allow(dead_code)]
     logger: Logger,
     error_service: ErrorService,
+    resource_service: ResourceService,
 }
 
 mod files {
-    pub const CONSOLE: &str = "console.html";
+    pub const CONSOLE: &str = "resources/html/console.html";
 }
 
 impl AdminController {
     pub fn new() -> AdminController {
         let logger = Logger::new(String::from("AdminController"));
         let error_service = ErrorService::new();
+        let resource_service = ResourceService::new();
         AdminController {
             logger,
             error_service,
+            resource_service,
         }
     }
 
     fn console(&self) -> Response {
-        let data_vec =
-            &file_handler::load_resource(files::CONSOLE).expect("Unable to load resource");
-        let content = AdminController::replace_template_values(
-            &file_handler::convert_vec_to_string(data_vec),
-        );
+        let data_vec = ResourceService::load_from_file_path(String::from(files::CONSOLE)).expect("Unable to load file");
+        let content = AdminController::replace_template_values(str::from_utf8(&data_vec).unwrap());
         Response::new(content, ContentType::HTML, HTTPStatusCodes::Ok)
     }
 
     fn replace_template_values(html_str: &str) -> Vec<u8> {
         let logs = fs::read_to_string("resources/logs/Log.txt")
-            .expect("Something went wrong reading the file");
+            .expect("Something went wrong reading the log file");
 
         let log = Log { logs };
 

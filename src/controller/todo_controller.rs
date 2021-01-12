@@ -11,7 +11,7 @@ use crate::services::todo_service::TodoService;
 use crate::utils::logger::Logger;
 use std::str;
 
-
+#[derive(Clone)]
 pub struct TodoController {
     #[allow(dead_code)]
     logger: Logger,
@@ -33,7 +33,7 @@ impl TodoController {
     }
 
     fn get_trimmed_payload_from_request<'a>(
-        &mut self,
+        &self,
         request: &'a Request
     ) -> Result<&'a str, Response> {
         let str_payload = match &request.payload {
@@ -57,7 +57,7 @@ impl TodoController {
 
     // POST
     // PATH: /
-    pub fn create_todo(&mut self, request: &Request) -> Response {
+    pub fn create_todo(&self, request: &Request) -> Response {
         let json_request_result = self.get_trimmed_payload_from_request(request);
         if json_request_result.is_err() {
             return json_request_result.err().unwrap();
@@ -91,7 +91,7 @@ impl TodoController {
 
     // PUT
     // PATH: /$TODO_ID
-    pub fn update_todo(&mut self, request: &Request, todo_id: i32) -> Response {
+    pub fn update_todo(&self, request: &Request, todo_id: i32) -> Response {
         let json_request_result = self.get_trimmed_payload_from_request(request);
         if json_request_result.is_err() {
             return json_request_result.err().unwrap();
@@ -125,7 +125,7 @@ impl TodoController {
     // GET
     // PATH: /
 
-    pub fn get_all_todos(&mut self) -> Response {
+    pub fn get_all_todos(&self) -> Response {
         let result = self.todo_service.get_all_todos();
         if result.is_err() {
             return self
@@ -139,7 +139,7 @@ impl TodoController {
 
     // DELETE
     // PATH: /$TODO_ID
-    pub fn delete_todos(&mut self, todo_id: i32) -> Response {
+    pub fn delete_todos(&self, todo_id: i32) -> Response {
         let result = self.todo_service.delete_todo(todo_id);
         if result.is_err() {
             return self
@@ -168,7 +168,7 @@ impl TodoController {
     }
 
 
-    fn error_or_todo_id_request(&mut self, request: &Request) -> Response {
+    fn error_or_todo_id_request(&self, request: &Request) -> Response {
         let todo_id_result = TodoController::get_id_from_request(&request);
         return match todo_id_result {
             Ok(id) => {
@@ -185,7 +185,7 @@ impl TodoController {
 
 
 impl Controller for TodoController {
-    fn execute_request(&mut self, mut request: &mut Request) -> Response {
+    fn execute_request(&self, mut request: &mut Request) -> Response {
         request.current_child_path = BaseController::extract_child_path(&request.resource_path);
         let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
         return match route_beginning {

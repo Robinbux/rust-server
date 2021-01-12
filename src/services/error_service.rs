@@ -1,13 +1,13 @@
 use crate::enums::content_type::ContentType;
 use crate::enums::http_status_codes::HTTPStatusCodes;
 use crate::server::response::Response;
-use crate::utils::file_handler::file_handler;
 use crate::utils::logger::Logger;
+use crate::services::resource_service;
 use serde::{Deserialize, Serialize};
 use serde_json;
 
 mod files {
-    pub const ERROR_404: &str = "404.html";
+    pub(crate) const ERROR_404_FILE_PATH: &str = "resources/html/404.html";
 }
 
 #[derive(Clone)]
@@ -28,9 +28,7 @@ impl ErrorService {
     }
 
     pub fn serve_404_page(&self) -> Response {
-        let content_bytes = Vec::from(
-            &file_handler::load_resource(files::ERROR_404).expect("Unable to load resource")[..],
-        );
+        let content_bytes = resource_service::ResourceService::load_from_file_path(String::from(files::ERROR_404_FILE_PATH)).unwrap();
         Response::new(content_bytes, ContentType::HTML, HTTPStatusCodes::NotFound)
     }
 

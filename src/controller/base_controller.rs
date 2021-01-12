@@ -81,12 +81,21 @@ impl Controller for BaseController {
 #[allow(dead_code)]
 mod tests {
 
+    use super::*;
+
     #[cfg(test)]
     #[test]
-    fn extract_child_path() {
+    fn extract_child_long_path() {
         let path = "/admin/console/index";
         let result = BaseController::extract_child_path(path);
         assert_eq!("/console/index", result)
+    }
+
+    #[test]
+    fn extract_child_short_path() {
+        let path = "/test/test";
+        let result = BaseController::extract_child_path(path);
+        assert_eq!("/test", result)
     }
 
     #[test]
@@ -100,7 +109,7 @@ mod tests {
     fn extract_child_path_missing() {
         let path = "/admin";
         let result = BaseController::extract_child_path(path);
-        assert_eq!("", result)
+        assert_eq!("/", result)
     }
 
     #[test]
