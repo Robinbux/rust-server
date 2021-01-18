@@ -22,11 +22,7 @@ impl TodoService {
         Ok(create_todo(&create_todo_dto.todo_message))
     }
 
-    pub fn update_todo(
-        &self,
-        update_todo_dto: UpdateTodoDTO,
-        todo_id: i32,
-    ) -> Result<(), Error> {
+    pub fn update_todo(&self, update_todo_dto: UpdateTodoDTO, todo_id: i32) -> Result<(), Error> {
         update_todo(update_todo_dto.completed, todo_id)
     }
 

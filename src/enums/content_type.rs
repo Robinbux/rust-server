@@ -22,7 +22,7 @@ impl ContentType {
         }
     }
 
-    pub fn from_str(content_type: String) -> Result<ContentType, ()> {
+    pub fn from_str(content_type: &str) -> Result<ContentType, String> {
         let result = match content_type.replace(";", "").as_ref() {
             "html" => Ok(ContentType::HTML),
             "ico" => Ok(ContentType::ICO),
@@ -31,17 +31,19 @@ impl ContentType {
             "js" => Ok(ContentType::JAVASCRIPT),
             "css" => Ok(ContentType::CSS),
             "mp4" => Ok(ContentType::MP4),
-            _ => Err(()), // TODO: Error handling!
+            _ => Err(String::from("Unable to convert given String to ContentType")),
         };
         return result;
     }
 
     pub fn get_content_type_from_file_path(path: &str) -> Result<ContentType, String> {
-        let content_type_str = path.split(".").last().expect("Unable to split path.");
-        let result = ContentType::from_str(String::from(content_type_str));
+        let content_type_str = path.split(".").last().unwrap();
+        let result = ContentType::from_str(content_type_str);
 
-        let unwrapped = result.expect("Unable to convert given String to ContentType.");
-        Ok(unwrapped)
+        if result.is_err(){
+            return Err(result.unwrap_err());
+        };
+        Ok(result.unwrap())
     }
 }
 #[cfg(test)]
@@ -50,43 +52,44 @@ mod tests {
 
     #[test]
     fn from_str_html() {
-        let file_path = String::from("html");
+        let file_path = "html;";
         let result = ContentType::from_str(file_path);
         assert_eq!(result.unwrap(), ContentType::HTML)
     }
 
     #[test]
     fn from_str_ico() {
-        let file_path = String::from("ico");
+        let file_path = "ico";
         let result = ContentType::from_str(file_path);
         assert_eq!(result.unwrap(), ContentType::ICO)
     }
 
     #[test]
     fn from_str_false() {
-        let file_path = String::from("index");
+        let file_path = "index";
         let result = ContentType::from_str(file_path);
-        assert_eq!(result, Err(()))
+        assert!(result.is_err())
     }
 
     #[test]
-    #[should_panic]
     fn get_content_type_from_file_path_missing() {
-        let file_path = String::from("/home/portfolio");
-        ContentType::get_content_type_from_file_path(&file_path);
+        let file_path = "/home/portfolio";
+        let result = ContentType::get_content_type_from_file_path(file_path);
+        let error_msg = String::from("Unable to convert given String to ContentType");
+        assert_eq!(result.unwrap_err(), error_msg)
     }
 
     #[test]
     fn get_content_type_from_file_path_html() {
         let file_path = String::from("/home/portfolio.html");
-        let result = ContentType::get_content_type_from_file_path(&file_path);
+        let result = ContentType::get_content_type_from_file_path(&file_path).unwrap();
         assert_eq!(result, ContentType::HTML)
     }
 
     #[test]
     fn get_content_type_from_file_path_ico() {
         let file_path = String::from("/fav.ico");
-        let result = ContentType::get_content_type_from_file_path(&file_path);
+        let result = ContentType::get_content_type_from_file_path(&file_path).unwrap();
         assert_eq!(result, ContentType::ICO)
     }
 }

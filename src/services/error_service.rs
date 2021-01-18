@@ -1,8 +1,8 @@
 use crate::enums::content_type::ContentType;
 use crate::enums::http_status_codes::HTTPStatusCodes;
 use crate::server::response::Response;
-use crate::utils::logger::Logger;
 use crate::services::resource_service;
+use crate::utils::logger::Logger;
 use serde::{Deserialize, Serialize};
 use serde_json;
 
@@ -28,7 +28,8 @@ impl ErrorService {
     }
 
     pub fn serve_404_page(&self) -> Response {
-        let content_bytes = resource_service::ResourceService::load_from_file_path(String::from(files::ERROR_404_FILE_PATH)).unwrap();
+        let content_bytes = resource_service::ResourceService::load_from_file_path(files::ERROR_404_FILE_PATH)
+        .unwrap();
         Response::new(content_bytes, ContentType::HTML, HTTPStatusCodes::NotFound)
     }
 

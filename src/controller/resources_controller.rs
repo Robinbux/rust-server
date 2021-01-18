@@ -22,16 +22,14 @@ impl ResourcesController {
         }
     }
 
-
     pub fn serve_file(&self, file_path: &str) -> Response {
         ResourceService::serve_file(&self.resource_service.error_service, file_path)
     }
 }
 
 impl Controller for ResourcesController {
-    fn execute_request(&self, request: &mut Request) -> Response {
+    fn execute_request(&self, mut request: Request) -> Response {
         request.current_child_path = BaseController::extract_child_path(&request.resource_path);
-        let file_path = &request.resource_path.split_off(1);
-        self.serve_file(file_path)
+        self.serve_file(&request.resource_path)
     }
 }

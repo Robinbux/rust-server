@@ -2,9 +2,9 @@ use crate::database::db_handler::db_handler::establish_connection;
 use crate::database::models::{NewTodo, Todo};
 use crate::schema::todos::dsl::*;
 use diesel::associations::HasTable;
+use diesel::prelude::*;
 use diesel::RunQueryDsl;
 use postgres::Error;
-use diesel::prelude::*;
 
 pub fn create_todo<'a>(todo_message_str: &'a str) -> Todo {
     use crate::schema::todos;

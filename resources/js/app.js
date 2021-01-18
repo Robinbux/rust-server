@@ -3,7 +3,7 @@ const todoButton = document.querySelector('.todo_button');
 const todoList = document.querySelector('.todo_list');
 
 todoButton.addEventListener("click", addNewTodo)
-todoList.addEventListener("click", deleteCheck)
+todoList.addEventListener("click", deleteOrCheck)
 
 const baseTodoURL = "http://localhost:8087/todo"
 
@@ -45,7 +45,7 @@ function addSingleTodo(todo) {
     todoList.appendChild(todoDiv);
 }
 
-function deleteCheck(event) {
+function deleteOrCheck(event) {
     const item = event.target;
     // Delete todo
     if (item.classList[0] === "delete_btn") {

@@ -5,12 +5,11 @@ use crate::enums::http_status_codes::HTTPStatusCodes;
 use crate::server::request::Request;
 use crate::server::response::Response;
 use crate::services::error_service::ErrorService;
-use crate::utils::logger::Logger;
 use crate::services::resource_service::ResourceService;
+use crate::utils::logger::Logger;
 
 #[derive(Clone)]
 pub struct AssetsController {
-    #[allow(dead_code)]
     logger: Logger,
     error_service: ErrorService,
     resource_service: ResourceService,
@@ -29,26 +28,32 @@ impl AssetsController {
     }
 
     pub fn serve_pika(&self) -> Response {
-        let bytes = ResourceService::load_resource(&self.error_service, "pikachu.png").expect("Unable to load resource");
-        Response::new(bytes, ContentType::PNG, HTTPStatusCodes::Ok)
+        let result = ResourceService::load_resource(&self.error_service, "pikachu.png");
+        if result.is_err(){
+            return self.error_service.serve_400_response(result.unwrap_err())
+        }
+        Response::new(result.unwrap(), ContentType::PNG, HTTPStatusCodes::Ok)
     }
 
     pub fn serve_mp4(&self) -> Response {
-        let bytes = ResourceService::load_resource(&self.error_service, "sample_vid.mp4").expect("Unable to load resource");
-        Response::new(bytes, ContentType::MP4, HTTPStatusCodes::Ok)
+        let result = ResourceService::load_resource(&self.error_service, "sample_vid.mp4");
+        if result.is_err(){
+            return self.error_service.serve_400_response(result.unwrap_err())
+        }
+        Response::new(result.unwrap(), ContentType::MP4, HTTPStatusCodes::Ok)
     }
 
     pub fn serve_fav_icon(&self) -> Response {
-        let bytes = ResourceService::load_resource(&self.error_service,"favicon.ico").expect("Unable to load resource");
-        Response::new(
-            bytes,
-            ContentType::ICO,
-            HTTPStatusCodes::Ok)
+        let result = ResourceService::load_resource(&self.error_service, "favicon.ico");
+        if result.is_err(){
+            return self.error_service.serve_400_response(result.unwrap_err())
+        }
+        Response::new(result.unwrap(), ContentType::ICO, HTTPStatusCodes::Ok)
     }
 }
 
 impl Controller for AssetsController {
-    fn execute_request(&self, request: &mut Request) -> Response {
+    fn execute_request(&self, mut request: Request) -> Response {
         request.current_child_path = BaseController::extract_child_path(&request.resource_path);
         let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
         match route_beginning {

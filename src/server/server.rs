@@ -13,7 +13,6 @@ use num_cpus;
 use std::os::unix::io::RawFd;
 use std::sync::Arc;
 
-
 const PORT: u16 = 8087;
 
 #[derive(Clone)]
@@ -103,21 +102,21 @@ impl Server {
         }
     }
 
-    fn read_into_buffer(server: &Arc<Server>, connection_socket: &RawFd) -> Vec<u8> {
+    fn read_into_buffer(server: &Arc<Server>, connection_socket: &RawFd) -> String {
         let mut buffer = vec![0; 30000];
-        let val_read_str: String;
+        let request_str: String;
 
         recvfrom(*connection_socket, &mut *buffer).expect("Reading Failed");
-        val_read_str = String::from_utf8_lossy(buffer.as_slice())
+        request_str = String::from_utf8_lossy(buffer.as_slice())
             .parse()
             .expect("Parsing Failed");
 
-        println!("---Client Request---\n{}", val_read_str);
+        println!("---Client Request---\n{}", request_str);
         server.logger.log("Received client request!");
-        buffer
+        request_str
     }
 
-    fn send_response_to_socket(server: &Arc<Server>, new_socket: RawFd, buffer: Vec<u8>) {
+    fn send_response_to_socket(server: &Arc<Server>, new_socket: RawFd, buffer: String) {
         let mime_response = Server::create_response(&server, buffer);
 
         if send(new_socket, &mime_response.as_ref(), MsgFlags::empty()).is_err() {
@@ -130,9 +129,9 @@ impl Server {
         println!("------------------Response sent-------------------\n");
     }
 
-    fn create_response(server: &Arc<Server>, buffer: Vec<u8>) -> Vec<u8> {
+    fn create_response(server: &Arc<Server>, buffer: String) -> Vec<u8> {
         let mut request = request::Request::new(buffer);
-        let response = server.base_controller.execute_request(&mut request);
+        let response = server.base_controller.execute_request(request);
 
         let mut mime_response = MimeResponse {
             http_status_code: response.http_status_code,

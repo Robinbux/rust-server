@@ -32,49 +32,45 @@ impl TodoController {
         }
     }
 
-    fn get_trimmed_payload_from_request<'a>(
-        &self,
-        request: &'a Request
-    ) -> Result<&'a str, Response> {
-        let str_payload = match &request.payload {
-            Some(payload) => str::from_utf8(payload).expect("Unable to convert into String"),
-            None => {
+    fn get_payload(&self, payload: Option<String>) -> Result<String, Response> {
+        if let Some(payload) = payload {
+            return Ok(payload)
+        } else {
+            return Err(self
+                .error_service
+                .serve_400_response("Incorrect Payload Structure!".to_string()));
+        }
+    }
+
+    fn get_create_todo_dto(&self, json:&str) -> Result<CreateTodoDTO, Response> {
+        match serde_json::from_str::<CreateTodoDTO>(json) {
+            Ok(dto) => return Ok(dto),
+            Err(_) => {
                 return Err(self
                     .error_service
                     .serve_400_response("Incorrect Payload Structure!".to_string()));
             }
         };
-        let json_end_index = str_payload.rfind('}').expect("Invalid Json");
-        Ok(&str_payload[..json_end_index + 1])
     }
 
-    /*
-    let decoded_payload = percent_decode_str(str_payload).decode_utf8().unwrap();
-        let decoded_payload_deref = String::from(decoded_payload.deref());
-        //let decoded_payload_owned = String::from(&decoded_payload);
-        let json_end_index = decoded_payload_deref.rfind('}').expect("Invalid Json");
-     */
 
     // POST
     // PATH: /
-    pub fn create_todo(&self, request: &Request) -> Response {
-        let json_request_result = self.get_trimmed_payload_from_request(request);
-        if json_request_result.is_err() {
-            return json_request_result.err().unwrap();
+    pub fn create_todo(&self, request: Request) -> Response {
+        let payload_result = self.get_payload(request.payload);
+        if payload_result.is_err() {
+            return payload_result.unwrap_err();
         }
+        let json_result = match serde_json::from_str::<CreateTodoDTO>(&*payload_result.unwrap()) {
+            Ok(dto) => dto,
+            Err(_) => {
+                return self
+                    .error_service
+                    .serve_400_response("Incorrect Payload Structure!".to_string());
+            }
+        };
 
-        let create_todo_dto =
-            match serde_json::from_str::<CreateTodoDTO>(json_request_result.unwrap()) {
-
-                Ok(dto) => dto,
-                Err(_) => {
-                    return self
-                        .error_service
-                        .serve_400_response("Incorrect Payload Structure!".to_string());
-                }
-            };
-
-        let result = self.todo_service.create_todo(create_todo_dto);
+        let result = self.todo_service.create_todo(json_result);
         if result.is_err() {
             return self
                 .error_service
@@ -91,14 +87,14 @@ impl TodoController {
 
     // PUT
     // PATH: /$TODO_ID
-    pub fn update_todo(&self, request: &Request, todo_id: i32) -> Response {
-        let json_request_result = self.get_trimmed_payload_from_request(request);
+    pub fn update_todo(&self, request: Request, todo_id: i32) -> Response {
+        let json_request_result = self.get_payload(request.payload);
         if json_request_result.is_err() {
             return json_request_result.err().unwrap();
         }
 
         let update_todo_dto =
-            match serde_json::from_str::<UpdateTodoDTO>(json_request_result.unwrap()) {
+            match serde_json::from_str::<UpdateTodoDTO>(&*json_request_result.unwrap()) {
                 Ok(dto) => dto,
                 Err(_) => {
                     return self
@@ -167,13 +163,12 @@ impl TodoController {
         Ok(id_result.unwrap())
     }
 
-
-    fn error_or_todo_id_request(&self, request: &Request) -> Response {
+    fn error_or_todo_id_request(&self, request: Request) -> Response {
         let todo_id_result = TodoController::get_id_from_request(&request);
         return match todo_id_result {
             Ok(id) => {
                 if request.http_method == HttpMethod::PUT {
-                    self.update_todo(&request, id)
+                    self.update_todo(request, id)
                 } else {
                     self.delete_todos(id)
                 }
@@ -183,9 +178,8 @@ impl TodoController {
     }
 }
 
-
 impl Controller for TodoController {
-    fn execute_request(&self, mut request: &mut Request) -> Response {
+    fn execute_request(&self, mut request: Request) -> Response {
         request.current_child_path = BaseController::extract_child_path(&request.resource_path);
         let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
         return match route_beginning {
@@ -193,10 +187,29 @@ impl Controller for TodoController {
                 if request.http_method == HttpMethod::GET {
                     self.get_all_todos()
                 } else {
-                    self.create_todo(&mut request)
+                    self.create_todo(request)
                 }
             }
-            _ => self.error_or_todo_id_request(&mut request),
+            _ => self.error_or_todo_id_request(request),
         };
     }
+}
+
+mod tests {
+
+    use super::*;
+    /*
+    #[cfg(test)]
+    #[test]
+    #[allow(dead_code)]
+
+    fn extract_child_long_path() {
+        let request_string: &str = "GET /favicon.ico HTTP/1.1\r\nHost: localhost:8087\r\n\r\n{\"todo_message\":\"pee\"}";
+
+        let todo_controller = TodoController::new();
+        let request = Request::new(String::from(request_string));
+        let payload = TodoController::get_trimmed_payload_from_request(&todo_controller, &request).unwrap();
+        let expected_payload = r#"{"todo_message":"pee"}"#;
+        assert_eq!(expected_payload, request.payload.unwrap())
+    }*/
 }

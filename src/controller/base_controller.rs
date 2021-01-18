@@ -2,8 +2,8 @@ use crate::controller::admin_controller::AdminController;
 use crate::controller::assets_controller::AssetsController;
 use crate::controller::controller::Controller;
 use crate::controller::home_controller::HomeController;
-use crate::controller::todo_controller::TodoController;
 use crate::controller::resources_controller::ResourcesController;
+use crate::controller::todo_controller::TodoController;
 use crate::server::request::Request;
 use crate::server::response::Response;
 use crate::services::error_service::ErrorService;
@@ -44,26 +44,21 @@ impl BaseController {
 
     pub fn extract_parent_path(path: &str) -> &str {
         let result = path.split("/").collect::<Vec<&str>>();
-        if result.len() == 1 {
-            return result[0];
-        }
-        result[1]
+        result[0]
     }
 
     pub fn extract_child_path(path: &str) -> String {
         let split: Vec<&str> = path.split("/").collect();
 
-        if split.len() < 3 {
-            return String::from("/");
+        if split.len() < 2 {
+            return String::from("");
         }
-        let child_path = split[2..].join("/");
-
-        format!("/{}", child_path)
+        split[1..].join("/")
     }
 }
 
 impl Controller for BaseController {
-    fn execute_request(&self, request: &mut Request) -> Response {
+    fn execute_request(&self, request: Request) -> Response {
         let route_beginning = BaseController::extract_parent_path(&request.resource_path);
         return match route_beginning {
             "admin" => self.admin_controller.execute_request(request),
@@ -72,7 +67,6 @@ impl Controller for BaseController {
             "todo" => self.todo_controller.execute_request(request),
             "home" | "home?" => self.home_controller.execute_request(request),
             "resources" => self.resources_controller.execute_request(request),
-            //"user" => self.user_controller.execute_request(),
             _ => self.error_service.serve_404_page(),
         };
     }
@@ -86,35 +80,35 @@ mod tests {
     #[cfg(test)]
     #[test]
     fn extract_child_long_path() {
-        let path = "/admin/console/index";
+        let path = "admin/console/index";
         let result = BaseController::extract_child_path(path);
-        assert_eq!("/console/index", result)
+        assert_eq!("console/index", result)
     }
 
     #[test]
     fn extract_child_short_path() {
-        let path = "/test/test";
+        let path = "test/test";
         let result = BaseController::extract_child_path(path);
-        assert_eq!("/test", result)
+        assert_eq!("test", result)
     }
 
     #[test]
     fn extract_child_path_empty() {
-        let path = "/admin/";
+        let path = "admin/";
         let result = BaseController::extract_child_path(path);
-        assert_eq!("/", result)
+        assert_eq!("", result)
     }
 
     #[test]
     fn extract_child_path_missing() {
-        let path = "/admin";
+        let path = "admin";
         let result = BaseController::extract_child_path(path);
-        assert_eq!("/", result)
+        assert_eq!("", result)
     }
 
     #[test]
     fn extract_parent_path() {
-        let path = "/admin/console/index";
+        let path = "admin/console/index";
         let result = BaseController::extract_parent_path(path);
         assert_eq!("admin", result)
     }

@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 pub struct Todo {
     pub id: i32,
     pub todo_message: String,
-    pub completed: bool
+    pub completed: bool,
 }
 
 #[derive(Insertable, Queryable)]

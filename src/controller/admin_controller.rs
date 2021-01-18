@@ -5,14 +5,14 @@ use crate::enums::http_status_codes::HTTPStatusCodes;
 use crate::server::request::Request;
 use crate::server::response::Response;
 use crate::services::error_service::ErrorService;
-use crate::utils::logger::Logger;
 use crate::services::resource_service::ResourceService;
+use crate::utils::logger::Logger;
 
 use serde::Serialize;
 use std::fs;
+use std::str;
 use tinytemplate;
 use tinytemplate::TinyTemplate;
-use std::str;
 
 #[derive(Clone)]
 pub struct AdminController {
@@ -39,7 +39,8 @@ impl AdminController {
     }
 
     fn console(&self) -> Response {
-        let data_vec = ResourceService::load_from_file_path(String::from(files::CONSOLE)).expect("Unable to load file");
+        let data_vec = ResourceService::load_from_file_path(files::CONSOLE)
+            .expect("Unable to load console file");
         let content = AdminController::replace_template_values(str::from_utf8(&data_vec).unwrap());
         Response::new(content, ContentType::HTML, HTTPStatusCodes::Ok)
     }
@@ -62,7 +63,7 @@ impl AdminController {
 }
 
 impl Controller for AdminController {
-    fn execute_request(&self, request: &mut Request) -> Response {
+    fn execute_request(&self, mut request: Request) -> Response {
         request.current_child_path = BaseController::extract_child_path(&request.resource_path);
         let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
         return match route_beginning {

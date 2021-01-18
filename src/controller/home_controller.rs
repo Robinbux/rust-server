@@ -33,14 +33,14 @@ impl HomeController {
     }
 
     pub fn home_page(&self) -> Response {
-        let content_bytes = ResourceService::load_resource(&self.error_service, files::HOME).expect("Unable to load resource");
+        let content_bytes = ResourceService::load_resource(&self.error_service, files::HOME)
+            .expect("Unable to load resource");
         Response::new(content_bytes, ContentType::HTML, HTTPStatusCodes::Ok)
     }
-
 }
 
 impl Controller for HomeController {
-    fn execute_request(&self, request: &mut Request) -> Response {
+    fn execute_request(&self, mut request: Request) -> Response {
         request.current_child_path = BaseController::extract_child_path(&request.resource_path);
         let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
         match route_beginning {

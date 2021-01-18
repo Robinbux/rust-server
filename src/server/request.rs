@@ -4,22 +4,17 @@ use crate::enums::http_methods::HttpMethod;
 pub struct Request {
     pub(crate) http_method: HttpMethod,
     pub(crate) resource_path: String,
-    pub(crate) payload: Option<Vec<u8>>,
-    #[allow(dead_code)]
+    pub(crate) payload: Option<String>,
     pub(crate) content_type: Option<ContentType>,
     pub(crate) current_child_path: String,
 }
 
 impl Request {
-    pub fn new(buffer: Vec<u8>) -> Request {
-        let request_string: String;
-        request_string = String::from_utf8_lossy(buffer.as_slice())
-            .parse()
-            .expect("Parsing Failed");
+    pub fn new(request_string: String) -> Request {
         let http_method = HttpMethod::get_http_method(&request_string);
-        let resource_path = Request::extract_resource_path(&request_string).to_string();
-        let payload = Request::extract_payload(&buffer);
+        let resource_path = Request::extract_resource_path(&request_string);
         let content_type = Request::extract_content_type(&request_string);
+        let payload = Request::extract_payload(request_string);
         let current_child_path = resource_path.clone();
 
         Request {
@@ -31,27 +26,22 @@ impl Request {
         }
     }
 
-    fn extract_payload(buffer: &Vec<u8>) -> Option<Vec<u8>> {
-        let index = Request::find_payload_index(&buffer);
-        if let Some(index) = index {
-            return Some(buffer[index + 4..].to_vec());
+    fn extract_payload(request_string: String) -> Option<String> {
+        let index = request_string.find("\r\n\r\n");
+        let end_index = request_string.rfind('}');
+        if index.is_some() & end_index.is_some(){
+            return Some(request_string[index.unwrap()+4..end_index.unwrap()+1].parse().unwrap());
         }
         None
     }
 
-    fn find_payload_index(buffer: &[u8]) -> Option<usize> {
-        buffer
-            .windows(4)
-            .enumerate()
-            .find(|(_, w)| matches!(*w, b"\r\n\r\n"))
-            .map(|(i, _)| i)
-    }
-
-    fn extract_resource_path(request_string: &str) -> &str {
+    fn extract_resource_path(request_string: &str) -> String {
         request_string
             .split_whitespace()
             .nth(1)
-            .expect("Unable to split result")
+            .unwrap()
+            .to_string()
+            .split_off(1)
     }
 
     fn extract_content_type(request_string: &str) -> Option<ContentType> {
@@ -61,12 +51,80 @@ impl Request {
         if result.len() == 1 {
             return None;
         }
-        let content_type = result[1]
+        let content_type_string = result[1]
             .split_whitespace()
             .nth(0)
-            .expect("Unable to split content type")
-            .to_string();
-        let content_type_result = ContentType::from_str(content_type);
+            .unwrap();
+        let content_type_result = ContentType::from_str(content_type_string);
+        if content_type_result.is_err() {
+            return None;
+        }
         Some(content_type_result.unwrap())
+    }
+}
+
+mod tests {
+
+    use super::*;
+
+    #[test]
+    fn extract_payload() {
+        let request_string =
+            String::from("GET /favicon.ico HTTP/1.1\r\nHost: localhost:8087\r\n\r\n{\"todo_message\":\"pee\"}");
+
+        let payload = Request::extract_payload(request_string).unwrap();
+        let expected_payload = String::from("{\"todo_message\":\"pee\"}");
+        assert_eq!(payload, expected_payload);
+    }
+
+    #[test]
+    fn extract_payload_flawed_json() {
+        let request_string =
+            String::from("GET /favicon.ico HTTP/1.1\r\nHost: localhost:8087\r\n\r\n{\"todo_message\":\"pee\"");
+        let payload = Request::extract_payload(request_string);
+        assert!(payload.is_none())
+    }
+
+    #[test]
+    fn extract_payload_missing_newline() {
+        let request_string =
+            String::from("GET /favicon.ico HTTP/1.1\r\nHost: localhost:8087\r\n\r{\"todo_message\":\"pee\"}");
+        let payload = Request::extract_payload(request_string);
+        assert!(payload.is_none())
+    }
+
+    #[test]
+    fn extract_resource_path() {
+        let request_string = "GET /favicon.ico HTTP/1.1\r\nHost: localhost:8087\r\n\r\n{\"todo_message\":\"pee\"}";
+        let result = Request::extract_resource_path(request_string);
+        assert_eq!(result, String::from("favicon.ico"))
+    }
+
+    #[test]
+    fn extract_resource_path_long() {
+        let request_string = "GET /resources/assets/pikachu.png HTTP/1.1\r\nHost: localhost:8087\r\n\r\n{\"todo_message\":\"pee\"}";
+        let result = Request::extract_resource_path(request_string);
+        assert_eq!(result, String::from("resources/assets/pikachu.png"))
+    }
+
+    #[test]
+    fn extract_resource_path_empty() {
+        let request_string = "GET / HTTP/1.1\r\nHost: localhost:8087\r\n\r\n{\"todo_message\":\"pee\"}";
+        let result = Request::extract_resource_path(request_string);
+        assert_eq!(result, String::from(""))
+    }
+
+    #[test]
+    fn extract_missing_content_type() {
+        let request_string = "GET / HTTP/1.1\r\nHost: localhost:8087\r\n\r\n{\"todo_message\":\"pee\"}";
+        let result = Request::extract_content_type(request_string);
+        assert_eq!(result, None)
+    }
+
+    #[test]
+    fn extract_json_content_type() {
+        let request_string = "POST / HTTP/1.1\r\nHost: localhost:8087\r\nContent-Type: application/json; charset=utf-8\r\n\r\n{\"todo_message\":\"pee\"}";
+        let result = Request::extract_content_type(request_string);
+        assert_eq!(result.unwrap(), ContentType::JSON)
     }
 }
