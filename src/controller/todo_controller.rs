@@ -32,36 +32,17 @@ impl TodoController {
         }
     }
 
-    fn get_payload(&self, payload: Option<String>) -> Result<String, Response> {
-        if let Some(payload) = payload {
-            return Ok(payload)
-        } else {
-            return Err(self
-                .error_service
-                .serve_400_response("Incorrect Payload Structure!".to_string()));
-        }
-    }
-
-    fn get_create_todo_dto(&self, json:&str) -> Result<CreateTodoDTO, Response> {
-        match serde_json::from_str::<CreateTodoDTO>(json) {
-            Ok(dto) => return Ok(dto),
-            Err(_) => {
-                return Err(self
-                    .error_service
-                    .serve_400_response("Incorrect Payload Structure!".to_string()));
-            }
-        };
-    }
-
 
     // POST
     // PATH: /
     pub fn create_todo(&self, request: Request) -> Response {
-        let payload_result = self.get_payload(request.payload);
-        if payload_result.is_err() {
-            return payload_result.unwrap_err();
+        if request.payload.is_none() {
+            return self
+                .error_service
+                .serve_400_response("Incorrect Payload Structure!".to_string());
         }
-        let json_result = match serde_json::from_str::<CreateTodoDTO>(&*payload_result.unwrap()) {
+        let payload = request.payload.unwrap();
+        let json_result = match serde_json::from_str::<CreateTodoDTO>(&payload) {
             Ok(dto) => dto,
             Err(_) => {
                 return self
@@ -88,13 +69,15 @@ impl TodoController {
     // PUT
     // PATH: /$TODO_ID
     pub fn update_todo(&self, request: Request, todo_id: i32) -> Response {
-        let json_request_result = self.get_payload(request.payload);
-        if json_request_result.is_err() {
-            return json_request_result.err().unwrap();
+        if request.payload.is_none() {
+            return self
+                .error_service
+                .serve_400_response("Incorrect Payload Structure!".to_string());
         }
+        let payload = request.payload.unwrap();
 
         let update_todo_dto =
-            match serde_json::from_str::<UpdateTodoDTO>(&*json_request_result.unwrap()) {
+            match serde_json::from_str::<UpdateTodoDTO>(&payload) {
                 Ok(dto) => dto,
                 Err(_) => {
                     return self
@@ -152,7 +135,7 @@ impl TodoController {
     }
 
     fn get_id_from_request(request: &Request) -> Result<i32, String> {
-        let id_option = request.current_child_path.split("/").last();
+        let id_option = request.current_child_path.split('/').last();
         if id_option.is_none() {
             return Err("".to_string());
         }
@@ -165,7 +148,7 @@ impl TodoController {
 
     fn error_or_todo_id_request(&self, request: Request) -> Response {
         let todo_id_result = TodoController::get_id_from_request(&request);
-        return match todo_id_result {
+        match todo_id_result {
             Ok(id) => {
                 if request.http_method == HttpMethod::PUT {
                     self.update_todo(request, id)
@@ -173,16 +156,17 @@ impl TodoController {
                     self.delete_todos(id)
                 }
             }
-            Err(_) => self.error_service.serve_404_page(),
-        };
+            Err(_) => self.error_service.serve_400_response(String::from("can't handle request")),
+        }
     }
 }
 
 impl Controller for TodoController {
     fn execute_request(&self, mut request: Request) -> Response {
+        match request.http_method
         request.current_child_path = BaseController::extract_child_path(&request.resource_path);
         let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
-        return match route_beginning {
+        match route_beginning {
             "" => {
                 if request.http_method == HttpMethod::GET {
                     self.get_all_todos()
@@ -191,7 +175,7 @@ impl Controller for TodoController {
                 }
             }
             _ => self.error_or_todo_id_request(request),
-        };
+        }
     }
 }
 

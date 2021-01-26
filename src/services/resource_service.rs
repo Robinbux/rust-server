@@ -35,7 +35,7 @@ impl ResourceService {
         Response::new(file.unwrap(), content_type_result.unwrap(), HTTPStatusCodes::Ok)
     }
 
-    pub fn load_resource(error_service: &ErrorService, file_name: &str) -> Result<Vec<u8>, String> {
+    pub fn load_resource(file_name: &str) -> Result<Vec<u8>, String> {
         let raw_file_name = ResourceService::extract_raw_file_name(file_name);
         let content_type = ContentType::get_content_type_from_file_path(&raw_file_name);
         if content_type.is_err(){
@@ -78,39 +78,100 @@ impl ResourceService {
 
     // If the provided file_name is a path eg. /css/style.css, we have to extract the raw file name.
     fn extract_raw_file_name(file_name: &str) -> &str {
-        if !file_name.contains("/") {
+        if !file_name.contains('/') {
             return file_name;
         }
-        file_name.split("/").last().unwrap()
+        file_name.split('/').last().unwrap()
     }
 
     pub fn load_from_file_path(file_path: &str) -> tokio::io::Result<Vec<u8>> {
-        let bytes = std::fs::read(file_path);
-        bytes
+        std::fs::read(file_path)
     }
 }
 
 mod tests {
-    use crate::services::error_service::ErrorService;
+    use crate::services::error_service::{ErrorService, ErrorMessage};
     use crate::services::resource_service::ResourceService;
     use crate::utils::logger::Logger;
-
-    const ERROR_FILE_PATH: &str = "resources/html/404.html";
+    use crate::server::request::Request;
+    use crate::server::response::Response;
+    use crate::enums::content_type::ContentType;
+    use crate::enums::http_status_codes::HTTPStatusCodes;
 
     #[should_panic]
     #[test]
-    fn load_not_existing_resource() {
-        let error_file: Vec<u8> = std::fs::read(ERROR_FILE_PATH).unwrap();
-        let error_service = ErrorService::new();
-        let html = ResourceService::load_resource(&error_service, "test.html").unwrap();
+    fn load_resource_missing() {
+        let html = ResourceService::load_resource("test.html").unwrap();
     }
 
     #[test]
     fn load_resource_valid() {
-        let error_service = ErrorService::new();
-        let html = ResourceService::load_resource(&error_service, "index.html").unwrap();
+        let html = ResourceService::load_resource("index.html").unwrap();
         let expected_html: Vec<u8> = std::fs::read("resources/html/index.html").unwrap();
         assert_eq!(expected_html, html)
+    }
+
+    #[test]
+    fn serve_file_valid() {
+        let error_service = ErrorService::new();
+        let response = ResourceService::serve_file(&error_service, "resources/html/index.html");
+        let html_bytes =
+"<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+    <meta charset=\"UTF-8\">
+    <title>Hellooooooooo</title>
+</head>
+<body>
+<!DOCTYPE html>
+
+<h1>Cool Heading!</h1>
+<p>Awesome Paragraph!</p>
+
+</body>
+</html>".as_bytes().to_vec();
+        let expected_response = Response::new(html_bytes, ContentType::HTML, HTTPStatusCodes::Ok);
+        assert_eq!(expected_response, response)
+    }
+
+    #[test]
+    fn serve_file_errorneous() {
+        let error_service = ErrorService::new();
+        let error_response = ResourceService::serve_file(&error_service, "resources/index.html");
+        let html_bytes =
+"<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+    <title>404 Not Found</title>
+</head>
+<body>
+<h1>404, resource not found</h1>
+
+</body>
+</html>".as_bytes().to_vec();
+        let expected_response = Response::new(html_bytes, ContentType::HTML, HTTPStatusCodes::NotFound);
+        assert_eq!(expected_response, error_response)
+    }
+
+    #[test]
+    fn serve_file_incompatible_content_type() {
+
+        let error_service = ErrorService::new();
+        let error_response = ResourceService::serve_file(&error_service, "resources/logs/Log.txt");
+
+        let error_message = String::from("Unable to convert given String to ContentType");
+        let json_message = ErrorMessage {
+            message: error_message,
+        };
+        let json_str = serde_json::to_string(&json_message).unwrap();
+        let content_bytes: &[u8] = json_str.as_ref();
+        let content_bytes= content_bytes.to_vec();
+        let expected_response = Response::new(
+            content_bytes,
+            ContentType::JSON,
+            HTTPStatusCodes::BadRequest,
+        );
+        assert_eq!(expected_response, error_response)
     }
 
     #[test]

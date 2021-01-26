@@ -33,11 +33,11 @@ impl ContentType {
             "mp4" => Ok(ContentType::MP4),
             _ => Err(String::from("Unable to convert given String to ContentType")),
         };
-        return result;
+        result
     }
 
     pub fn get_content_type_from_file_path(path: &str) -> Result<ContentType, String> {
-        let content_type_str = path.split(".").last().unwrap();
+        let content_type_str = path.split('.').last().unwrap();
         let result = ContentType::from_str(content_type_str);
 
         if result.is_err(){

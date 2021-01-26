@@ -21,3 +21,9 @@ impl Response {
         }
     }
 }
+
+impl PartialEq for Response {
+    fn eq(&self, other: &Self) -> bool {
+        (self.content_bytes == other.content_bytes) & (self.content_type==other.content_type) & (self.http_status_code==other.http_status_code)
+    }
+}

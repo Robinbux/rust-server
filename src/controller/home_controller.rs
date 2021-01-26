@@ -33,7 +33,7 @@ impl HomeController {
     }
 
     pub fn home_page(&self) -> Response {
-        let content_bytes = ResourceService::load_resource(&self.error_service, files::HOME)
+        let content_bytes = ResourceService::load_resource(files::HOME)
             .expect("Unable to load resource");
         Response::new(content_bytes, ContentType::HTML, HTTPStatusCodes::Ok)
     }

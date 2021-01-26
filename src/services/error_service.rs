@@ -4,7 +4,6 @@ use crate::server::response::Response;
 use crate::services::resource_service;
 use crate::utils::logger::Logger;
 use serde::{Deserialize, Serialize};
-use serde_json;
 
 mod files {
     pub(crate) const ERROR_404_FILE_PATH: &str = "resources/html/404.html";
@@ -17,14 +16,14 @@ pub struct ErrorService {
 }
 
 #[derive(Serialize, Deserialize)]
-struct ErrorMessage {
-    message: String,
+pub struct ErrorMessage {
+    pub(crate) message: String,
 }
 
 impl ErrorService {
     pub fn new() -> ErrorService {
         let logger = Logger::new(String::from("ErrorService"));
-        ErrorService { logger: logger }
+        ErrorService { logger }
     }
 
     pub fn serve_404_page(&self) -> Response {

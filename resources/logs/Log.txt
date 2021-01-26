@@ -2259,3 +2259,15 @@ SystemTime { tv_sec: 1602073121, tv_nsec: 437990000 }  [Server]: Received client
 2021-01-18T13:05:29.986328+01:00  [Server]: Response sent.
 2021-01-18T13:05:32.698781+01:00  [Server]: Received client request!
 2021-01-18T13:05:32.713707+01:00  [Server]: Response sent.
+2021-01-19T17:54:00.123346+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-19T17:54:20.999102+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-20T10:57:58.487322+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-20T13:41:28.625810+01:00  [Server]: Server started listening.
+2021-01-22T10:34:58.219138+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-22T10:35:08.403610+01:00  [Server]: Server started listening.
+2021-01-22T10:41:09.554346+01:00  [Server]: Server started listening.
+2021-01-22T10:44:55.448359+01:00  [Server]: Server started listening.
+2021-01-22T10:54:15.563029+01:00  [Server]: Server started listening.
+2021-01-22T10:57:30.512053+01:00  [Server]: Server started listening.
+2021-01-22T10:58:52.881874+01:00  [Server]: Server started listening.
+2021-01-22T11:10:38.365233+01:00  [Server]: Server started listening.

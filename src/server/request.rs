@@ -53,7 +53,7 @@ impl Request {
         }
         let content_type_string = result[1]
             .split_whitespace()
-            .nth(0)
+            .next()
             .unwrap();
         let content_type_result = ContentType::from_str(content_type_string);
         if content_type_result.is_err() {
@@ -115,14 +115,14 @@ mod tests {
     }
 
     #[test]
-    fn extract_missing_content_type() {
+    fn extract_content_type_missing() {
         let request_string = "GET / HTTP/1.1\r\nHost: localhost:8087\r\n\r\n{\"todo_message\":\"pee\"}";
         let result = Request::extract_content_type(request_string);
         assert_eq!(result, None)
     }
 
     #[test]
-    fn extract_json_content_type() {
+    fn extract_content_type_json() {
         let request_string = "POST / HTTP/1.1\r\nHost: localhost:8087\r\nContent-Type: application/json; charset=utf-8\r\n\r\n{\"todo_message\":\"pee\"}";
         let result = Request::extract_content_type(request_string);
         assert_eq!(result.unwrap(), ContentType::JSON)

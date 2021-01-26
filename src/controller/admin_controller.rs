@@ -57,8 +57,7 @@ impl AdminController {
 
         let template_render = tt.render("log_template", &log).unwrap();
         let template_render: &[u8] = template_render.as_ref();
-        let template_render_vec = template_render.to_vec();
-        template_render_vec
+        template_render.to_vec()
     }
 }
 
@@ -66,10 +65,10 @@ impl Controller for AdminController {
     fn execute_request(&self, mut request: Request) -> Response {
         request.current_child_path = BaseController::extract_child_path(&request.resource_path);
         let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
-        return match route_beginning {
+        match route_beginning {
             "console" => self.console(),
             _ => self.error_service.serve_404_page(),
-        };
+        }
     }
 }
 

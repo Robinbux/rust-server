@@ -28,7 +28,7 @@ impl AssetsController {
     }
 
     pub fn serve_pika(&self) -> Response {
-        let result = ResourceService::load_resource(&self.error_service, "pikachu.png");
+        let result = ResourceService::load_resource("pikachu.png");
         if result.is_err(){
             return self.error_service.serve_400_response(result.unwrap_err())
         }
@@ -36,7 +36,7 @@ impl AssetsController {
     }
 
     pub fn serve_mp4(&self) -> Response {
-        let result = ResourceService::load_resource(&self.error_service, "sample_vid.mp4");
+        let result = ResourceService::load_resource( "sample_vid.mp4");
         if result.is_err(){
             return self.error_service.serve_400_response(result.unwrap_err())
         }
@@ -44,7 +44,7 @@ impl AssetsController {
     }
 
     pub fn serve_fav_icon(&self) -> Response {
-        let result = ResourceService::load_resource(&self.error_service, "favicon.ico");
+        let result = ResourceService::load_resource("favicon.ico");
         if result.is_err(){
             return self.error_service.serve_400_response(result.unwrap_err())
         }

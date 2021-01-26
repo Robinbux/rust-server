@@ -9,7 +9,6 @@ use libc::in_addr;
 use libc::INADDR_ANY;
 use nix::sys::socket::*;
 use nix::unistd::close;
-use num_cpus;
 use std::os::unix::io::RawFd;
 use std::sync::Arc;
 
@@ -130,7 +129,7 @@ impl Server {
     }
 
     fn create_response(server: &Arc<Server>, buffer: String) -> Vec<u8> {
-        let mut request = request::Request::new(buffer);
+        let request = request::Request::new(buffer);
         let response = server.base_controller.execute_request(request);
 
         let mut mime_response = MimeResponse {

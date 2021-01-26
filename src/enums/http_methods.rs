@@ -11,15 +11,15 @@ impl HttpMethod {
     pub fn get_http_method(request_string: &str) -> HttpMethod {
         let http_method = request_string
             .split_whitespace()
-            .nth(0)
+            .next()
             .expect("Unable to split result");
-        return match http_method {
+        match http_method {
             "GET" => HttpMethod::GET,
             "POST" => HttpMethod::POST,
             "DELETE" => HttpMethod::DELETE,
             "UPDATE" => HttpMethod::UPDATE,
             "PUT" => HttpMethod::PUT,
             _ => panic!("invalid HTTP method"),
-        };
+        }
     }
 }
