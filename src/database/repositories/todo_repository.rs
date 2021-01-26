@@ -4,7 +4,7 @@ use crate::schema::todos::dsl::*;
 use diesel::associations::HasTable;
 use diesel::prelude::*;
 use diesel::RunQueryDsl;
-use postgres::Error;
+
 
 pub fn create_todo<'a>(todo_message_str: &'a str) -> Result<Todo, diesel::result::Error> {
     use crate::schema::todos;

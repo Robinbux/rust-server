@@ -40,7 +40,7 @@ mod test {
 
     #[test]
     fn build_mime_response_html() {
-        let mut expected_mime_string = String::from(
+        let expected_mime_string = String::from(
             "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: 327\r\n\r\n",
         );
 
@@ -56,7 +56,7 @@ mod test {
 
     #[test]
     fn build_mime_response_not_found() {
-        let mut expected_mime_string = String::from(
+        let expected_mime_string = String::from(
             "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\nContent-Length: 327\r\n\r\n",
         );
 
@@ -72,7 +72,7 @@ mod test {
 
     #[test]
     fn build_mime_response_png() {
-        let mut expected_mime_string = String::from(
+        let expected_mime_string = String::from(
             "HTTP/1.1 500 Internal Server Error\r\nContent-Type: image/png\r\nContent-Length: 327\r\n\r\n",
         );
 

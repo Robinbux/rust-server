@@ -17,7 +17,6 @@ impl HttpMethod {
             "GET" => HttpMethod::GET,
             "POST" => HttpMethod::POST,
             "DELETE" => HttpMethod::DELETE,
-            "UPDATE" => HttpMethod::UPDATE,
             "PUT" => HttpMethod::PUT,
             _ => panic!("invalid HTTP method"),
         }

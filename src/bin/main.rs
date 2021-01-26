@@ -1,4 +1,4 @@
-use crate::server::server::Server;
+use rust_server::net::server::Server;
 
 fn main() {
     let server = Server::new();

@@ -2271,3 +2271,38 @@ SystemTime { tv_sec: 1602073121, tv_nsec: 437990000 }  [Server]: Received client
 2021-01-22T10:57:30.512053+01:00  [Server]: Server started listening.
 2021-01-22T10:58:52.881874+01:00  [Server]: Server started listening.
 2021-01-22T11:10:38.365233+01:00  [Server]: Server started listening.
+2021-01-26T16:00:07.442640+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-26T19:14:40.900908+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-26T19:14:56.761015+01:00  [Server]: Server started listening.
+2021-01-26T19:15:01.571625+01:00  [Server]: Received client request!
+2021-01-26T19:15:01.573050+01:00  [Server]: Response sent.
+2021-01-26T19:15:01.841047+01:00  [Server]: Received client request!
+2021-01-26T19:15:01.841701+01:00  [Server]: Response sent.
+2021-01-26T19:15:07.797010+01:00  [Server]: Received client request!
+2021-01-26T19:15:07.802796+01:00  [Server]: Response sent.
+2021-01-26T19:15:07.938359+01:00  [Server]: Received client request!
+2021-01-26T19:15:07.939074+01:00  [Server]: Response sent.
+2021-01-26T19:15:07.949713+01:00  [Server]: Received client request!
+2021-01-26T19:15:07.950520+01:00  [Server]: Response sent.
+2021-01-26T19:15:08.076075+01:00  [Server]: Received client request!
+2021-01-26T19:15:08.138934+01:00  [Server]: Response sent.
+2021-01-26T19:15:11.869438+01:00  [Server]: Received client request!
+2021-01-26T19:15:11.897647+01:00  [Server]: Response sent.
+2021-01-26T19:15:13.587590+01:00  [Server]: Received client request!
+2021-01-26T19:15:13.612412+01:00  [Server]: Response sent.
+2021-01-26T19:15:40.046272+01:00  [Server]: Received client request!
+2021-01-26T19:15:40.073089+01:00  [Server]: Response sent.
+2021-01-26T19:15:56.780311+01:00  [Server]: Received client request!
+2021-01-26T19:15:56.799962+01:00  [Server]: Response sent.
+2021-01-26T19:16:08.595741+01:00  [Server]: Received client request!
+2021-01-26T19:16:08.596096+01:00  [Server]: Response sent.
+2021-01-26T19:17:26.481133+01:00  [Server]: Received client request!
+2021-01-26T19:17:26.481461+01:00  [Server]: Response sent.
+2021-01-26T19:17:38.929516+01:00  [Server]: Received client request!
+2021-01-26T19:17:38.929876+01:00  [Server]: Response sent.
+2021-01-26T19:17:44.817034+01:00  [Server]: Received client request!
+2021-01-26T19:17:44.817404+01:00  [Server]: Response sent.
+2021-01-26T19:18:01.293980+01:00  [Server]: Received client request!
+2021-01-26T19:18:01.299859+01:00  [Server]: Response sent.
+2021-01-26T19:18:21.896961+01:00  [Server]: Received client request!
+2021-01-26T19:18:22.129597+01:00  [Server]: Response sent.

@@ -1,7 +1,7 @@
 use crate::controller::base_controller::BaseController;
 use crate::controller::controller::Controller;
-use crate::server::mime_response::MimeResponse;
-use crate::server::request;
+use crate::net::mime_response::MimeResponse;
+use crate::net::request;
 use crate::services::error_service::ErrorService;
 use crate::thread_pool::ThreadPool;
 use crate::utils::logger::Logger;
@@ -149,10 +149,12 @@ impl Server {
 
 mod tests {
     use super::*;
-    use chrono::prelude::*;
+    
     use hyper::{Client, Uri};
-    //use std::env;
+    use chrono::{DateTime, Local};
     use std::fs::read_to_string;
+    //use std::env;
+    
     //use std::thread;
 
     #[tokio::main]
@@ -171,7 +173,7 @@ mod tests {
     fn listen() {
         client();
         let now: DateTime<Local> = Local::now();
-        let complete_message = format!("{:?}  [Server]: Server started listening.\n", now);
+        let _complete_message = format!("{:?}  [Server]: Server started listening.\n", now);
         read_to_string("resources/logs/test_log.txt").expect("Unable to read file to String");
     }
 }

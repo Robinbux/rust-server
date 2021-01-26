@@ -1,12 +1,12 @@
 mod services;
-mod server;
+pub mod net;
 mod utils;
 mod path_handler;
 mod enums;
 mod dtos;
 pub mod database;
 mod controller;
-pub mod schema;
+mod schema;
 mod thread_pool;
 #[macro_use]
 extern crate diesel;
@@ -14,8 +14,8 @@ extern crate diesel;
 
 mod TodoAPI {
     pub use crate::controller::todo_controller::TodoController;
-    use crate::server::request::Request;
-    use crate::server::response::Response;
+    use crate::net::request::Request;
+    use crate::net::response::Response;
 
     pub fn create_todo(todoController: TodoController, request: Request) -> Response {
         todoController.create_todo(request)

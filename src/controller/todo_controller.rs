@@ -4,12 +4,15 @@ use crate::dtos::todo_dto::{CreateTodoDTO, UpdateTodoDTO};
 use crate::enums::content_type::ContentType;
 use crate::enums::http_methods::HttpMethod;
 use crate::enums::http_status_codes::HTTPStatusCodes;
-use crate::server::request::Request;
-use crate::server::response::Response;
+use crate::net::request::Request;
+use crate::net::response::Response;
 use crate::services::error_service::ErrorService;
 use crate::services::todo_service::TodoService;
 use crate::utils::logger::Logger;
-use std::str;
+use std::num::ParseIntError;
+use serde::Serialize;
+use hyper::body::Buf;
+
 
 #[derive(Clone)]
 pub struct TodoController {
@@ -41,8 +44,7 @@ impl TodoController {
                 .error_service
                 .serve_400_response("Incorrect Payload Structure!".to_string());
         }
-        let payload = request.payload.unwrap();
-        let json_result = match serde_json::from_str::<CreateTodoDTO>(&payload) {
+        let json_result = match serde_json::from_str::<CreateTodoDTO>(&request.payload.unwrap()) {
             Ok(dto) => dto,
             Err(_) => {
                 return self
@@ -50,17 +52,15 @@ impl TodoController {
                     .serve_400_response("Incorrect Payload Structure!".to_string());
             }
         };
-
         let result = self.todo_service.create_todo(json_result);
         if result.is_err() {
             return self
                 .error_service
                 .serve_500_response("Unable to create Todo!".to_string());
         }
-        let result_str = serde_json::to_string(&result.unwrap()).unwrap();
-        let result_ref: &[u8] = result_str.as_ref();
+        let new_todo_str = serde_json::to_string(&result.unwrap()).unwrap();
         Response::new(
-            result_ref.to_vec(),
+            new_todo_str.as_bytes().to_owned(),
             ContentType::JSON,
             HTTPStatusCodes::Created,
         )
@@ -68,12 +68,16 @@ impl TodoController {
 
     // PUT
     // PATH: /$TODO_ID
-    pub fn update_todo(&self, request: Request, todo_id: i32) -> Response {
+    pub fn update_todo(&self, request: Request) -> Response {
+        let todo_id = TodoController::get_id_from_request(&request);
+        if todo_id.is_err() {
+            return self.error_service.serve_400_response(todo_id.unwrap_err())
+        };
         if request.payload.is_none() {
             return self
                 .error_service
-                .serve_400_response("Incorrect Payload Structure!".to_string());
-        }
+                .serve_400_response("Incorrect Payload Structure!".to_string())
+        };
         let payload = request.payload.unwrap();
 
         let update_todo_dto =
@@ -86,16 +90,14 @@ impl TodoController {
                 }
             };
 
-        let result = self.todo_service.update_todo(update_todo_dto, todo_id);
+        let result = self.todo_service.update_todo(update_todo_dto, todo_id.unwrap());
         if result.is_err() {
             return self
                 .error_service
                 .serve_500_response("Unable to update Todo!".to_string());
-        }
-        let result_str = serde_json::to_string(&result.unwrap()).unwrap(); // TODO: Change!
-        let result_ref: &[u8] = result_str.as_ref();
+        };
         Response::new(
-            result_ref.to_vec(),
+            Vec::new(),
             ContentType::JSON,
             HTTPStatusCodes::Created,
         )
@@ -118,17 +120,19 @@ impl TodoController {
 
     // DELETE
     // PATH: /$TODO_ID
-    pub fn delete_todos(&self, todo_id: i32) -> Response {
-        let result = self.todo_service.delete_todo(todo_id);
+    pub fn delete_todo(&self, request: Request) -> Response {
+        let todo_id = TodoController::get_id_from_request(&request);
+        if todo_id.is_err() {
+            return self.error_service.serve_400_response(todo_id.unwrap_err())
+        };
+        let result = self.todo_service.delete_todo(todo_id.unwrap());
         if result.is_err() {
             return self
                 .error_service
-                .serve_500_response("Unable to delete Todo!".to_string());
-        }
-        let json_response = String::from("{\"temp\":\"Change\"}");
-        let result_ref: &[u8] = json_response.as_ref();
+                .serve_500_response("Unable to delete Todo!".to_string())
+        };
         Response::new(
-            result_ref.to_vec(), // TODO: See how to handle no response
+            Vec::new(), // TODO: See how to handle no response
             ContentType::JSON,
             HTTPStatusCodes::Ok,
         )
@@ -137,50 +141,36 @@ impl TodoController {
     fn get_id_from_request(request: &Request) -> Result<i32, String> {
         let id_option = request.current_child_path.split('/').last();
         if id_option.is_none() {
-            return Err("".to_string());
-        }
-        let id_result = id_option.unwrap().parse::<i32>();
-        if id_result.is_err() {
-            return Err("".to_string());
-        }
-        Ok(id_result.unwrap())
+            return Err(String::from("Todo id is missing!"))
+        };
+        let id = id_option.unwrap().parse::<i32>();
+        if id.is_err(){
+            return Err(String::from("Wrong id type"))
+        };
+        id.map_err(TodoController::stringify)
     }
 
-    fn error_or_todo_id_request(&self, request: Request) -> Response {
-        let todo_id_result = TodoController::get_id_from_request(&request);
-        match todo_id_result {
-            Ok(id) => {
-                if request.http_method == HttpMethod::PUT {
-                    self.update_todo(request, id)
-                } else {
-                    self.delete_todos(id)
-                }
-            }
-            Err(_) => self.error_service.serve_400_response(String::from("can't handle request")),
-        }
+    fn stringify(x: ParseIntError) -> String {
+        format!("{:?}", x)
     }
 }
 
 impl Controller for TodoController {
     fn execute_request(&self, mut request: Request) -> Response {
         request.current_child_path = BaseController::extract_child_path(&request.resource_path);
-        let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
-        match route_beginning {
-            "" => {
-                if request.http_method == HttpMethod::GET {
-                    self.get_all_todos()
-                } else {
-                    self.create_todo(request)
-                }
-            }
-            _ => self.error_or_todo_id_request(request),
+        match request.http_method {
+            HttpMethod::GET => self.get_all_todos(),
+            HttpMethod::POST => self.create_todo(request),
+            HttpMethod::DELETE => self.delete_todo(request),
+            HttpMethod::PUT => self.update_todo(request),
+            _ => self.error_service.serve_400_response(String::from("Bad request"))
         }
     }
 }
 
 mod tests {
 
-    use super::*;
+    
     /*
     #[cfg(test)]
     #[test]

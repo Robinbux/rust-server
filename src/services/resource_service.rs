@@ -1,7 +1,7 @@
 use crate::enums::content_type::ContentType;
 use crate::enums::http_status_codes::HTTPStatusCodes;
-use crate::server::request::Request;
-use crate::server::response::Response;
+
+use crate::net::response::Response;
 use crate::services::error_service::ErrorService;
 use crate::utils::logger::Logger;
 
@@ -90,18 +90,14 @@ impl ResourceService {
 }
 
 mod tests {
-    use crate::services::error_service::{ErrorService, ErrorMessage};
-    use crate::services::resource_service::ResourceService;
-    use crate::utils::logger::Logger;
-    use crate::server::request::Request;
-    use crate::server::response::Response;
-    use crate::enums::content_type::ContentType;
-    use crate::enums::http_status_codes::HTTPStatusCodes;
+    use super::*;
+    use crate::services::error_service::ErrorMessage;
+
 
     #[should_panic]
     #[test]
     fn load_resource_missing() {
-        let html = ResourceService::load_resource("test.html").unwrap();
+        let _html = ResourceService::load_resource("test.html").unwrap();
     }
 
     #[test]

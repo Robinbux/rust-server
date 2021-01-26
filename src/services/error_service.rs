@@ -1,6 +1,6 @@
 use crate::enums::content_type::ContentType;
 use crate::enums::http_status_codes::HTTPStatusCodes;
-use crate::server::response::Response;
+use crate::net::response::Response;
 use crate::services::resource_service;
 use crate::utils::logger::Logger;
 use serde::{Deserialize, Serialize};

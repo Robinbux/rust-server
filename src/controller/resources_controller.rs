@@ -1,7 +1,7 @@
 use crate::controller::base_controller::BaseController;
 use crate::controller::controller::Controller;
-use crate::server::request::Request;
-use crate::server::response::Response;
+use crate::net::request::Request;
+use crate::net::response::Response;
 use crate::services::resource_service::ResourceService;
 use crate::utils::logger::Logger;
 

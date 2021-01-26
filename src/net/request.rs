@@ -64,8 +64,8 @@ impl Request {
 }
 
 mod tests {
-
-    use super::*;
+    use crate::net::request::Request;
+    use crate::enums::content_type::ContentType;
 
     #[test]
     fn extract_payload() {
