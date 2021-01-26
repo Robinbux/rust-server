@@ -21,7 +21,7 @@ mod TodoAPI {
         todoController.create_todo(request)
     }
 
-    pub fn update_todo(todoController: TodoController, update_todo_dto: UpdateTodoDTO, todo_id: i32) -> Result<(), diesel::result::Error> {
+    /*pub fn update_todo(todoController: TodoController, update_todo_dto: UpdateTodoDTO, todo_id: i32) -> Result<(), diesel::result::Error> {
         update_todo(update_todo_dto.completed, todo_id)
     }
 
@@ -31,5 +31,5 @@ mod TodoAPI {
 
     pub fn delete_todo(todoController: TodoController, todo_id: i32) -> Result<(), diesel::result::Error> {
         delete_todo(todo_id)
-    }
+    }*/
 }

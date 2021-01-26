@@ -163,7 +163,6 @@ impl TodoController {
 
 impl Controller for TodoController {
     fn execute_request(&self, mut request: Request) -> Response {
-        match request.http_method
         request.current_child_path = BaseController::extract_child_path(&request.resource_path);
         let route_beginning = BaseController::extract_parent_path(&request.current_child_path);
         match route_beginning {
