@@ -1,7 +1,7 @@
 use crate::schema::todos;
 use serde::{Deserialize, Serialize};
 
-#[derive(Queryable, Serialize, Deserialize)]
+#[derive(Queryable, Serialize, Deserialize, PartialEq, Debug)]
 pub struct Todo {
     pub id: i32,
     pub todo_message: String,

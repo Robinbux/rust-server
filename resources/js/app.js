@@ -3,7 +3,7 @@ const todoButton = document.querySelector('.todo_button');
 const todoList = document.querySelector('.todo_list');
 
 todoButton.addEventListener("click", addNewTodo)
-todoList.addEventListener("click", deleteOrCheck)
+todoList.addEventListener("click", deleteCheck)
 
 const baseTodoURL = "http://localhost:8087/todo"
 
@@ -45,7 +45,7 @@ function addSingleTodo(todo) {
     todoList.appendChild(todoDiv);
 }
 
-function deleteOrCheck(event) {
+function deleteCheck(event) {
     const item = event.target;
     // Delete todo
     if (item.classList[0] === "delete_btn") {
@@ -84,8 +84,8 @@ function fetchTodos()
     var x = 5;
 }
 
-function createTodoReqListener() {
-    const todo = JSON.parse(this.responseText);
+function createTodoReqListener(httpResponse) {
+    const todo = JSON.parse(httpResponse.responseText);
     addSingleTodo(todo);
 }
 
@@ -99,10 +99,16 @@ function addNewTodo(event) {
     }
 
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.addEventListener("load", createTodoReqListener);
+    //xmlhttp.addEventListener("load", createTodoReqListener);
     xmlhttp.open("POST", baseTodoURL, false);
     xmlhttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
     xmlhttp.send(JSON.stringify(params));
+    if (xmlhttp.status != 201) {
+        alert(`Error ${xmlhttp.status}: ${xmlhttp.response}`);
+    } else {
+        const todo = JSON.parse(xmlhttp.responseText);
+        addSingleTodo(todo);
+    }
     todoInput.value = "";
 }
 
@@ -122,10 +128,17 @@ function updateTodo(event, id, completed) {
     }
 
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.addEventListener("load", createTodoReqListener);
+    //xmlhttp.addEventListener("load", createTodoReqListener);
     xmlhttp.open("PUT", baseTodoURL + "/" + id, false);
     xmlhttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
     xmlhttp.send(JSON.stringify(params));
+    if (xmlhttp.status != 201) {
+        alert(`Error ${xmlhttp.status}: ${xmlhttp.response}`);
+    } else {
+        const todo = JSON.parse(xmlhttp.responseText);
+        addSingleTodo(todo);
+    }
+
 }
 
 window.onpaint = fetchTodos();

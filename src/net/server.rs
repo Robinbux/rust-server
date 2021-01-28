@@ -139,7 +139,7 @@ impl Server {
         };
 
         let built_mime_response = mime_response.build_mime_response();
-
+        println!("mime response: {}", &built_mime_response);
         let mime_res_ref: &[u8] = built_mime_response.as_ref();
         let mut mime_res_vec = mime_res_ref.to_vec();
         mime_res_vec.extend(response.content_bytes);

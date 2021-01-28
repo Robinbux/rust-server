@@ -2306,3 +2306,529 @@ SystemTime { tv_sec: 1602073121, tv_nsec: 437990000 }  [Server]: Received client
 2021-01-26T19:18:01.299859+01:00  [Server]: Response sent.
 2021-01-26T19:18:21.896961+01:00  [Server]: Received client request!
 2021-01-26T19:18:22.129597+01:00  [Server]: Response sent.
+2021-01-27T12:12:35.799624+01:00  [Server]: Server started listening.
+2021-01-27T12:12:55.678306+01:00  [Server]: Received client request!
+2021-01-27T12:12:55.681724+01:00  [Server]: Response sent.
+2021-01-27T12:12:55.862899+01:00  [Server]: Received client request!
+2021-01-27T12:12:55.863690+01:00  [Server]: Response sent.
+2021-01-27T12:12:55.866998+01:00  [Server]: Received client request!
+2021-01-27T12:12:55.868071+01:00  [Server]: Response sent.
+2021-01-27T12:12:56.006724+01:00  [Server]: Received client request!
+2021-01-27T12:12:56.056072+01:00  [Server]: Response sent.
+2021-01-27T12:12:56.080072+01:00  [Server]: Received client request!
+2021-01-27T12:12:59.724905+01:00  [Server]: Received client request!
+2021-01-27T12:12:59.751122+01:00  [Server]: Response sent.
+2021-01-27T12:13:01.609546+01:00  [Server]: Received client request!
+2021-01-27T12:13:01.623149+01:00  [Server]: Response sent.
+2021-01-27T12:13:03.144306+01:00  [Server]: Received client request!
+2021-01-27T12:13:03.165509+01:00  [Server]: Response sent.
+2021-01-27T12:13:03.864207+01:00  [Server]: Received client request!
+2021-01-27T12:13:03.879631+01:00  [Server]: Response sent.
+2021-01-27T12:31:08.129037+01:00  [Server]: Received client request!
+2021-01-27T12:31:08.332650+01:00  [ErrorService]: Unable to create Todo!
+2021-01-27T12:31:08.332808+01:00  [Server]: Response sent.
+2021-01-27T12:31:14.064644+01:00  [Server]: Received client request!
+2021-01-27T12:31:14.064955+01:00  [ErrorService]: Wrong id type
+2021-01-27T12:31:14.065061+01:00  [Server]: Response sent.
+2021-01-27T12:31:15.681954+01:00  [Server]: Received client request!
+2021-01-27T12:31:15.682281+01:00  [ErrorService]: Wrong id type
+2021-01-27T12:31:15.687633+01:00  [Server]: Response sent.
+2021-01-27T12:41:12.153009+01:00  [Server]: Server started listening.
+2021-01-27T12:41:15.442575+01:00  [Server]: Received client request!
+2021-01-27T12:41:15.443057+01:00  [ErrorService]: Wrong id type
+2021-01-27T12:41:15.448547+01:00  [Server]: Response sent.
+2021-01-27T12:42:54.433325+01:00  [Server]: Received client request!
+2021-01-27T12:42:54.435507+01:00  [Server]: Received client request!
+2021-01-27T12:42:54.440798+01:00  [Server]: Response sent.
+2021-01-27T12:42:54.447097+01:00  [Server]: Response sent.
+2021-01-27T12:42:54.708636+01:00  [Server]: Received client request!
+2021-01-27T12:42:54.710723+01:00  [Server]: Response sent.
+2021-01-27T12:43:03.344728+01:00  [Server]: Received client request!
+2021-01-27T12:43:03.345058+01:00  [ErrorService]: Wrong id type
+2021-01-27T12:43:03.350655+01:00  [Server]: Response sent.
+2021-01-27T12:43:10.799188+01:00  [Server]: Received client request!
+2021-01-27T12:43:10.799566+01:00  [ErrorService]: Wrong id type
+2021-01-27T12:43:10.804947+01:00  [Server]: Response sent.
+2021-01-27T12:43:12.722843+01:00  [Server]: Received client request!
+2021-01-27T12:43:12.723202+01:00  [ErrorService]: Wrong id type
+2021-01-27T12:43:12.724851+01:00  [Server]: Response sent.
+2021-01-27T12:43:24.148865+01:00  [Server]: Received client request!
+2021-01-27T12:43:24.158868+01:00  [Server]: Response sent.
+2021-01-27T12:43:24.412635+01:00  [Server]: Received client request!
+2021-01-27T12:43:24.414074+01:00  [Server]: Received client request!
+2021-01-27T12:43:24.424643+01:00  [Server]: Response sent.
+2021-01-27T12:43:24.439111+01:00  [Server]: Response sent.
+2021-01-27T12:43:24.593245+01:00  [Server]: Received client request!
+2021-01-27T12:43:24.645856+01:00  [ErrorService]: Unable to retrieve todos!
+2021-01-27T12:43:24.646065+01:00  [Server]: Response sent.
+2021-01-27T12:43:24.668878+01:00  [Server]: Received client request!
+2021-01-27T12:44:16.306026+01:00  [Server]: Server started listening.
+2021-01-27T12:44:23.718678+01:00  [Server]: Received client request!
+2021-01-27T12:44:23.755245+01:00  [ErrorService]: Unable to create Todo!
+2021-01-27T12:44:23.755532+01:00  [Server]: Response sent.
+2021-01-27T12:45:09.895357+01:00  [Server]: Received client request!
+2021-01-27T12:45:09.920273+01:00  [ErrorService]: Unable to create Todo!
+2021-01-27T12:45:09.920569+01:00  [Server]: Response sent.
+2021-01-27T12:46:16.737482+01:00  [Server]: Received client request!
+2021-01-27T12:46:16.739543+01:00  [Server]: Response sent.
+2021-01-27T12:46:16.850155+01:00  [Server]: Received client request!
+2021-01-27T12:46:16.852679+01:00  [Server]: Received client request!
+2021-01-27T12:46:16.857118+01:00  [Server]: Response sent.
+2021-01-27T12:46:16.860626+01:00  [Server]: Response sent.
+2021-01-27T12:46:16.960036+01:00  [Server]: Received client request!
+2021-01-27T12:46:16.994840+01:00  [ErrorService]: Unable to retrieve todos!
+2021-01-27T12:46:16.995652+01:00  [Server]: Response sent.
+2021-01-27T12:46:22.803702+01:00  [Server]: Received client request!
+2021-01-27T12:46:22.805957+01:00  [Server]: Response sent.
+2021-01-27T12:46:22.906680+01:00  [Server]: Received client request!
+2021-01-27T12:46:22.910308+01:00  [Server]: Received client request!
+2021-01-27T12:46:22.916243+01:00  [Server]: Response sent.
+2021-01-27T12:46:22.926382+01:00  [Server]: Response sent.
+2021-01-27T12:46:23.050902+01:00  [Server]: Received client request!
+2021-01-27T12:46:23.080395+01:00  [ErrorService]: Unable to retrieve todos!
+2021-01-27T12:46:23.080801+01:00  [Server]: Response sent.
+2021-01-27T12:46:31.423342+01:00  [Server]: Received client request!
+2021-01-27T12:46:31.425881+01:00  [Server]: Response sent.
+2021-01-27T12:46:41.770634+01:00  [Server]: Received client request!
+2021-01-27T12:46:41.774957+01:00  [Server]: Response sent.
+2021-01-27T12:47:20.596189+01:00  [Server]: Received client request!
+2021-01-27T12:47:20.598035+01:00  [Server]: Response sent.
+2021-01-27T12:47:20.729848+01:00  [Server]: Received client request!
+2021-01-27T12:47:20.732306+01:00  [Server]: Received client request!
+2021-01-27T12:47:20.736684+01:00  [Server]: Response sent.
+2021-01-27T12:47:20.740433+01:00  [Server]: Response sent.
+2021-01-27T12:47:20.886272+01:00  [Server]: Received client request!
+2021-01-27T12:47:20.938453+01:00  [ErrorService]: Unable to retrieve todos!
+2021-01-27T12:47:20.938786+01:00  [Server]: Response sent.
+2021-01-27T12:49:47.552381+01:00  [Server]: Received client request!
+2021-01-27T12:49:47.558361+01:00  [ErrorService]: Incorrect Payload Structure!
+2021-01-27T12:49:47.558552+01:00  [Server]: Response sent.
+2021-01-27T12:51:00.113601+01:00  [Server]: Received client request!
+2021-01-27T12:51:00.113949+01:00  [ErrorService]: Incorrect Payload Structure!
+2021-01-27T12:51:00.114946+01:00  [Server]: Response sent.
+2021-01-27T12:51:23.831878+01:00  [Server]: Received client request!
+2021-01-27T12:51:23.832270+01:00  [ErrorService]: Incorrect Payload Structure!
+2021-01-27T12:51:23.848199+01:00  [Server]: Response sent.
+2021-01-27T13:02:41.093143+01:00  [Server]: Received client request!
+2021-01-27T13:02:41.097052+01:00  [Server]: Response sent.
+2021-01-27T13:02:41.275653+01:00  [Server]: Received client request!
+2021-01-27T13:02:41.278561+01:00  [Server]: Received client request!
+2021-01-27T13:02:41.282666+01:00  [Server]: Response sent.
+2021-01-27T13:02:41.291588+01:00  [Server]: Response sent.
+2021-01-27T13:02:41.322459+01:00  [Server]: Received client request!
+2021-01-27T13:02:41.351487+01:00  [ErrorService]: Unable to retrieve todos!
+2021-01-27T13:02:41.351914+01:00  [Server]: Response sent.
+2021-01-27T13:02:46.469244+01:00  [Server]: Received client request!
+2021-01-27T13:02:46.492910+01:00  [ErrorService]: Unable to create Todo!
+2021-01-27T13:02:46.493398+01:00  [Server]: Response sent.
+2021-01-27T13:02:49.707619+01:00  [Server]: Received client request!
+2021-01-27T13:02:49.725878+01:00  [ErrorService]: Unable to create Todo!
+2021-01-27T13:02:49.726141+01:00  [Server]: Response sent.
+2021-01-27T13:02:53.961179+01:00  [Server]: Received client request!
+2021-01-27T13:02:53.961680+01:00  [ErrorService]: Wrong id type
+2021-01-27T13:02:53.961894+01:00  [Server]: Response sent.
+2021-01-27T15:04:49.522515+01:00  [Server]: Server started listening.
+2021-01-27T15:04:55.493624+01:00  [Server]: Received client request!
+2021-01-27T15:04:55.592117+01:00  [Server]: Received client request!
+2021-01-27T15:04:55.598742+01:00  [Server]: Received client request!
+2021-01-27T15:04:55.618467+01:00  [Server]: Response sent.
+2021-01-27T15:04:55.625713+01:00  [Server]: Response sent.
+2021-01-27T15:04:55.654160+01:00  [Server]: Received client request!
+2021-01-27T15:04:55.732440+01:00  [ErrorService]: Unable to retrieve todos!
+2021-01-27T15:04:55.732843+01:00  [Server]: Response sent.
+2021-01-27T15:04:55.839319+01:00  [Server]: Received client request!
+2021-01-27T15:05:01.354955+01:00  [Server]: Received client request!
+2021-01-27T15:05:01.377369+01:00  [ErrorService]: Unable to create Todo!
+2021-01-27T15:05:01.377613+01:00  [Server]: Response sent.
+2021-01-27T15:05:08.154976+01:00  [Server]: Received client request!
+2021-01-27T15:05:08.155311+01:00  [ErrorService]: Wrong id type
+2021-01-27T15:05:08.161524+01:00  [Server]: Response sent.
+2021-01-27T15:05:12.353627+01:00  [Server]: Received client request!
+2021-01-27T15:05:12.353965+01:00  [ErrorService]: Wrong id type
+2021-01-27T15:05:12.359318+01:00  [Server]: Response sent.
+2021-01-27T15:05:29.802846+01:00  [Server]: Received client request!
+2021-01-27T15:05:29.803263+01:00  [ErrorService]: Wrong id type
+2021-01-27T15:05:29.808750+01:00  [Server]: Response sent.
+2021-01-27T15:06:58.954559+01:00  [Server]: Received client request!
+2021-01-27T15:06:58.961855+01:00  [Server]: Response sent.
+2021-01-27T15:06:59.073919+01:00  [Server]: Received client request!
+2021-01-27T15:06:59.076599+01:00  [Server]: Received client request!
+2021-01-27T15:06:59.078156+01:00  [Server]: Response sent.
+2021-01-27T15:06:59.089147+01:00  [Server]: Response sent.
+2021-01-27T15:06:59.159768+01:00  [Server]: Received client request!
+2021-01-27T15:06:59.185177+01:00  [ErrorService]: Unable to retrieve todos!
+2021-01-27T15:06:59.185562+01:00  [Server]: Response sent.
+2021-01-27T15:32:08.786884+01:00  [Server]: Server started listening.
+2021-01-27T15:32:14.595987+01:00  [Server]: Received client request!
+2021-01-27T15:32:14.598686+01:00  [Server]: Response sent.
+2021-01-27T15:32:14.715448+01:00  [Server]: Received client request!
+2021-01-27T15:32:14.718106+01:00  [Server]: Received client request!
+2021-01-27T15:32:14.723347+01:00  [Server]: Response sent.
+2021-01-27T15:32:14.731806+01:00  [Server]: Response sent.
+2021-01-27T15:32:14.841057+01:00  [Server]: Received client request!
+2021-01-27T15:32:14.868934+01:00  [ErrorService]: Unable to retrieve todos!
+2021-01-27T15:32:14.869716+01:00  [Server]: Response sent.
+2021-01-27T15:32:14.945162+01:00  [Server]: Received client request!
+2021-01-27T15:32:58.587838+01:00  [Server]: Server started listening.
+2021-01-27T15:33:00.566989+01:00  [Server]: Received client request!
+2021-01-27T15:33:00.570045+01:00  [Server]: Response sent.
+2021-01-27T15:33:00.681074+01:00  [Server]: Received client request!
+2021-01-27T15:33:00.684043+01:00  [Server]: Received client request!
+2021-01-27T15:33:00.684120+01:00  [Server]: Response sent.
+2021-01-27T15:33:00.684928+01:00  [Server]: Response sent.
+2021-01-27T15:33:00.780242+01:00  [Server]: Received client request!
+2021-01-27T15:33:00.821899+01:00  [ErrorService]: Unable to retrieve todos!
+2021-01-27T15:33:00.822254+01:00  [Server]: Response sent.
+2021-01-27T15:34:01.673502+01:00  [Server]: Received client request!
+2021-01-27T15:34:01.696120+01:00  [ErrorService]: Unable to create Todo!
+2021-01-27T15:34:01.696377+01:00  [Server]: Response sent.
+2021-01-27T15:34:05.407736+01:00  [Server]: Received client request!
+2021-01-27T15:34:05.408141+01:00  [ErrorService]: Wrong id type
+2021-01-27T15:34:05.413497+01:00  [Server]: Response sent.
+2021-01-27T15:34:17.275438+01:00  [Server]: Received client request!
+2021-01-27T15:34:17.275759+01:00  [ErrorService]: Wrong id type
+2021-01-27T15:34:17.281195+01:00  [Server]: Response sent.
+2021-01-27T15:39:16.711045+01:00  [Server]: Server started listening.
+2021-01-27T15:39:22.054340+01:00  [Server]: Received client request!
+2021-01-27T15:39:22.054906+01:00  [Server]: Response sent.
+2021-01-27T15:39:22.251423+01:00  [Server]: Received client request!
+2021-01-27T15:39:22.254558+01:00  [Server]: Received client request!
+2021-01-27T15:39:22.254640+01:00  [Server]: Response sent.
+2021-01-27T15:39:22.255053+01:00  [Server]: Response sent.
+2021-01-27T15:39:22.353936+01:00  [Server]: Received client request!
+2021-01-27T15:39:22.378718+01:00  [ErrorService]: Unable to retrieve todos!
+2021-01-27T15:39:22.379352+01:00  [Server]: Response sent.
+2021-01-27T15:39:28.700656+01:00  [Server]: Received client request!
+2021-01-27T15:39:28.725555+01:00  [ErrorService]: Unable to create Todo!
+2021-01-27T15:39:28.725924+01:00  [Server]: Response sent.
+2021-01-27T15:39:31.235866+01:00  [Server]: Received client request!
+2021-01-27T15:39:31.236177+01:00  [ErrorService]: Wrong id type
+2021-01-27T15:39:31.241600+01:00  [Server]: Response sent.
+2021-01-27T15:40:31.292819+01:00  [Server]: Server started listening.
+2021-01-27T15:40:33.381252+01:00  [Server]: Received client request!
+2021-01-27T15:40:33.382192+01:00  [Server]: Response sent.
+2021-01-27T15:40:33.676436+01:00  [Server]: Received client request!
+2021-01-27T15:40:33.679038+01:00  [Server]: Response sent.
+2021-01-27T15:40:33.678965+01:00  [Server]: Received client request!
+2021-01-27T15:40:33.682643+01:00  [Server]: Response sent.
+2021-01-27T15:40:33.710163+01:00  [Server]: Received client request!
+2021-01-27T15:40:33.753363+01:00  [ErrorService]: Unable to retrieve todos!
+2021-01-27T15:40:33.754016+01:00  [Server]: Response sent.
+2021-01-27T15:40:35.439929+01:00  [Server]: Received client request!
+2021-01-27T15:40:35.455454+01:00  [ErrorService]: Unable to create Todo!
+2021-01-27T15:40:35.455711+01:00  [Server]: Response sent.
+2021-01-27T15:40:36.838854+01:00  [Server]: Received client request!
+2021-01-27T15:40:36.839308+01:00  [ErrorService]: Wrong id type
+2021-01-27T15:40:36.844596+01:00  [Server]: Response sent.
+2021-01-27T15:45:51.410473+01:00  [Server]: Server started listening.
+2021-01-27T15:45:57.280263+01:00  [Server]: Received client request!
+2021-01-27T15:45:57.303691+01:00  [ErrorService]: Unable to create Todo!
+2021-01-27T15:45:57.304223+01:00  [Server]: Response sent.
+2021-01-27T15:45:59.613954+01:00  [Server]: Received client request!
+2021-01-27T15:45:59.633294+01:00  [ErrorService]: Unable to create Todo!
+2021-01-27T15:45:59.633539+01:00  [Server]: Response sent.
+2021-01-27T15:46:59.997750+01:00  [Server]: Server started listening.
+2021-01-27T15:47:02.379633+01:00  [Server]: Received client request!
+2021-01-27T15:47:02.380503+01:00  [Server]: Response sent.
+2021-01-27T15:47:02.487879+01:00  [Server]: Received client request!
+2021-01-27T15:47:02.490776+01:00  [Server]: Received client request!
+2021-01-27T15:47:02.490846+01:00  [Server]: Response sent.
+2021-01-27T15:47:02.491737+01:00  [Server]: Response sent.
+2021-01-27T15:47:02.612770+01:00  [Server]: Received client request!
+2021-01-27T15:47:02.632997+01:00  [ErrorService]: Unable to retrieve todos!
+2021-01-27T15:47:02.633218+01:00  [Server]: Response sent.
+2021-01-27T15:47:07.342878+01:00  [Server]: Received client request!
+2021-01-27T15:47:07.364467+01:00  [ErrorService]: Unable to create Todo!
+2021-01-27T15:47:07.364740+01:00  [Server]: Response sent.
+2021-01-27T15:47:14.328892+01:00  [Server]: Received client request!
+2021-01-27T15:47:14.358151+01:00  [ErrorService]: Unable to create Todo!
+2021-01-27T15:47:14.358905+01:00  [Server]: Response sent.
+2021-01-27T15:51:31.195869+01:00  [Server]: Server started listening.
+2021-01-27T15:51:35.029738+01:00  [Server]: Received client request!
+2021-01-27T15:51:35.031695+01:00  [Server]: Response sent.
+2021-01-27T15:51:35.181278+01:00  [Server]: Received client request!
+2021-01-27T15:51:35.193991+01:00  [Server]: Received client request!
+2021-01-27T15:51:35.194304+01:00  [Server]: Response sent.
+2021-01-27T15:51:35.195321+01:00  [Server]: Response sent.
+2021-01-27T15:51:35.296360+01:00  [Server]: Received client request!
+2021-01-27T15:51:35.333755+01:00  [Server]: Response sent.
+2021-01-27T15:51:46.688310+01:00  [Server]: Received client request!
+2021-01-27T15:51:46.701547+01:00  [Server]: Response sent.
+2021-01-27T15:52:32.193524+01:00  [Server]: Server started listening.
+2021-01-27T15:52:34.612879+01:00  [Server]: Received client request!
+2021-01-27T15:52:34.613774+01:00  [Server]: Response sent.
+2021-01-27T15:52:34.812315+01:00  [Server]: Received client request!
+2021-01-27T15:52:34.814980+01:00  [Server]: Received client request!
+2021-01-27T15:52:34.815025+01:00  [Server]: Response sent.
+2021-01-27T15:52:34.815381+01:00  [Server]: Response sent.
+2021-01-27T15:52:34.848887+01:00  [Server]: Received client request!
+2021-01-27T15:52:34.878541+01:00  [Server]: Response sent.
+2021-01-27T15:52:40.110789+01:00  [Server]: Received client request!
+2021-01-27T15:52:40.121176+01:00  [Server]: Response sent.
+2021-01-27T15:53:33.462187+01:00  [Server]: Server started listening.
+2021-01-27T15:53:35.813791+01:00  [Server]: Received client request!
+2021-01-27T15:53:35.814331+01:00  [Server]: Response sent.
+2021-01-27T15:53:36.029312+01:00  [Server]: Received client request!
+2021-01-27T15:53:36.031904+01:00  [Server]: Received client request!
+2021-01-27T15:53:36.031983+01:00  [Server]: Response sent.
+2021-01-27T15:53:36.032405+01:00  [Server]: Response sent.
+2021-01-27T15:53:36.101298+01:00  [Server]: Received client request!
+2021-01-27T15:53:36.114767+01:00  [Server]: Response sent.
+2021-01-27T15:53:38.636152+01:00  [Server]: Received client request!
+2021-01-27T15:53:38.644062+01:00  [Server]: Response sent.
+2021-01-27T15:54:30.248026+01:00  [Server]: Server started listening.
+2021-01-27T15:54:34.384744+01:00  [Server]: Received client request!
+2021-01-27T15:54:34.385311+01:00  [Server]: Response sent.
+2021-01-27T15:54:34.569201+01:00  [Server]: Received client request!
+2021-01-27T15:54:34.572035+01:00  [Server]: Received client request!
+2021-01-27T15:54:34.572123+01:00  [Server]: Response sent.
+2021-01-27T15:54:34.572618+01:00  [Server]: Response sent.
+2021-01-27T15:54:34.621785+01:00  [Server]: Received client request!
+2021-01-27T15:54:34.634284+01:00  [Server]: Response sent.
+2021-01-27T15:54:38.138600+01:00  [Server]: Received client request!
+2021-01-27T15:54:38.146883+01:00  [Server]: Response sent.
+2021-01-27T15:56:28.031139+01:00  [Server]: Server started listening.
+2021-01-27T15:56:32.443404+01:00  [Server]: Received client request!
+2021-01-27T15:56:32.445456+01:00  [Server]: Response sent.
+2021-01-27T15:56:32.578352+01:00  [Server]: Received client request!
+2021-01-27T15:56:32.582496+01:00  [Server]: Received client request!
+2021-01-27T15:56:32.582647+01:00  [Server]: Response sent.
+2021-01-27T15:56:32.583410+01:00  [Server]: Response sent.
+2021-01-27T15:56:32.678421+01:00  [Server]: Received client request!
+2021-01-27T15:56:32.692485+01:00  [Server]: Response sent.
+2021-01-27T15:56:35.290246+01:00  [Server]: Received client request!
+2021-01-27T15:56:35.298432+01:00  [Server]: Response sent.
+2021-01-27T15:57:38.295860+01:00  [Server]: Server started listening.
+2021-01-27T15:57:40.532043+01:00  [Server]: Received client request!
+2021-01-27T15:57:40.534147+01:00  [Server]: Response sent.
+2021-01-27T15:57:40.786029+01:00  [Server]: Received client request!
+2021-01-27T15:57:40.788956+01:00  [Server]: Received client request!
+2021-01-27T15:57:40.789073+01:00  [Server]: Response sent.
+2021-01-27T15:57:40.789540+01:00  [Server]: Response sent.
+2021-01-27T15:57:40.975565+01:00  [Server]: Received client request!
+2021-01-27T15:57:41.001075+01:00  [Server]: Response sent.
+2021-01-27T15:57:44.598723+01:00  [Server]: Received client request!
+2021-01-27T15:57:44.606915+01:00  [Server]: Response sent.
+2021-01-27T15:57:46.710742+01:00  [Server]: Received client request!
+2021-01-27T15:57:46.719081+01:00  [Server]: Response sent.
+2021-01-27T15:57:47.310143+01:00  [Server]: Received client request!
+2021-01-27T15:57:47.318239+01:00  [Server]: Response sent.
+2021-01-27T15:57:59.643429+01:00  [Server]: Received client request!
+2021-01-27T15:57:59.650336+01:00  [Server]: Response sent.
+2021-01-27T15:59:54.188+01:00  [Server]: Server started listening.
+2021-01-27T15:59:59.025503+01:00  [Server]: Received client request!
+2021-01-27T15:59:59.026371+01:00  [Server]: Response sent.
+2021-01-27T15:59:59.157405+01:00  [Server]: Received client request!
+2021-01-27T15:59:59.160853+01:00  [Server]: Received client request!
+2021-01-27T15:59:59.161042+01:00  [Server]: Response sent.
+2021-01-27T15:59:59.161395+01:00  [Server]: Response sent.
+2021-01-27T15:59:59.267285+01:00  [Server]: Received client request!
+2021-01-27T15:59:59.277791+01:00  [Server]: Response sent.
+2021-01-27T15:59:59.309131+01:00  [Server]: Received client request!
+2021-01-27T15:59:59.311206+01:00  [Server]: Response sent.
+2021-01-27T16:00:04.535506+01:00  [Server]: Received client request!
+2021-01-27T16:00:04.544552+01:00  [Server]: Response sent.
+2021-01-27T16:02:31.341014+01:00  [Server]: Server started listening.
+2021-01-27T16:02:37.217041+01:00  [Server]: Received client request!
+2021-01-27T16:02:37.234012+01:00  [Server]: Response sent.
+2021-01-27T16:02:39.484222+01:00  [Server]: Received client request!
+2021-01-27T16:02:39.492395+01:00  [Server]: Response sent.
+2021-01-27T16:08:53.808736+01:00  [Server]: Server started listening.
+2021-01-27T16:08:56.982032+01:00  [Server]: Received client request!
+2021-01-27T16:08:56.985325+01:00  [Server]: Response sent.
+2021-01-27T16:08:57.124721+01:00  [Server]: Received client request!
+2021-01-27T16:08:57.129019+01:00  [Server]: Received client request!
+2021-01-27T16:08:57.129107+01:00  [Server]: Response sent.
+2021-01-27T16:08:57.129827+01:00  [Server]: Response sent.
+2021-01-27T16:08:57.204554+01:00  [Server]: Received client request!
+2021-01-27T16:08:57.220416+01:00  [Server]: Response sent.
+2021-01-27T16:09:01.563765+01:00  [Server]: Received client request!
+2021-01-27T16:09:01.572106+01:00  [Server]: Response sent.
+2021-01-27T16:09:04.222140+01:00  [Server]: Received client request!
+2021-01-27T16:09:04.230763+01:00  [Server]: Response sent.
+2021-01-27T16:11:15.497177+01:00  [Server]: Received client request!
+2021-01-27T16:11:15.519851+01:00  [Server]: Response sent.
+2021-01-27T16:11:15.823403+01:00  [Server]: Received client request!
+2021-01-27T16:11:15.831211+01:00  [Server]: Response sent.
+2021-01-27T16:11:15.984906+01:00  [Server]: Received client request!
+2021-01-27T16:11:15.992154+01:00  [Server]: Response sent.
+2021-01-27T16:11:16.173353+01:00  [Server]: Received client request!
+2021-01-27T16:11:16.182563+01:00  [Server]: Response sent.
+2021-01-27T16:11:16.402414+01:00  [Server]: Received client request!
+2021-01-27T16:11:16.410248+01:00  [Server]: Response sent.
+2021-01-27T16:11:16.656790+01:00  [Server]: Received client request!
+2021-01-27T16:11:16.668980+01:00  [Server]: Response sent.
+2021-01-27T16:11:16.841277+01:00  [Server]: Received client request!
+2021-01-27T16:11:16.850767+01:00  [Server]: Response sent.
+2021-01-27T16:11:16.993736+01:00  [Server]: Received client request!
+2021-01-27T16:11:17.003536+01:00  [Server]: Response sent.
+2021-01-27T16:11:17.167004+01:00  [Server]: Received client request!
+2021-01-27T16:11:17.177218+01:00  [Server]: Response sent.
+2021-01-27T16:11:17.322828+01:00  [Server]: Received client request!
+2021-01-27T16:11:17.331152+01:00  [Server]: Response sent.
+2021-01-27T16:11:17.487624+01:00  [Server]: Received client request!
+2021-01-27T16:11:17.499340+01:00  [Server]: Response sent.
+2021-01-27T16:11:17.640074+01:00  [Server]: Received client request!
+2021-01-27T16:11:17.651029+01:00  [Server]: Response sent.
+2021-01-27T16:11:17.807013+01:00  [Server]: Received client request!
+2021-01-27T16:11:17.815814+01:00  [Server]: Response sent.
+2021-01-27T16:11:17.972983+01:00  [Server]: Received client request!
+2021-01-27T16:11:17.982934+01:00  [Server]: Response sent.
+2021-01-27T16:11:25.359477+01:00  [ErrorService]: Binding failed
+2021-01-27T16:11:27.843482+01:00  [ErrorService]: Binding failed
+2021-01-27T16:11:34.321752+01:00  [ErrorService]: Binding failed
+2021-01-27T16:11:44.631238+01:00  [ErrorService]: Binding failed
+2021-01-27T16:11:50.245714+01:00  [Server]: Server started listening.
+2021-01-27T16:11:55.341159+01:00  [Server]: Received client request!
+2021-01-27T16:11:55.351163+01:00  [Server]: Response sent.
+2021-01-27T16:11:59.476766+01:00  [Server]: Received client request!
+2021-01-27T16:11:59.486902+01:00  [Server]: Response sent.
+2021-01-27T16:12:07.407656+01:00  [Server]: Received client request!
+2021-01-27T16:12:07.415697+01:00  [Server]: Response sent.
+2021-01-27T16:12:09.895485+01:00  [Server]: Received client request!
+2021-01-27T16:12:09.904717+01:00  [Server]: Response sent.
+2021-01-27T16:12:28.852551+01:00  [ErrorService]: Binding failed
+2021-01-27T16:12:33.394902+01:00  [ErrorService]: Binding failed
+2021-01-27T16:12:35.360987+01:00  [ErrorService]: Binding failed
+2021-01-27T16:12:59.027989+01:00  [Server]: Server started listening.
+2021-01-27T16:13:36.680653+01:00  [Server]: Received client request!
+2021-01-27T16:13:36.690938+01:00  [Server]: Response sent.
+2021-01-27T16:13:40.098996+01:00  [Server]: Received client request!
+2021-01-27T16:13:40.110310+01:00  [Server]: Response sent.
+2021-01-27T16:15:31.954101+01:00  [Server]: Server started listening.
+2021-01-27T16:17:03.012040+01:00  [Server]: Received client request!
+2021-01-27T16:17:03.014177+01:00  [Server]: Response sent.
+2021-01-27T16:17:03.181842+01:00  [Server]: Received client request!
+2021-01-27T16:17:03.184323+01:00  [Server]: Received client request!
+2021-01-27T16:17:03.184398+01:00  [Server]: Response sent.
+2021-01-27T16:17:03.184841+01:00  [Server]: Response sent.
+2021-01-27T16:17:03.228992+01:00  [Server]: Received client request!
+2021-01-27T16:17:03.239958+01:00  [Server]: Response sent.
+2021-01-27T16:17:03.270771+01:00  [Server]: Received client request!
+2021-01-27T16:17:03.272728+01:00  [Server]: Response sent.
+2021-01-27T16:17:08.097429+01:00  [Server]: Received client request!
+2021-01-27T16:17:08.106713+01:00  [Server]: Response sent.
+2021-01-27T16:17:09.926383+01:00  [Server]: Received client request!
+2021-01-27T16:17:09.934801+01:00  [Server]: Response sent.
+2021-01-27T16:18:25.766583+01:00  [Server]: Server started listening.
+2021-01-27T16:18:27.421830+01:00  [Server]: Received client request!
+2021-01-27T16:18:27.422606+01:00  [Server]: Response sent.
+2021-01-27T16:18:27.589523+01:00  [Server]: Received client request!
+2021-01-27T16:18:27.593610+01:00  [Server]: Received client request!
+2021-01-27T16:18:27.593732+01:00  [Server]: Response sent.
+2021-01-27T16:18:27.595616+01:00  [Server]: Response sent.
+2021-01-27T16:18:27.782130+01:00  [Server]: Received client request!
+2021-01-27T16:18:27.793705+01:00  [Server]: Response sent.
+2021-01-27T16:18:31.377825+01:00  [Server]: Received client request!
+2021-01-27T16:18:31.388031+01:00  [Server]: Response sent.
+2021-01-27T16:18:32.334458+01:00  [Server]: Received client request!
+2021-01-27T16:18:32.343696+01:00  [Server]: Response sent.
+2021-01-27T16:18:37.336403+01:00  [Server]: Received client request!
+2021-01-27T16:18:37.336816+01:00  [Server]: Response sent.
+2021-01-27T16:18:37.439732+01:00  [Server]: Received client request!
+2021-01-27T16:18:37.442877+01:00  [Server]: Received client request!
+2021-01-27T16:18:37.442954+01:00  [Server]: Response sent.
+2021-01-27T16:18:37.443767+01:00  [Server]: Response sent.
+2021-01-27T16:18:37.600527+01:00  [Server]: Received client request!
+2021-01-27T16:18:37.609572+01:00  [Server]: Response sent.
+2021-01-27T16:18:41.648180+01:00  [Server]: Received client request!
+2021-01-27T16:18:41.656226+01:00  [Server]: Response sent.
+2021-01-27T16:20:35.871942+01:00  [Server]: Received client request!
+2021-01-27T16:20:35.881299+01:00  [Server]: Response sent.
+2021-01-27T16:28:51.662231+01:00  [Server]: Server started listening.
+2021-01-27T16:28:59.433266+01:00  [Server]: Received client request!
+2021-01-27T16:28:59.435874+01:00  [Server]: Response sent.
+2021-01-27T16:28:59.568679+01:00  [Server]: Received client request!
+2021-01-27T16:28:59.571439+01:00  [Server]: Received client request!
+2021-01-27T16:28:59.571504+01:00  [Server]: Response sent.
+2021-01-27T16:28:59.572037+01:00  [Server]: Response sent.
+2021-01-27T16:28:59.689556+01:00  [Server]: Received client request!
+2021-01-27T16:28:59.704906+01:00  [Server]: Response sent.
+2021-01-27T16:28:59.791282+01:00  [Server]: Received client request!
+2021-01-27T16:28:59.791851+01:00  [Server]: Response sent.
+2021-01-27T16:29:01.816963+01:00  [Server]: Received client request!
+2021-01-27T16:29:01.825156+01:00  [Server]: Response sent.
+2021-01-27T16:29:02.582418+01:00  [Server]: Received client request!
+2021-01-27T16:29:02.590874+01:00  [Server]: Response sent.
+2021-01-27T16:29:06.536347+01:00  [Server]: Received client request!
+2021-01-27T16:29:06.544717+01:00  [Server]: Response sent.
+2021-01-27T16:29:07.301392+01:00  [Server]: Received client request!
+2021-01-27T16:29:07.310511+01:00  [Server]: Response sent.
+2021-01-27T18:19:17.576376+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-27T18:22:35.426383+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-27T18:26:08.912779+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-27T18:27:12.848930+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-27T18:30:36.306301+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-27T18:31:56.806643+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-27T18:35:01.891020+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-27T19:24:13.865505+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-27T19:30:23.353727+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-27T19:31:05.580490+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-27T19:33:34.896423+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-27T19:38:44.791671+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-27T19:47:44.957916+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-27T19:48:57.832544+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-28T11:09:53.169872+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-28T11:09:58.423547+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-28T11:29:03.801157+01:00  [Server]: Server started listening.
+2021-01-28T11:29:08.766507+01:00  [Server]: Received client request!
+2021-01-28T11:29:08.769923+01:00  [Server]: Response sent.
+2021-01-28T11:29:08.901523+01:00  [Server]: Received client request!
+2021-01-28T11:29:08.905611+01:00  [Server]: Received client request!
+2021-01-28T11:29:08.905755+01:00  [Server]: Response sent.
+2021-01-28T11:29:08.906394+01:00  [Server]: Response sent.
+2021-01-28T11:29:14.582268+01:00  [Server]: Received client request!
+2021-01-28T11:29:14.597355+01:00  [Server]: Response sent.
+2021-01-28T11:29:27.534343+01:00  [Server]: Received client request!
+2021-01-28T11:29:27.534738+01:00  [Server]: Response sent.
+2021-01-28T11:29:27.638137+01:00  [Server]: Received client request!
+2021-01-28T11:29:27.650499+01:00  [Server]: Received client request!
+2021-01-28T11:29:27.650577+01:00  [Server]: Response sent.
+2021-01-28T11:29:27.650968+01:00  [Server]: Response sent.
+2021-01-28T11:29:27.751017+01:00  [Server]: Received client request!
+2021-01-28T11:29:27.759800+01:00  [Server]: Response sent.
+2021-01-28T11:29:33.410186+01:00  [Server]: Received client request!
+2021-01-28T11:29:33.420345+01:00  [Server]: Response sent.
+2021-01-28T11:29:36.082362+01:00  [Server]: Received client request!
+2021-01-28T11:29:36.082760+01:00  [Server]: Response sent.
+2021-01-28T11:29:36.171857+01:00  [Server]: Received client request!
+2021-01-28T11:29:36.174228+01:00  [Server]: Received client request!
+2021-01-28T11:29:36.174311+01:00  [Server]: Response sent.
+2021-01-28T11:29:36.174952+01:00  [Server]: Response sent.
+2021-01-28T11:29:36.280217+01:00  [Server]: Received client request!
+2021-01-28T11:29:36.289087+01:00  [Server]: Response sent.
+2021-01-28T11:29:39.960414+01:00  [Server]: Received client request!
+2021-01-28T11:29:39.960807+01:00  [Server]: Response sent.
+2021-01-28T11:29:40.070789+01:00  [Server]: Received client request!
+2021-01-28T11:29:40.077006+01:00  [Server]: Response sent.
+2021-01-28T11:29:40.076872+01:00  [Server]: Received client request!
+2021-01-28T11:29:40.077732+01:00  [Server]: Response sent.
+2021-01-28T11:29:40.194869+01:00  [Server]: Received client request!
+2021-01-28T11:29:40.203001+01:00  [Server]: Response sent.
+2021-01-28T11:29:58.959298+01:00  [Server]: Received client request!
+2021-01-28T11:29:58.968681+01:00  [Server]: Response sent.
+2021-01-28T11:30:07.598711+01:00  [Server]: Received client request!
+2021-01-28T11:30:07.607401+01:00  [Server]: Response sent.
+2021-01-28T11:38:41.215567+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-28T11:39:12.649001+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-28T11:39:45.712603+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-28T11:39:52.520911+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-28T11:41:17.810794+01:00  [Server]: Server started listening.
+2021-01-28T11:41:18.890651+01:00  [Server]: Received client request!
+2021-01-28T11:41:18.896527+01:00  [Server]: Response sent.
+2021-01-28T11:41:19.002869+01:00  [Server]: Received client request!
+2021-01-28T11:41:19.006072+01:00  [Server]: Received client request!
+2021-01-28T11:41:19.006163+01:00  [Server]: Response sent.
+2021-01-28T11:41:19.007015+01:00  [Server]: Response sent.
+2021-01-28T11:41:19.142111+01:00  [Server]: Received client request!
+2021-01-28T11:41:19.152040+01:00  [Server]: Response sent.
+2021-01-28T11:41:22.256397+01:00  [Server]: Received client request!
+2021-01-28T11:41:22.266088+01:00  [Server]: Response sent.
+2021-01-28T11:41:52.888206+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-28T11:55:46.776445+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-28T12:43:06.853982+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-28T12:44:34.122673+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-28T12:47:27.052634+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-28T12:50:00.675787+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-28T12:51:33.581107+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-28T12:51:41.007363+01:00  [ErrorService]: Unable to convert given String to ContentType

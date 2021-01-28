@@ -172,11 +172,8 @@ mod tests {
 
     
     /*
-    #[cfg(test)]
     #[test]
-    #[allow(dead_code)]
-
-    fn extract_child_long_path() {
+    fn () {
         let request_string: &str = "GET /favicon.ico HTTP/1.1\r\nHost: localhost:8087\r\n\r\n{\"todo_message\":\"pee\"}";
 
         let todo_controller = TodoController::new();
