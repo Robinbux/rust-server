@@ -1,4 +1,4 @@
-use rust_server::net::server::Server;
+use rust_server::Server;
 
 fn main() {
     let server = Server::new();

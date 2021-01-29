@@ -132,6 +132,7 @@ function updateTodo(event, id, completed) {
     xmlhttp.open("PUT", baseTodoURL + "/" + id, false);
     xmlhttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
     xmlhttp.send(JSON.stringify(params));
+    console.log(xmlhttp);
     if (xmlhttp.status != 201) {
         alert(`Error ${xmlhttp.status}: ${xmlhttp.response}`);
     } else {

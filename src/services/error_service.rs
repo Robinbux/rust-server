@@ -1,6 +1,6 @@
 use crate::enums::content_type::ContentType;
 use crate::enums::http_status_codes::HTTPStatusCodes;
-use crate::net::response::Response;
+use crate::http::response::Response;
 use crate::services::resource_service;
 use crate::utils::logger::Logger;
 use serde::{Deserialize, Serialize};
@@ -39,9 +39,8 @@ impl ErrorService {
         };
         let json_str = serde_json::to_string(&json_message).unwrap();
         let content_bytes: &[u8] = json_str.as_ref();
-        let content_bytes = content_bytes.to_vec();
         Response::new(
-            content_bytes,
+            content_bytes.to_vec(),
             ContentType::JSON,
             HTTPStatusCodes::BadRequest,
         )
@@ -54,9 +53,8 @@ impl ErrorService {
         };
         let json_str = serde_json::to_string(&json_message).unwrap();
         let content_bytes: &[u8] = json_str.as_ref();
-        let content_bytes = content_bytes.to_vec();
         Response::new(
-            content_bytes,
+            content_bytes.to_vec(),
             ContentType::JSON,
             HTTPStatusCodes::InternalServerError,
         )

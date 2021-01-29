@@ -59,7 +59,7 @@ mod tests {
         PgConnection::establish("postgres://postgres:password@localhost/todos_test").expect("Error connecting to DB")
     }
 
-    fn clean_up(connection: PgConnection) {
+    fn clean_up() {
         Command::new("diesel").args(&["migration", "redo"]).spawn().expect("migration failed");
         fs::write(".env", "DATABASE_URL=postgres://postgres:password@localhost/postgres");
     }
@@ -81,10 +81,11 @@ mod tests {
         let actual_todos = todos::table().load::<Todo>(&connection).unwrap();
         assert_eq!(vec![expected_todo], actual_todos);
 
+        // test delete & get todo
         delete_todo(1);
         let result = get_todos().unwrap();
         assert_eq!(result, vec![]);
 
-        clean_up(connection);
+        clean_up();
     }
 }

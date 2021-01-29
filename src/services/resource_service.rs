@@ -1,7 +1,7 @@
 use crate::enums::content_type::ContentType;
 use crate::enums::http_status_codes::HTTPStatusCodes;
 
-use crate::net::response::Response;
+use crate::http::response::Response;
 use crate::services::error_service::ErrorService;
 use crate::utils::logger::Logger;
 

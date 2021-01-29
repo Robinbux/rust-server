@@ -4,8 +4,8 @@ use crate::controller::controller::Controller;
 use crate::controller::home_controller::HomeController;
 use crate::controller::resources_controller::ResourcesController;
 use crate::controller::todo_controller::TodoController;
-use crate::net::request::Request;
-use crate::net::response::Response;
+use crate::http::request::Request;
+use crate::http::response::Response;
 use crate::services::error_service::ErrorService;
 use crate::utils::logger::Logger;
 

@@ -2832,3 +2832,138 @@ SystemTime { tv_sec: 1602073121, tv_nsec: 437990000 }  [Server]: Received client
 2021-01-28T12:50:00.675787+01:00  [ErrorService]: Unable to convert given String to ContentType
 2021-01-28T12:51:33.581107+01:00  [ErrorService]: Unable to convert given String to ContentType
 2021-01-28T12:51:41.007363+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-28T17:12:32.160747+01:00  [ErrorService]: Binding failed
+2021-01-28T17:17:54.535027+01:00  [Server]: Server started listening.
+2021-01-28T17:18:01.012113+01:00  [Server]: Received client request!
+2021-01-28T17:18:01.012952+01:00  [Server]: Response sent.
+2021-01-28T17:18:01.124264+01:00  [Server]: Received client request!
+2021-01-28T17:18:01.127383+01:00  [Server]: Response sent.
+2021-01-28T17:18:01.127282+01:00  [Server]: Received client request!
+2021-01-28T17:18:01.130585+01:00  [Server]: Response sent.
+2021-01-28T17:18:01.355241+01:00  [Server]: Received client request!
+2021-01-28T17:18:01.371769+01:00  [Server]: Response sent.
+2021-01-28T17:18:01.439427+01:00  [Server]: Received client request!
+2021-01-28T17:18:01.440262+01:00  [Server]: Response sent.
+2021-01-28T17:19:57.213336+01:00  [Server]: Server started listening.
+2021-01-28T17:19:58.845280+01:00  [Server]: Received client request!
+2021-01-28T17:19:58.846198+01:00  [Server]: Response sent.
+2021-01-28T17:19:59.020799+01:00  [Server]: Received client request!
+2021-01-28T17:19:59.049930+01:00  [Server]: Received client request!
+2021-01-28T17:19:59.050083+01:00  [Server]: Response sent.
+2021-01-28T17:19:59.050850+01:00  [Server]: Response sent.
+2021-01-28T17:19:59.145297+01:00  [Server]: Received client request!
+2021-01-28T17:19:59.159312+01:00  [Server]: Response sent.
+2021-01-28T17:30:32.400433+01:00  [Server]: Received client request!
+2021-01-28T17:30:32.412038+01:00  [Server]: Response sent.
+2021-01-28T17:30:54.768757+01:00  [Server]: Received client request!
+2021-01-28T17:30:54.771157+01:00  [Server]: Response sent.
+2021-01-28T17:30:54.872815+01:00  [Server]: Received client request!
+2021-01-28T17:30:54.875019+01:00  [Server]: Received client request!
+2021-01-28T17:30:54.875716+01:00  [Server]: Response sent.
+2021-01-28T17:30:54.876111+01:00  [Server]: Response sent.
+2021-01-28T17:30:55.006822+01:00  [Server]: Received client request!
+2021-01-28T17:30:55.017209+01:00  [Server]: Response sent.
+2021-01-28T17:38:21.838622+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-29T11:04:03.208450+01:00  [Server]: Server started listening.
+2021-01-29T11:04:09.340807+01:00  [Server]: Received client request!
+2021-01-29T11:04:09.349215+01:00  [Server]: Response sent.
+2021-01-29T11:04:24.278618+01:00  [ErrorService]: Binding failed
+2021-01-29T11:07:12.982809+01:00  [Server]: Server started listening.
+2021-01-29T11:07:17.148608+01:00  [Server]: Received client request!
+2021-01-29T11:07:17.160765+01:00  [Server]: Response sent.
+2021-01-29T11:15:09.740854+01:00  [Server]: Server started listening.
+2021-01-29T11:15:12.107226+01:00  [Server]: Received client request!
+2021-01-29T11:15:12.121045+01:00  [Server]: Response sent.
+2021-01-29T11:19:20.245894+01:00  [ErrorService]: Incorrect Payload Structure!
+2021-01-29T11:23:54.114534+01:00  [Server]: Server started listening.
+2021-01-29T11:24:04.923374+01:00  [Server]: Received client request!
+2021-01-29T11:24:04.940286+01:00  [Server]: Response sent.
+2021-01-29T11:24:13.231932+01:00  [Server]: Received client request!
+2021-01-29T11:24:13.239857+01:00  [Server]: Response sent.
+2021-01-29T11:35:35.808687+01:00  [Server]: Server started listening.
+2021-01-29T11:35:37.543392+01:00  [Server]: Received client request!
+2021-01-29T11:35:37.559072+01:00  [Server]: Response sent.
+2021-01-29T11:37:14.440018+01:00  [Server]: Received client request!
+2021-01-29T11:37:14.440815+01:00  [Server]: Response sent.
+2021-01-29T11:37:14.607512+01:00  [Server]: Received client request!
+2021-01-29T11:37:14.625489+01:00  [Server]: Received client request!
+2021-01-29T11:37:14.625578+01:00  [Server]: Response sent.
+2021-01-29T11:37:14.626286+01:00  [Server]: Response sent.
+2021-01-29T11:37:14.790955+01:00  [Server]: Received client request!
+2021-01-29T11:37:14.799191+01:00  [Server]: Response sent.
+2021-01-29T11:37:14.821699+01:00  [Server]: Received client request!
+2021-01-29T11:37:14.822781+01:00  [Server]: Response sent.
+2021-01-29T11:38:07.380463+01:00  [Server]: Server started listening.
+2021-01-29T11:38:09.358897+01:00  [Server]: Received client request!
+2021-01-29T11:38:09.360887+01:00  [Server]: Response sent.
+2021-01-29T11:38:09.465382+01:00  [Server]: Received client request!
+2021-01-29T11:38:09.470178+01:00  [Server]: Received client request!
+2021-01-29T11:38:09.470440+01:00  [Server]: Response sent.
+2021-01-29T11:38:09.471803+01:00  [Server]: Response sent.
+2021-01-29T11:38:09.611448+01:00  [Server]: Received client request!
+2021-01-29T11:38:09.622621+01:00  [Server]: Response sent.
+2021-01-29T11:38:14.517294+01:00  [Server]: Received client request!
+2021-01-29T11:38:14.525189+01:00  [Server]: Response sent.
+2021-01-29T11:40:05.897891+01:00  [Server]: Server started listening.
+2021-01-29T11:40:08.101478+01:00  [Server]: Received client request!
+2021-01-29T11:40:08.102465+01:00  [Server]: Response sent.
+2021-01-29T11:40:08.250923+01:00  [Server]: Received client request!
+2021-01-29T11:40:08.254218+01:00  [Server]: Received client request!
+2021-01-29T11:40:08.254312+01:00  [Server]: Response sent.
+2021-01-29T11:40:08.255093+01:00  [Server]: Response sent.
+2021-01-29T11:40:08.352270+01:00  [Server]: Received client request!
+2021-01-29T11:40:08.374189+01:00  [Server]: Response sent.
+2021-01-29T11:40:14.979808+01:00  [Server]: Received client request!
+2021-01-29T11:40:14.988988+01:00  [Server]: Response sent.
+2021-01-29T13:03:37.968267+01:00  [Server]: Server started listening.
+2021-01-29T13:03:41.983545+01:00  [Server]: Received client request!
+2021-01-29T13:03:41.984320+01:00  [Server]: Response sent.
+2021-01-29T13:03:42.153511+01:00  [Server]: Received client request!
+2021-01-29T13:03:42.154402+01:00  [Server]: Response sent.
+2021-01-29T13:03:42.155700+01:00  [Server]: Received client request!
+2021-01-29T13:03:42.156409+01:00  [Server]: Response sent.
+2021-01-29T13:03:42.328978+01:00  [Server]: Received client request!
+2021-01-29T13:03:42.341191+01:00  [Server]: Response sent.
+2021-01-29T13:03:42.544640+01:00  [Server]: Received client request!
+2021-01-29T13:03:42.545610+01:00  [Server]: Response sent.
+2021-01-29T13:03:44.978625+01:00  [Server]: Received client request!
+2021-01-29T13:03:44.986944+01:00  [Server]: Response sent.
+2021-01-29T13:16:02.639768+01:00  [Server]: Received client request!
+2021-01-29T13:16:02.659375+01:00  [Server]: Response sent.
+2021-01-29T13:16:04.676909+01:00  [Server]: Received client request!
+2021-01-29T13:16:04.677613+01:00  [Server]: Response sent.
+2021-01-29T13:16:04.751029+01:00  [Server]: Received client request!
+2021-01-29T13:16:04.751713+01:00  [Server]: Response sent.
+2021-01-29T13:16:04.754064+01:00  [Server]: Received client request!
+2021-01-29T13:16:04.755021+01:00  [Server]: Response sent.
+2021-01-29T13:16:04.829228+01:00  [Server]: Received client request!
+2021-01-29T13:16:04.837478+01:00  [Server]: Response sent.
+2021-01-29T13:16:04.854663+01:00  [Server]: Received client request!
+2021-01-29T13:16:04.855813+01:00  [Server]: Response sent.
+2021-01-29T13:18:58.626879+01:00  [Server]: Received client request!
+2021-01-29T13:18:58.627371+01:00  [Server]: Response sent.
+2021-01-29T13:19:07.043450+01:00  [Server]: Received client request!
+2021-01-29T13:19:07.051491+01:00  [Server]: Response sent.
+2021-01-29T13:19:17.236284+01:00  [Server]: Received client request!
+2021-01-29T13:19:17.244695+01:00  [Server]: Response sent.
+2021-01-29T13:24:51.474439+01:00  [Server]: Received client request!
+2021-01-29T13:24:51.474884+01:00  [Server]: Response sent.
+2021-01-29T13:24:51.569518+01:00  [Server]: Received client request!
+2021-01-29T13:24:51.569904+01:00  [Server]: Response sent.
+2021-01-29T13:24:51.571477+01:00  [Server]: Received client request!
+2021-01-29T13:24:51.571868+01:00  [Server]: Response sent.
+2021-01-29T13:24:51.644540+01:00  [Server]: Received client request!
+2021-01-29T13:24:51.652268+01:00  [Server]: Response sent.
+2021-01-29T13:24:53.953828+01:00  [Server]: Received client request!
+2021-01-29T13:24:53.962789+01:00  [Server]: Response sent.
+2021-01-29T13:27:24.569013+01:00  [Server]: Server started listening.
+2021-01-29T13:27:25.706855+01:00  [Server]: Received client request!
+2021-01-29T13:27:25.707336+01:00  [Server]: Response sent.
+2021-01-29T13:27:25.788491+01:00  [Server]: Received client request!
+2021-01-29T13:27:25.789101+01:00  [Server]: Response sent.
+2021-01-29T13:27:25.790974+01:00  [Server]: Received client request!
+2021-01-29T13:27:25.791549+01:00  [Server]: Response sent.
+2021-01-29T13:27:25.902909+01:00  [Server]: Received client request!
+2021-01-29T13:27:25.914250+01:00  [Server]: Response sent.
+2021-01-29T13:27:31.842261+01:00  [Server]: Received client request!
+2021-01-29T13:27:31.850201+01:00  [Server]: Response sent.

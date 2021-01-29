@@ -1,6 +1,7 @@
 use crate::enums::content_type::ContentType;
 use crate::enums::http_methods::HttpMethod;
 
+#[derive(Clone)]
 pub struct Request {
     pub(crate) http_method: HttpMethod,
     pub(crate) resource_path: String,
@@ -64,7 +65,7 @@ impl Request {
 }
 
 mod tests {
-    use crate::net::request::Request;
+    use crate::http::request::Request;
     use crate::enums::content_type::ContentType;
 
     #[test]

@@ -4,8 +4,8 @@ use crate::dtos::todo_dto::{CreateTodoDTO, UpdateTodoDTO};
 use crate::enums::content_type::ContentType;
 use crate::enums::http_methods::HttpMethod;
 use crate::enums::http_status_codes::HTTPStatusCodes;
-use crate::net::request::Request;
-use crate::net::response::Response;
+use crate::http::request::Request;
+use crate::http::response::Response;
 use crate::services::error_service::ErrorService;
 use crate::services::todo_service::TodoService;
 use crate::utils::logger::Logger;
@@ -59,6 +59,7 @@ impl TodoController {
                 .serve_500_response("Unable to create Todo!".to_string());
         }
         let new_todo_str = serde_json::to_string(&result.unwrap()).unwrap();
+        println!("response payload: {}", new_todo_str);
         Response::new(
             new_todo_str.as_bytes().to_owned(),
             ContentType::JSON,
@@ -79,6 +80,7 @@ impl TodoController {
                 .serve_400_response("Incorrect Payload Structure!".to_string())
         };
         let payload = request.payload.unwrap();
+        println!("update response payload: {}", payload);
 
         let update_todo_dto =
             match serde_json::from_str::<UpdateTodoDTO>(&payload) {
@@ -114,6 +116,7 @@ impl TodoController {
                 .serve_500_response("Unable to retrieve todos!".to_string());
         }
         let result_str = serde_json::to_string(&result.unwrap()).unwrap();
+        println!("{}", result_str);
         let result_ref: &[u8] = result_str.as_ref();
         Response::new(result_ref.to_vec(), ContentType::JSON, HTTPStatusCodes::Ok)
     }
@@ -169,17 +172,9 @@ impl Controller for TodoController {
 }
 
 mod tests {
+    use crate::http::request::Request;
 
-    
-    /*
     #[test]
-    fn () {
-        let request_string: &str = "GET /favicon.ico HTTP/1.1\r\nHost: localhost:8087\r\n\r\n{\"todo_message\":\"pee\"}";
-
-        let todo_controller = TodoController::new();
-        let request = Request::new(String::from(request_string));
-        let payload = TodoController::get_trimmed_payload_from_request(&todo_controller, &request).unwrap();
-        let expected_payload = r#"{"todo_message":"pee"}"#;
-        assert_eq!(expected_payload, request.payload.unwrap())
-    }*/
+    fn get_id_from_request() {
+    }
 }

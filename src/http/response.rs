@@ -3,9 +3,9 @@ use crate::enums::http_status_codes::HTTPStatusCodes;
 
 #[derive(Debug)]
 pub struct Response {
-    pub(crate) content_bytes: Vec<u8>,
-    pub(crate) content_type: ContentType,
-    pub(crate) http_status_code: HTTPStatusCodes,
+    pub content_bytes: Vec<u8>,
+    pub content_type: ContentType,
+    pub http_status_code: HTTPStatusCodes,
 }
 
 impl Response {
