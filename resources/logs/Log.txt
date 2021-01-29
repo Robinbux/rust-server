@@ -2967,3 +2967,24 @@ SystemTime { tv_sec: 1602073121, tv_nsec: 437990000 }  [Server]: Received client
 2021-01-29T13:27:25.914250+01:00  [Server]: Response sent.
 2021-01-29T13:27:31.842261+01:00  [Server]: Received client request!
 2021-01-29T13:27:31.850201+01:00  [Server]: Response sent.
+2021-01-29T13:54:03.550658+01:00  [Server]: Server started listening.
+2021-01-29T13:54:05.303985+01:00  [Server]: Received client request!
+2021-01-29T13:54:05.304762+01:00  [Server]: Response sent.
+2021-01-29T13:54:05.436682+01:00  [Server]: Received client request!
+2021-01-29T13:54:05.438121+01:00  [Server]: Response sent.
+2021-01-29T13:54:05.440034+01:00  [Server]: Received client request!
+2021-01-29T13:54:05.440865+01:00  [Server]: Response sent.
+2021-01-29T13:54:05.515111+01:00  [Server]: Received client request!
+2021-01-29T13:54:05.528907+01:00  [Server]: Response sent.
+2021-01-29T13:54:06.776828+01:00  [Server]: Received client request!
+2021-01-29T13:54:06.784758+01:00  [Server]: Response sent.
+2021-01-29T13:54:09.977016+01:00  [Server]: Received client request!
+2021-01-29T13:54:09.986302+01:00  [Server]: Response sent.
+2021-01-29T13:54:11.668999+01:00  [Server]: Received client request!
+2021-01-29T13:54:11.677309+01:00  [Server]: Response sent.
+2021-01-29T13:54:12.221621+01:00  [Server]: Received client request!
+2021-01-29T13:54:12.230773+01:00  [Server]: Response sent.
+2021-01-29T13:54:14.672659+01:00  [Server]: Received client request!
+2021-01-29T13:54:14.680659+01:00  [Server]: Response sent.
+2021-01-29T13:54:15.852800+01:00  [Server]: Received client request!
+2021-01-29T13:54:15.861031+01:00  [Server]: Response sent.

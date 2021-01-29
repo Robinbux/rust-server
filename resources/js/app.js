@@ -135,9 +135,6 @@ function updateTodo(event, id, completed) {
     console.log(xmlhttp);
     if (xmlhttp.status != 201) {
         alert(`Error ${xmlhttp.status}: ${xmlhttp.response}`);
-    } else {
-        const todo = JSON.parse(xmlhttp.responseText);
-        addSingleTodo(todo);
     }
 
 }
