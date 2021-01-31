@@ -3030,3 +3030,106 @@ SystemTime { tv_sec: 1602073121, tv_nsec: 437990000 }  [Server]: Received client
 2021-01-31T16:28:29.527760+01:00  [ErrorService]: Unable to convert given String to ContentType
 2021-01-31T16:28:29.533469+01:00  [Server]: Received client request!
 2021-01-31T16:28:29.533883+01:00  [Server]: Response sent.
+2021-01-31T16:43:57.260810+01:00  [Server]: Server started listening.
+2021-01-31T16:44:04.230870+01:00  [Server]: Received client request!
+2021-01-31T16:44:04.231600+01:00  [Server]: Response sent.
+2021-01-31T16:44:04.454234+01:00  [Server]: Received client request!
+2021-01-31T16:44:08.816415+01:00  [Server]: Received client request!
+2021-01-31T16:44:08.816759+01:00  [Server]: Response sent.
+2021-01-31T16:44:08.927930+01:00  [Server]: Received client request!
+2021-01-31T16:44:08.928771+01:00  [Server]: Response sent.
+2021-01-31T16:44:08.930112+01:00  [Server]: Received client request!
+2021-01-31T16:44:08.930813+01:00  [Server]: Response sent.
+2021-01-31T16:44:09.053810+01:00  [Server]: Received client request!
+2021-01-31T16:44:09.067695+01:00  [Server]: Response sent.
+2021-01-31T16:44:12.162134+01:00  [Server]: Received client request!
+2021-01-31T16:44:12.171935+01:00  [Server]: Response sent.
+2021-01-31T16:44:13.119544+01:00  [Server]: Received client request!
+2021-01-31T16:44:13.119898+01:00  [Server]: Response sent.
+2021-01-31T16:44:13.196682+01:00  [Server]: Received client request!
+2021-01-31T16:44:13.197271+01:00  [Server]: Response sent.
+2021-01-31T16:44:13.199438+01:00  [Server]: Received client request!
+2021-01-31T16:44:13.200034+01:00  [Server]: Response sent.
+2021-01-31T16:44:13.262682+01:00  [Server]: Received client request!
+2021-01-31T16:44:13.271563+01:00  [Server]: Response sent.
+2021-01-31T16:44:14.511669+01:00  [Server]: Received client request!
+2021-01-31T16:44:14.520461+01:00  [Server]: Response sent.
+2021-01-31T16:44:15.469222+01:00  [Server]: Received client request!
+2021-01-31T16:44:15.469610+01:00  [Server]: Response sent.
+2021-01-31T16:44:15.545993+01:00  [Server]: Received client request!
+2021-01-31T16:44:15.546380+01:00  [Server]: Response sent.
+2021-01-31T16:44:15.547682+01:00  [Server]: Received client request!
+2021-01-31T16:44:15.548229+01:00  [Server]: Response sent.
+2021-01-31T16:44:15.600140+01:00  [Server]: Received client request!
+2021-01-31T16:44:15.613836+01:00  [Server]: Response sent.
+2021-01-31T16:44:17.424900+01:00  [Server]: Received client request!
+2021-01-31T16:44:17.433822+01:00  [Server]: Response sent.
+2021-01-31T16:44:18.710881+01:00  [Server]: Received client request!
+2021-01-31T16:44:18.719869+01:00  [Server]: Response sent.
+2021-01-31T16:46:29.671202+01:00  [Server]: Server started listening.
+2021-01-31T16:46:32.767280+01:00  [Server]: Received client request!
+2021-01-31T16:46:32.779093+01:00  [Server]: Response sent.
+2021-01-31T16:46:34.719050+01:00  [Server]: Received client request!
+2021-01-31T16:46:34.726014+01:00  [Server]: Response sent.
+2021-01-31T16:46:35.530657+01:00  [Server]: Received client request!
+2021-01-31T16:46:35.540169+01:00  [Server]: Response sent.
+2021-01-31T16:46:37.048869+01:00  [Server]: Received client request!
+2021-01-31T16:46:37.049233+01:00  [Server]: Response sent.
+2021-01-31T16:46:37.133122+01:00  [Server]: Received client request!
+2021-01-31T16:46:37.133883+01:00  [Server]: Response sent.
+2021-01-31T16:46:37.135480+01:00  [Server]: Received client request!
+2021-01-31T16:46:37.135883+01:00  [Server]: Response sent.
+2021-01-31T16:46:37.214040+01:00  [Server]: Received client request!
+2021-01-31T16:46:37.223015+01:00  [Server]: Response sent.
+2021-01-31T16:54:43.065291+01:00  [Server]: Server started listening.
+2021-01-31T16:55:59.368967+01:00  [Server]: Server started listening.
+2021-01-31T16:58:34.665424+01:00  [Server]: Server started listening.
+2021-01-31T16:58:40.808469+01:00  [Server]: Received client request!
+2021-01-31T16:58:40.810238+01:00  [Server]: Response sent.
+2021-01-31T16:58:40.917370+01:00  [Server]: Received client request!
+2021-01-31T16:58:40.918463+01:00  [Server]: Response sent.
+2021-01-31T16:58:40.922072+01:00  [Server]: Received client request!
+2021-01-31T16:58:40.922809+01:00  [Server]: Response sent.
+2021-01-31T16:58:40.980954+01:00  [Server]: Received client request!
+2021-01-31T16:58:40.997698+01:00  [Server]: Response sent.
+2021-01-31T16:58:43.581162+01:00  [Server]: Received client request!
+2021-01-31T16:58:43.590245+01:00  [Server]: Response sent.
+2021-01-31T16:58:44.498550+01:00  [Server]: Received client request!
+2021-01-31T16:58:44.507595+01:00  [Server]: Response sent.
+2021-01-31T16:58:46.130215+01:00  [Server]: Received client request!
+2021-01-31T16:58:46.138371+01:00  [Server]: Response sent.
+2021-01-31T16:58:47.834938+01:00  [Server]: Received client request!
+2021-01-31T16:58:47.842770+01:00  [Server]: Response sent.
+2021-01-31T16:58:48.858980+01:00  [Server]: Received client request!
+2021-01-31T16:58:48.868152+01:00  [Server]: Response sent.
+2021-01-31T16:59:44.747070+01:00  [Server]: Server started listening.
+2021-01-31T17:44:34.148260+01:00  [Server]: Server started listening.
+2021-01-31T17:44:34.147940+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T17:44:34.153966+01:00  [Server]: Received client request!
+2021-01-31T17:44:34.154548+01:00  [Server]: Response sent.
+2021-01-31T17:46:58.519662+01:00  [Server]: Server started listening.
+2021-01-31T17:46:58.519588+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T17:46:58.527107+01:00  [Server]: Received client request!
+2021-01-31T17:46:58.527562+01:00  [Server]: Response sent.
+2021-01-31T17:47:08.650610+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T17:47:18.058980+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T17:47:45.393316+01:00  [Server]: Server started listening.
+2021-01-31T17:47:45.403814+01:00  [Server]: Received client request!
+2021-01-31T17:47:45.404270+01:00  [Server]: Response sent.
+2021-01-31T17:47:48.279361+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T17:49:58.860219+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T17:49:58.860228+01:00  [Server]: Server started listening.
+2021-01-31T17:49:58.865081+01:00  [Server]: Received client request!
+2021-01-31T17:49:58.865616+01:00  [Server]: Response sent.
+2021-01-31T17:52:02.266212+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T17:52:02.266693+01:00  [Server]: Server started listening.
+2021-01-31T17:52:02.271871+01:00  [Server]: Received client request!
+2021-01-31T17:52:02.272278+01:00  [Server]: Response sent.
+2021-01-31T17:55:50.290265+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T17:55:50.290606+01:00  [Server]: Server started listening.
+2021-01-31T17:55:50.295772+01:00  [Server]: Received client request!
+2021-01-31T17:55:50.296073+01:00  [Server]: Response sent.
+2021-01-31T18:03:46.136021+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T18:03:46.136269+01:00  [Server]: Server started listening.
+2021-01-31T18:03:46.141935+01:00  [Server]: Received client request!
+2021-01-31T18:03:46.142325+01:00  [Server]: Response sent.

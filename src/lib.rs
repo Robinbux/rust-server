@@ -145,10 +145,12 @@ mod tests {
     //use std::thread;
     use reqwest::Result;
     use reqwest::StatusCode;
+    use std::time::Duration;
 
     fn start_server() {
         let server = Server::new();
         server.listen(10);
+        thread::sleep(Duration::from_millis(100))
     }
 
     fn request() -> Result<reqwest::Response> {
