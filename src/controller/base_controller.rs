@@ -30,7 +30,6 @@ impl BaseController {
         let todo_controller = TodoController::new();
         let home_controller = HomeController::new();
         let resources_controller = ResourcesController::new();
-        //let user_controller = UserController::new();
         BaseController {
             logger,
             admin_controller,
@@ -72,7 +71,6 @@ impl Controller for BaseController {
     }
 }
 
-#[allow(dead_code)]
 mod tests {
     use crate::controller::base_controller::BaseController;
 

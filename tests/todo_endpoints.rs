@@ -22,7 +22,7 @@ fn clean_up() {
 
 #[test]
 #[ignore]
-fn test_todo_endpoints(){
+fn todo_endpoints(){
     setup_db();
     let base_controller = BaseController::new();
 

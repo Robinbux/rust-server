@@ -38,10 +38,11 @@ pub struct Server {
 
 impl Server {
     pub fn new() -> Server {
-        let mut error_service = ErrorService::new();
-        let server_fd = Server::setup(&mut error_service);
         let logger = Logger::new(String::from("Server"));
+        let server_fd = Server::setup(&logger);
         let base_controller = BaseController::new();
+        let mut error_service = ErrorService::new();
+
         Server {
             server_fd,
             logger,
@@ -50,17 +51,13 @@ impl Server {
         }
     }
 
-    fn setup(error_service: &mut ErrorService) -> RawFd {
+    fn setup(logger: &Logger) -> RawFd {
         let server_fd = socket(
             AddressFamily::Inet,
             SockType::Stream,
             SockFlag::empty(),
             None,
-        );
-        if server_fd.is_err() {
-            error_service.serve_500_response("Unable to create socket".to_string());
-        }
-        let server_fd = server_fd.unwrap();
+        ).expect("Unable to create socket");
         let in_address = in_addr { s_addr: INADDR_ANY };
 
         let sockaddr_in = nix::sys::socket::sockaddr_in {
@@ -71,18 +68,12 @@ impl Server {
             sin_zero: [0; 8],
         };
 
-        if bind(server_fd, &SockAddr::Inet(InetAddr::V4(sockaddr_in))).is_err() {
-            error_service.serve_500_response("Binding failed".to_string());
-            panic!("Binding failed")
-        }
+        bind(server_fd, &SockAddr::Inet(InetAddr::V4(sockaddr_in))).expect("Binding failed");
         server_fd
     }
 
     pub fn listen(self, backlog: usize) {
-        if listen(self.server_fd, backlog).is_err() {
-            self.error_service
-                .serve_500_response("Listening failed".to_string());
-        };
+        listen(self.server_fd, backlog).expect("Listening failed");
         self.logger.log("Server started listening.");
 
         let logical_cpus = num_cpus::get();
@@ -91,14 +82,7 @@ impl Server {
 
         loop {
             println!("\n+++++++ Waiting for new connection ++++++++\n\n");
-            let new_socket = accept(server.server_fd);
-            if new_socket.is_err() {
-                server
-                    .error_service
-                    .serve_500_response("Accepting failed".to_string());
-            };
-            let new_socket = new_socket.unwrap();
-
+            let new_socket = accept(server.server_fd).expect("Accepting failed");
             let server = server.clone();
 
             pool.execute(move || {
@@ -110,9 +94,7 @@ impl Server {
     fn handle_connection(server: Arc<Server>, connection_socket: RawFd) {
         let buffer = Server::read_into_buffer(&server, &connection_socket);
         Server::send_response_to_socket(&server, connection_socket, buffer);
-        if close(connection_socket).is_err() {
-            server.logger.log("Closing of Socket RawFD failed.");
-        }
+        close(connection_socket).expect("Closing of Socket RawFD failed.");
     }
 
     fn read_into_buffer(server: &Arc<Server>, connection_socket: &RawFd) -> String {
@@ -132,12 +114,7 @@ impl Server {
     fn send_response_to_socket(server: &Arc<Server>, new_socket: RawFd, buffer: String) {
         let mime_response = Server::create_response(&server, buffer);
 
-        if send(new_socket, &mime_response.as_ref(), MsgFlags::empty()).is_err() {
-            println!("failed to send");
-            server
-                .error_service
-                .serve_500_response("Sending failed".to_string());
-        };
+        send(new_socket, &mime_response.as_ref(), MsgFlags::empty()).expect("failed to send");
         server.logger.log("Response sent.");
         println!("------------------Response sent-------------------\n");
     }
@@ -146,47 +123,42 @@ impl Server {
         let request = request::Request::new(buffer);
         let response = server.base_controller.execute_request(request);
 
-        let mut mime_response = MimeResponse {
+        let mut mime_skeleton = MimeResponse {
             http_status_code: response.http_status_code,
             content_type: response.content_type,
             content_length: response.content_bytes.len(),
         };
 
-        let built_mime_response = mime_response.build_mime_response();
-        let mime_res_ref: &[u8] = built_mime_response.as_ref();
-        let mut mime_res_vec = mime_res_ref.to_vec();
-        mime_res_vec.extend(response.content_bytes);
-        mime_res_vec
+        let mut mime_response: Vec<u8> = mime_skeleton.build_mime_response().into_bytes().to_vec();
+        mime_response.extend(response.content_bytes);
+        mime_response
     }
 }
 
 mod tests {
     use super::*;
-    
-    use hyper::{Client, Uri};
     use chrono::{DateTime, Local};
     use std::fs::read_to_string;
+    use std::thread;
+
     //use std::env;
-    
     //use std::thread;
+    use reqwest::Result;
+    use reqwest::StatusCode;
 
-    #[tokio::main]
-    async fn client() {
-        let client = Client::new();
+    fn start_server() {
+        let server = Server::new();
+        server.listen(10);
+    }
 
-        let url: Uri = "http://localhost:8080/index.html".parse().unwrap();
-
-        match client.get(url).await {
-            Ok(res) => println!("Response: {}", res.status()),
-            Err(err) => println!("Error: {}", err),
-        }
+    fn request() -> Result<reqwest::Response> {
+        reqwest::get("http://localhost:8087/home")
     }
 
     #[test]
     fn listen() {
-        client();
-        let now: DateTime<Local> = Local::now();
-        let _complete_message = format!("{:?}  [Server]: Server started listening.\n", now);
-        read_to_string("resources/logs/test_log.txt").expect("Unable to read file to String");
+        thread::spawn(|| start_server());
+        let response = request().unwrap();
+        assert_eq!(response.status(), StatusCode::OK)
     }
 }
