@@ -3133,3 +3133,79 @@ SystemTime { tv_sec: 1602073121, tv_nsec: 437990000 }  [Server]: Received client
 2021-01-31T18:03:46.136269+01:00  [Server]: Server started listening.
 2021-01-31T18:03:46.141935+01:00  [Server]: Received client request!
 2021-01-31T18:03:46.142325+01:00  [Server]: Response sent.
+2021-01-31T18:22:28.845994+01:00  [Server]: Server started listening.
+2021-01-31T18:22:28.846014+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T18:22:28.850496+01:00  [Server]: Received client request!
+2021-01-31T18:22:28.850885+01:00  [Server]: Response sent.
+2021-01-31T21:44:34.877934+01:00  [Server]: Server started listening.
+2021-01-31T21:44:34.878223+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T21:44:34.883397+01:00  [Server]: Received client request!
+2021-01-31T21:44:34.883942+01:00  [Server]: Response sent.
+2021-01-31T21:52:02.724792+01:00  [Server]: Server started listening.
+2021-01-31T21:52:02.724600+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T21:52:02.730542+01:00  [Server]: Received client request!
+2021-01-31T21:52:02.730923+01:00  [Server]: Response sent.
+2021-01-31T21:57:49.657387+01:00  [Server]: Server started listening.
+2021-01-31T21:57:49.657205+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T21:57:49.662442+01:00  [Server]: Received client request!
+2021-01-31T21:57:49.662465+01:00  [Server]: Received client request!
+2021-01-31T21:57:49.662712+01:00  [ErrorService]: Incorrect Payload Structure!
+2021-01-31T21:57:49.662853+01:00  [Server]: Response sent.
+2021-01-31T21:57:49.662924+01:00  [Server]: Response sent.
+2021-01-31T22:00:44.537350+01:00  [Server]: Server started listening.
+2021-01-31T22:00:44.537447+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T22:00:44.542351+01:00  [Server]: Received client request!
+2021-01-31T22:00:44.542373+01:00  [Server]: Received client request!
+2021-01-31T22:00:44.542731+01:00  [ErrorService]: Incorrect Payload Structure!
+2021-01-31T22:00:44.542767+01:00  [Server]: Response sent.
+2021-01-31T22:00:44.542834+01:00  [Server]: Response sent.
+2021-01-31T22:03:04.881096+01:00  [Server]: Server started listening.
+2021-01-31T22:03:04.880561+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T22:03:04.889699+01:00  [Server]: Received client request!
+2021-01-31T22:03:04.890286+01:00  [Server]: Response sent.
+2021-01-31T22:03:04.892835+01:00  [Server]: Received client request!
+2021-01-31T22:03:04.893238+01:00  [ErrorService]: Incorrect Payload Structure!
+2021-01-31T22:03:04.893432+01:00  [Server]: Response sent.
+2021-01-31T22:06:14.126495+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T22:06:14.128120+01:00  [Server]: Server started listening.
+2021-01-31T22:06:14.133955+01:00  [Server]: Received client request!
+2021-01-31T22:06:14.134207+01:00  [ErrorService]: Incorrect Payload Structure!
+2021-01-31T22:06:14.134338+01:00  [Server]: Response sent.
+2021-01-31T22:06:14.135699+01:00  [Server]: Received client request!
+2021-01-31T22:06:14.136218+01:00  [Server]: Response sent.
+2021-01-31T22:18:12.728911+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T22:18:12.729110+01:00  [Server]: Server started listening.
+2021-01-31T22:18:12.735751+01:00  [Server]: Received client request!
+2021-01-31T22:18:12.736393+01:00  [Server]: Response sent.
+2021-01-31T22:18:12.737252+01:00  [Server]: Received client request!
+2021-01-31T22:18:12.737493+01:00  [ErrorService]: Incorrect Payload Structure!
+2021-01-31T22:18:12.737610+01:00  [Server]: Response sent.
+2021-01-31T22:25:06.706008+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T22:25:06.706007+01:00  [Server]: Server started listening.
+2021-01-31T22:25:06.712310+01:00  [Server]: Received client request!
+2021-01-31T22:25:06.712820+01:00  [Server]: Response sent.
+2021-01-31T22:26:24.303754+01:00  [Server]: Server started listening.
+2021-01-31T22:26:24.303475+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T22:26:24.308602+01:00  [Server]: Received client request!
+2021-01-31T22:26:24.309193+01:00  [Server]: Response sent.
+2021-01-31T22:33:34.608709+01:00  [Server]: Server started listening.
+2021-01-31T22:33:34.608644+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T22:33:34.612942+01:00  [Server]: Received client request!
+2021-01-31T22:33:34.613743+01:00  [Server]: Response sent.
+2021-01-31T22:34:34.463810+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T22:34:34.463872+01:00  [Server]: Server started listening.
+2021-01-31T22:34:34.469229+01:00  [Server]: Received client request!
+2021-01-31T22:34:34.470241+01:00  [Server]: Response sent.
+2021-01-31T22:34:55.064559+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T22:37:05.556993+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T22:37:05.558765+01:00  [Server]: Server started listening.
+2021-01-31T22:37:05.562776+01:00  [Server]: Received client request!
+2021-01-31T22:37:05.563412+01:00  [Server]: Response sent.
+2021-01-31T22:37:43.809316+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-01-31T22:37:43.812691+01:00  [Server]: Server started listening.
+2021-01-31T22:37:43.818371+01:00  [Server]: Received client request!
+2021-01-31T22:37:43.818927+01:00  [Server]: Response sent.
+2021-02-01T10:25:32.996731+01:00  [Server]: Server started listening.
+2021-02-01T10:25:32.996851+01:00  [ErrorService]: Unable to convert given String to ContentType
+2021-02-01T10:25:33.002058+01:00  [Server]: Received client request!
+2021-02-01T10:25:33.002621+01:00  [Server]: Response sent.

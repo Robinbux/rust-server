@@ -143,9 +143,10 @@ mod tests {
 
     //use std::env;
     //use std::thread;
-    use reqwest::Result;
+    use reqwest::{Result, Response};
     use reqwest::StatusCode;
     use std::time::Duration;
+    use std::collections::HashMap;
 
     fn start_server() {
         let server = Server::new();
@@ -153,14 +154,25 @@ mod tests {
         thread::sleep(Duration::from_millis(100))
     }
 
-    fn request() -> Result<reqwest::Response> {
+    fn get_request() -> Result<reqwest::Response> {
         reqwest::get("http://localhost:8087/home")
     }
 
     #[test]
     fn listen() {
         thread::spawn(|| start_server());
-        let response = request().unwrap();
+    }
+
+    #[test]
+    fn get() {
+        let response = get_request().unwrap();
         assert_eq!(response.status(), StatusCode::OK)
     }
+
+    #[test]
+    fn post() {
+        let client = reqwest::Client::new();
+        //assert!(client.post("http://localhost:8087/todo").body("{\"todo_message\":\"test\"}").send().is_ok())
+    }
+
 }

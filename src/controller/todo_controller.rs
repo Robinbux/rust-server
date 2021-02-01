@@ -59,7 +59,7 @@ impl TodoController {
                 .serve_500_response("Unable to create Todo!".to_string());
         }
         let new_todo_str = serde_json::to_string(&result.unwrap()).unwrap();
-        println!("response payload: {}", new_todo_str);
+        println!("create response payload: {}", new_todo_str);
         Response::new(
             new_todo_str.as_bytes().to_owned(),
             ContentType::JSON,
@@ -80,7 +80,6 @@ impl TodoController {
                 .serve_400_response("Incorrect Payload Structure!".to_string())
         };
         let payload = request.payload.unwrap();
-        println!("update response payload: {}", payload);
 
         let update_todo_dto =
             match serde_json::from_str::<UpdateTodoDTO>(&payload) {

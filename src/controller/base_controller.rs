@@ -74,16 +74,15 @@ impl Controller for BaseController {
 mod tests {
     use crate::controller::base_controller::BaseController;
 
-    #[cfg(test)]
     #[test]
-    fn extract_child_long_path() {
+    fn extract_child_path_long() {
         let path = "admin/console/index";
         let result = BaseController::extract_child_path(path);
         assert_eq!("console/index", result)
     }
 
     #[test]
-    fn extract_child_short_path() {
+    fn extract_child_path_short() {
         let path = "test/test";
         let result = BaseController::extract_child_path(path);
         assert_eq!("test", result)
